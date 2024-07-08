@@ -1,0 +1,935 @@
+State,County,Year_detected
+Alabama,Calhoun,2016
+Alabama,St. Clair,2017
+Alabama,Talladega,2017
+Arkansas,Ashley,2018
+Arkansas,Baxter,2018
+Arkansas,Clark,2014
+Arkansas,Columbia,2014
+Arkansas,Dallas,2014
+Arkansas,Hot Spring,2014
+Arkansas,Marion,2018
+Arkansas,Monroe,2018
+Arkansas,Nevada,2014
+Arkansas,Ouachita,2014
+Arkansas,Polk,2018
+Colorado,Adams,2019
+Colorado,Boulder,2013
+Colorado,Broomfield,2019
+Colorado,Jefferson,2020
+Colorado,Larimer,2019
+Connecticut,Fairfield,2013
+Connecticut,Hartford,2013
+Connecticut,Litchfield,2013
+Connecticut,Middlesex,2014
+Connecticut,New Haven,2012
+Connecticut,New London,2014
+Delaware,Kent,2020
+Delaware,Sussex,2018
+District of Columbia,District of Columbia,2011
+Georgia,Banks,2020
+Georgia,Barrow,2015
+Georgia,Bartow,2016
+Georgia,Butts,2020
+Georgia,Carroll,2014
+Georgia,Catoosa,2019
+Georgia,Chattooga,2019
+Georgia,Cherokee,2015
+Georgia,Clayton,2014
+Georgia,Cobb,2014
+Georgia,Dade,2019
+Georgia,Dawson,2018
+Georgia,DeKalb,2013
+Georgia,Douglas,2015
+Georgia,Fannin,2015
+Georgia,Fayette,2014
+Georgia,Floyd,2020
+Georgia,Fulton,2013
+Georgia,Gilmer,2016
+Georgia,Gordon,2019
+Georgia,Habersham,2015
+Georgia,Henry,2014
+Georgia,Jackson,2019
+Georgia,Lumpkin,2018
+Georgia,Murray,2015
+Georgia,Newton,2014
+Georgia,Paulding,2019
+Georgia,Pickens,2020
+Georgia,Rabun,2016
+Georgia,Rockdale,2014
+Georgia,Spalding,2019
+Georgia,Union,2016
+Georgia,Walker,2018
+Georgia,Walton,2014
+Georgia,White,2015
+Georgia,Whitfield,2014
+Illinois,Boone,2010
+Illinois,Bureau,2008
+Illinois,Carroll,2014
+Illinois,Champaign,2010
+Illinois,Coles,2014
+Illinois,Cook,2006
+Illinois,De Witt,2011
+Illinois,DeKalb,2009
+Illinois,Douglas,2014
+Illinois,DuPage,2007
+Illinois,Edgar,2014
+Illinois,Effingham,2011
+Illinois,Ford,2014
+Illinois,Grundy,2010
+Illinois,Hardin,2018
+Illinois,Henry,2012
+Illinois,Iroquois,2010
+Illinois,Jo Daviess,2013
+Illinois,Johnson,2018
+Illinois,Kane,2006
+Illinois,Kankakee,2011
+Illinois,Kendall,2008
+Illinois,Knox,2012
+Illinois,La Salle,2007
+Illinois,Lake,2008
+Illinois,Lee,2012
+Illinois,Livingston,2011
+Illinois,Logan,2014
+Illinois,Macon,2012
+Illinois,Marion,2011
+Illinois,Marshall,2014
+Illinois,McHenry,2008
+Illinois,McLean,2008
+Illinois,Menard,2014
+Illinois,Ogle,2010
+Illinois,Peoria,2014
+Illinois,Perry,2014
+Illinois,Piatt,2014
+Illinois,Pope,2018
+Illinois,Putnam,2013
+Illinois,Rock Island,2013
+Illinois,Sangamon,2014
+Illinois,Shelby,2014
+Illinois,St. Clair,2020
+Illinois,Stark,2011
+Illinois,Stephenson,2014
+Illinois,Tazewell,2014
+Illinois,Union,2020
+Illinois,Vermilion,2014
+Illinois,Warren,2014
+Illinois,Whiteside,2013
+Illinois,Will,2008
+Illinois,Williamson,2014
+Illinois,Winnebago,2010
+Illinois,Woodford,2014
+Indiana,Adams,2005
+Indiana,Allen,2006
+Indiana,Bartholomew,2014
+Indiana,Blackford,2009
+Indiana,Boone,2011
+Indiana,Brown,2008
+Indiana,Carroll,2010
+Indiana,Cass,2010
+Indiana,Clark,2011
+Indiana,Clay,2011
+Indiana,Clinton,2011
+Indiana,Crawford,2013
+Indiana,Daviess,2013
+Indiana,Dearborn,2011
+Indiana,DeKalb,2006
+Indiana,Delaware,2009
+Indiana,Dubois,2009
+Indiana,Elkhart,2007
+Indiana,Fayette,2013
+Indiana,Floyd,2008
+Indiana,Franklin,2012
+Indiana,Fulton,2011
+Indiana,Grant,2009
+Indiana,Greene,2013
+Indiana,Hamilton,2006
+Indiana,Hancock,2011
+Indiana,Harrison,2019
+Indiana,Hendricks,2010
+Indiana,Henry,2012
+Indiana,Howard,2011
+Indiana,Huntington,2006
+Indiana,Jackson,2013
+Indiana,Jasper,2011
+Indiana,Jay,2009
+Indiana,Jefferson,2014
+Indiana,Jennings,2014
+Indiana,Johnson,2011
+Indiana,Kosciusko,2008
+Indiana,LaGrange,2004
+Indiana,Lake,2011
+Indiana,LaPorte,2010
+Indiana,Lawrence,2009
+Indiana,Madison,2010
+Indiana,Marion,2006
+Indiana,Marshall,2010
+Indiana,Martin,2013
+Indiana,Miami,2009
+Indiana,Monroe,2008
+Indiana,Montgomery,2015
+Indiana,Morgan,2014
+Indiana,Newton,2012
+Indiana,Noble,2007
+Indiana,Ohio,2015
+Indiana,Orange,2009
+Indiana,Owen,2014
+Indiana,Perry,2013
+Indiana,Pike,2014
+Indiana,Porter,2006
+Indiana,Pulaski,2013
+Indiana,Putnam,2013
+Indiana,Randolph,2005
+Indiana,Ripley,2009
+Indiana,Rush,2011
+Indiana,Scott,2014
+Indiana,Shelby,2013
+Indiana,Spencer,2014
+Indiana,St. Joseph,2006
+Indiana,Starke,2012
+Indiana,Steuben,2004
+Indiana,Sullivan,2014
+Indiana,Switzerland,2014
+Indiana,Tippecanoe,2010
+Indiana,Tipton,2012
+Indiana,Union,2013
+Indiana,Vigo,2013
+Indiana,Wabash,2007
+Indiana,Warrick,2014
+Indiana,Washington,2010
+Indiana,Wayne,2012
+Indiana,Wells,2007
+Indiana,White,2006
+Indiana,Whitley,2007
+Iowa,Allamakee,2010
+Iowa,Appanoose,2014
+Iowa,Audubon,2020
+Iowa,Black Hawk,2014
+Iowa,Boone,2014
+Iowa,Bremer,2014
+Iowa,Buchanan,2018
+Iowa,Cass,2019
+Iowa,Cedar,2013
+Iowa,Cerro Gordo,2020
+Iowa,Crawford,2018
+Iowa,Decatur,2017
+Iowa,Delaware,2018
+Iowa,Des Moines,2013
+Iowa,Grundy,2018
+Iowa,Guthrie,2020
+Iowa,Hamilton,2018
+Iowa,Hardin,2018
+Iowa,Henry,2014
+Iowa,Jasper,2014
+Iowa,Jefferson,2013
+Iowa,Johnson,2014
+Iowa,Keokuk,2015
+Iowa,Lucas,2014
+Iowa,Mahaska,2014
+Iowa,Marion,2014
+Iowa,Marshall,2018
+Iowa,Mills,2020
+Iowa,Monroe,2014
+Iowa,Muscatine,2014
+Iowa,Page,2018
+Iowa,Pottawattamie,2018
+Iowa,Sac,2020
+Iowa,Shelby,2020
+Iowa,Story,2014
+Iowa,Tama,2018
+Iowa,Union,2013
+Iowa,Wapello,2014
+Iowa,Webster,2020
+Kansas,Jackson,2020
+Kansas,Johnson,2013
+Kansas,Leavenworth,2014
+Kansas,Wyandotte,2012
+Kentucky,Adair,2018
+Kentucky,Anderson,2011
+Kentucky,Barren,2019
+Kentucky,Bath,2014
+Kentucky,Bell,2013
+Kentucky,Boone,2010
+Kentucky,Bourbon,2013
+Kentucky,Boyd,2010
+Kentucky,Boyle,2011
+Kentucky,Bracken,2011
+Kentucky,Campbell,2009
+Kentucky,Carroll,2013
+Kentucky,Crittenden,2019
+Kentucky,Daviess,2020
+Kentucky,Edmonson,2018
+Kentucky,Fayette,2009
+Kentucky,Franklin,2009
+Kentucky,Garrard,2011
+Kentucky,Greenup,2009
+Kentucky,Hancock,2018
+Kentucky,Hardin,2011
+Kentucky,Harrison,2014
+Kentucky,Henderson,2020
+Kentucky,Henry,2009
+Kentucky,Jefferson,2009
+Kentucky,Jessamine,2009
+Kentucky,Johnson,2014
+Kentucky,Kenton,2009
+Kentucky,Laurel,2014
+Kentucky,Lawrence,2014
+Kentucky,McCreary,2014
+Kentucky,Monroe,2020
+Kentucky,Muhlenberg,2020
+Kentucky,Oldham,2009
+Kentucky,Owen,2009
+Kentucky,Pendleton,2013
+Kentucky,Pike,2012
+Kentucky,Pulaski,2014
+Kentucky,Rockcastle,2013
+Kentucky,Rowan,2014
+Kentucky,Russell,2018
+Kentucky,Scott,2011
+Kentucky,Shelby,2009
+Kentucky,Spencer,2014
+Kentucky,Trimble,2014
+Kentucky,Whitley,2013
+Kentucky,Woodford,2010
+Maine,Aroostook,2018
+Maine,Cumberland,2019
+Maine,York,2018
+Manitoba,Winnipeg,2017
+Maryland,Allegany,2011
+Maryland,Anne Arundel,2011
+Maryland,Baltimore City,2014
+Maryland,Calvert,2013
+Maryland,Carroll,2014
+Maryland,Charles,2008
+Maryland,Frederick,2013
+Maryland,Garrett,2012
+Maryland,Howard,2011
+Maryland,Montgomery,2012
+Maryland,Prince George's,2003
+Maryland,Somerset,2020
+Maryland,St. Mary's,2012
+Maryland,Washington,2011
+Massachusetts,Berkshire,2012
+Massachusetts,Bristol,2018
+Massachusetts,Essex,2013
+Massachusetts,Franklin,2020
+Massachusetts,Hampshire,2017
+Massachusetts,Suffolk,2014
+Michigan,Alcona,2004
+Michigan,Alger,2009
+Michigan,Allegan,2007
+Michigan,Alpena,2007
+Michigan,Antrim,2004
+Michigan,Arenac,2006
+Michigan,Barry,2004
+Michigan,Bay,2007
+Michigan,Benzie,2005
+Michigan,Berrien,2004
+Michigan,Branch,2004
+Michigan,Calhoun,2003
+Michigan,Cass,2007
+Michigan,Charlevoix,2005
+Michigan,Cheboygan,2004
+Michigan,Chippewa,2005
+Michigan,Clare,2006
+Michigan,Clinton,2004
+Michigan,Crawford,2004
+Michigan,Delta,2008
+Michigan,Eaton,2003
+Michigan,Emmet,2004
+Michigan,Genesee,2003
+Michigan,Gladwin,2006
+Michigan,Grand Traverse,2005
+Michigan,Gratiot,2004
+Michigan,Hillsdale,2004
+Michigan,Houghton,2008
+Michigan,Huron,2005
+Michigan,Ingham,2003
+Michigan,Ionia,2005
+Michigan,Iosco,2004
+Michigan,Isabella,2005
+Michigan,Jackson,2003
+Michigan,Kalamazoo,2006
+Michigan,Kalkaska,2006
+Michigan,Kent,2003
+Michigan,Keweenaw,2011
+Michigan,Lake,2011
+Michigan,Lapeer,2004
+Michigan,Leelanau,2006
+Michigan,Lenawee,2004
+Michigan,Livingston,2002
+Michigan,Mackinac,2007
+Michigan,Macomb,2002
+Michigan,Manistee,2004
+Michigan,Mason,2005
+Michigan,Mecosta,2004
+Michigan,Midland,2004
+Michigan,Missaukee,2006
+Michigan,Monroe,2002
+Michigan,Montcalm,2005
+Michigan,Montmorency,2005
+Michigan,Muskegon,2007
+Michigan,Newaygo,2010
+Michigan,Oakland,2002
+Michigan,Oceana,2004
+Michigan,Ogemaw,2004
+Michigan,Osceola,2006
+Michigan,Oscoda,2004
+Michigan,Otsego,2006
+Michigan,Ottawa,2003
+Michigan,Presque Isle,2004
+Michigan,Roscommon,2004
+Michigan,Saginaw,2003
+Michigan,Sanilac,2004
+Michigan,Schoolcraft,2008
+Michigan,Shiawassee,2003
+Michigan,St. Clair,2003
+Michigan,St. Joseph,2004
+Michigan,Tuscola,2005
+Michigan,Van Buren,2005
+Michigan,Washtenaw,2002
+Michigan,Wayne,2002
+Michigan,Wexford,2011
+Minnesota,Carver,2020
+Minnesota,Dakota,2015
+Minnesota,Hennepin,2010
+Minnesota,Houston,2010
+Minnesota,Nobles,2019
+Minnesota,Olmsted,2014
+Minnesota,Ramsey,2009
+Minnesota,Rice,2020
+Minnesota,Sibley,2020
+Minnesota,Winona,2011
+Minnesota,Wright,2018
+Missouri,Adair,2018
+Missouri,Bollinger,2013
+Missouri,Butler,2013
+Missouri,Caldwell,2019
+Missouri,Callaway,2018
+Missouri,Cape Girardeau,2018
+Missouri,Carroll,2020
+Missouri,Cedar,2020
+Missouri,Christian,2020
+Missouri,Clay,2014
+Missouri,Cole,2018
+Missouri,Cooper,2019
+Missouri,Daviess,2020
+Missouri,Douglas,2019
+Missouri,Gasconade,2019
+Missouri,Greene,2018
+Missouri,Harrison,2019
+Missouri,Hickory,2019
+Missouri,Holt,2019
+Missouri,Howard,2019
+Missouri,Howell,2019
+Missouri,Jackson,2013
+Missouri,Jefferson,2018
+Missouri,Johnson,2020
+Missouri,Lafayette,2020
+Missouri,Lewis,2018
+Missouri,Lincoln,2018
+Missouri,Linn,2019
+Missouri,Livingston,2020
+Missouri,Madison,2012
+Missouri,Moniteau,2020
+Missouri,Monroe,2020
+Missouri,Montgomery,2019
+Missouri,Morgan,2019
+Missouri,Nodaway,2019
+Missouri,Osage,2019
+Missouri,Ozark,2019
+Missouri,Perry,2013
+Missouri,Pettis,2019
+Missouri,Pike,2019
+Missouri,Platte,2012
+Missouri,Polk,2018
+Missouri,Pulaski,2013
+Missouri,Putnam,2019
+Missouri,Randolph,2019
+Missouri,Reynolds,2012
+Missouri,Saline,2020
+Missouri,St. Charles,2014
+Missouri,Sullivan,2020
+Missouri,Warren,2018
+Missouri,Wayne,2008
+Missouri,Webster,2019
+Missouri,Wright,2019
+New Brunswick / Nouveau-Brunswick,Albert,2020
+New Brunswick / Nouveau-Brunswick,Carleton,2020
+New Brunswick / Nouveau-Brunswick,Kings,2020
+New Brunswick / Nouveau-Brunswick,Madawaska,2018
+New Brunswick / Nouveau-Brunswick,Queens,2020
+New Brunswick / Nouveau-Brunswick,Sunbury,2020
+New Brunswick / Nouveau-Brunswick,Victoria,2020
+New Brunswick / Nouveau-Brunswick,Westmorland,2019
+New Hampshire,Carroll,2018
+New Hampshire,Cheshire,2019
+New Hampshire,Grafton,2018
+New Hampshire,Hillsborough,2014
+New Hampshire,Merrimack,2013
+New Hampshire,Rockingham,2014
+New Hampshire,Sullivan,2019
+New Jersey,Burlington,2014
+New Jersey,Gloucester,2019
+New Jersey,Mercer,2014
+New Jersey,Ocean,2019
+New Jersey,Passaic,2019
+New Jersey,Somerset,2014
+New Jersey,Union,2019
+New York,Albany,2011
+New York,Broome,2014
+New York,Cattaraugus,2009
+New York,Cayuga,2013
+New York,Chautauqua,2014
+New York,Chemung,2019
+New York,Clinton,2020
+New York,Columbia,2019
+New York,Cortland,2020
+New York,Delaware,2013
+New York,Dutchess,2012
+New York,Erie,2011
+New York,Genesee,2010
+New York,Greene,2010
+New York,Kings,2017
+New York,Livingston,2010
+New York,Monroe,2010
+New York,Nassau,2020
+New York,New York,2019
+New York,Niagara,2012
+New York,Onondaga,2013
+New York,Ontario,2013
+New York,Orange,2011
+New York,Orleans,2019
+New York,Oswego,2019
+New York,Otsego,2013
+New York,Putnam,2019
+New York,Queens,2017
+New York,Rensselaer,2013
+New York,Schoharie,2013
+New York,Schuyler,2019
+New York,Seneca,2019
+New York,Steuben,2010
+New York,Suffolk,2019
+New York,Tioga,2012
+New York,Tompkins,2019
+New York,Ulster,2010
+New York,Warren,2020
+New York,Wayne,2019
+New York,Westchester,2014
+New York,Wyoming,2019
+North Carolina,Alexander,2020
+North Carolina,Burke,2019
+North Carolina,Caldwell,2019
+North Carolina,Chatham,2019
+North Carolina,Clay,2020
+North Carolina,Cleveland,2020
+North Carolina,Davie,2019
+North Carolina,Granville,2013
+North Carolina,Halifax,2018
+North Carolina,Jackson,2018
+North Carolina,Lenoir,2019
+North Carolina,Macon,2018
+North Carolina,McDowell,2019
+North Carolina,Montgomery,2020
+North Carolina,Nash,2019
+North Carolina,Person,2013
+North Carolina,Polk,2019
+North Carolina,Rowan,2019
+North Carolina,Stokes,2019
+North Carolina,Transylvania,2018
+North Carolina,Union,2020
+North Carolina,Vance,2013
+North Carolina,Warren,2013
+North Carolina,Watauga,2019
+North Carolina,Yadkin,2019
+Nova Scotia / Nouvelle-écosse,Halifax,2018
+Ohio,Allen,2007
+Ohio,Ashland,2009
+Ohio,Ashtabula,2013
+Ohio,Athens,2014
+Ohio,Auglaize,2005
+Ohio,Belmont,2012
+Ohio,Brown,2013
+Ohio,Butler,2007
+Ohio,Champaign,2010
+Ohio,Clark,2009
+Ohio,Clermont,2008
+Ohio,Clinton,2010
+Ohio,Columbiana,2012
+Ohio,Coshocton,2013
+Ohio,Crawford,2012
+Ohio,Cuyahoga,2006
+Ohio,Darke,2010
+Ohio,Defiance,2003
+Ohio,Delaware,2005
+Ohio,Erie,2005
+Ohio,Fairfield,2007
+Ohio,Fayette,2013
+Ohio,Franklin,2003
+Ohio,Fulton,2004
+Ohio,Gallia,2014
+Ohio,Geauga,2011
+Ohio,Greene,2009
+Ohio,Guernsey,2012
+Ohio,Hamilton,2007
+Ohio,Hancock,2005
+Ohio,Hardin,2006
+Ohio,Harrison,2014
+Ohio,Henry,2004
+Ohio,Highland,2013
+Ohio,Hocking,2013
+Ohio,Holmes,2013
+Ohio,Huron,2006
+Ohio,Jackson,2014
+Ohio,Jefferson,2013
+Ohio,Knox,2012
+Ohio,Lake,2011
+Ohio,Lawrence,2010
+Ohio,Licking,2008
+Ohio,Logan,2006
+Ohio,Lorain,2005
+Ohio,Lucas,2003
+Ohio,Madison,2012
+Ohio,Mahoning,2007
+Ohio,Marion,2006
+Ohio,Medina,2006
+Ohio,Meigs,2014
+Ohio,Mercer,2006
+Ohio,Miami,2006
+Ohio,Montgomery,2007
+Ohio,Morrow,2009
+Ohio,Muskingum,2012
+Ohio,Noble,2014
+Ohio,Ottawa,2005
+Ohio,Paulding,2003
+Ohio,Perry,2010
+Ohio,Pickaway,2009
+Ohio,Pike,2009
+Ohio,Portage,2007
+Ohio,Preble,2013
+Ohio,Putnam,2008
+Ohio,Richland,2009
+Ohio,Sandusky,2005
+Ohio,Scioto,2009
+Ohio,Seneca,2006
+Ohio,Shelby,2011
+Ohio,Stark,2013
+Ohio,Summit,2009
+Ohio,Trumbull,2011
+Ohio,Tuscarawas,2013
+Ohio,Union,2007
+Ohio,Van Wert,2008
+Ohio,Warren,2006
+Ohio,Washington,2014
+Ohio,Wayne,2008
+Ohio,Williams,2005
+Ohio,Wood,2003
+Ohio,Wyandot,2006
+Ontario,Algoma,2008
+Ontario,Brant,2010
+Ontario,Bruce,2012
+Ontario,Chatham-Kent,2004
+Ontario,Dufferin,2013
+Ontario,Durham,2008
+Ontario,Elgin,2005
+Ontario,Essex,2002
+Ontario,Frontenac,2012
+Ontario,Grey,2013
+Ontario,Haldimand-Norfolk,2007
+Ontario,Halton,2008
+Ontario,Hamilton,2009
+Ontario,Huron,2008
+Ontario,Kawartha Lakes,2013
+Ontario,Lambton,2005
+Ontario,Lanark,2013
+Ontario,Leeds and Grenville,2010
+Ontario,Manitoulin,2011
+Ontario,Middlesex,2006
+Ontario,Niagara,2009
+Ontario,Northumberland,2013
+Ontario,Ottawa,2008
+Ontario,Oxford,2010
+Ontario,Peel,2008
+Ontario,Perth,2010
+Ontario,Peterborough,2013
+Ontario,Prescott and Russell,2011
+Ontario,Renfrew,2013
+Ontario,Simcoe,2013
+Ontario,"Stormont, Dundas and Glengarry",2013
+Ontario,Toronto,2007
+Ontario,Waterloo,2010
+Ontario,Wellington,2010
+Ontario,York,2008
+Oregon,Washington,2022
+Pennsylvania,Adams,2014
+Pennsylvania,Allegheny,2007
+Pennsylvania,Armstrong,2009
+Pennsylvania,Beaver,2008
+Pennsylvania,Bedford,2010
+Pennsylvania,Berks,2014
+Pennsylvania,Blair,2013
+Pennsylvania,Bradford,2013
+Pennsylvania,Bucks,2012
+Pennsylvania,Butler,2007
+Pennsylvania,Cambria,2013
+Pennsylvania,Cameron,2013
+Pennsylvania,Centre,2010
+Pennsylvania,Clarion,2010
+Pennsylvania,Clearfield,2013
+Pennsylvania,Clinton,2012
+Pennsylvania,Columbia,2013
+Pennsylvania,Crawford,2014
+Pennsylvania,Cumberland,2010
+Pennsylvania,Dauphin,2013
+Pennsylvania,Elk,2013
+Pennsylvania,Erie,2013
+Pennsylvania,Fayette,2013
+Pennsylvania,Forest,2013
+Pennsylvania,Franklin,2012
+Pennsylvania,Fulton,2010
+Pennsylvania,Greene,2014
+Pennsylvania,Huntingdon,2011
+Pennsylvania,Indiana,2009
+Pennsylvania,Jefferson,2012
+Pennsylvania,Juniata,2009
+Pennsylvania,Lawrence,2009
+Pennsylvania,Lebanon,2014
+Pennsylvania,Luzerne,2013
+Pennsylvania,Lycoming,2011
+Pennsylvania,Mercer,2008
+Pennsylvania,Mifflin,2009
+Pennsylvania,Montgomery,2013
+Pennsylvania,Montour,2012
+Pennsylvania,Northumberland,2012
+Pennsylvania,Perry,2012
+Pennsylvania,Potter,2013
+Pennsylvania,Schuylkill,2014
+Pennsylvania,Snyder,2012
+Pennsylvania,Somerset,2010
+Pennsylvania,Sullivan,2011
+Pennsylvania,Susquehanna,2014
+Pennsylvania,Tioga,2013
+Pennsylvania,Union,2010
+Pennsylvania,Venango,2012
+Pennsylvania,Warren,2013
+Pennsylvania,Washington,2009
+Pennsylvania,Westmoreland,2009
+Pennsylvania,Wyoming,2011
+Pennsylvania,York,2014
+Quebec / Québec,Antoine-Labelle,2014
+Quebec / Québec,Gatineau,2011
+Quebec / Québec,L'Islet,2019
+Quebec / Québec,La Haute-Yamaska,2013
+Quebec / Québec,La Vallée-de-la-Gatineau,2013
+Quebec / Québec,La Vallée-du-Richelieu,2013
+Quebec / Québec,Lajemmerais,2013
+Quebec / Québec,Laval,2012
+Quebec / Québec,Le Haut-Richelieu,2013
+Quebec / Québec,Les Collines-de-l'Outaouais,2012
+Quebec / Québec,Les Moulins,2013
+Quebec / Québec,Longueuil,2012
+Quebec / Québec,Montréal,2011
+Quebec / Québec,Papineau,2012
+Quebec / Québec,Pontiac,2013
+Quebec / Québec,Roussillon,2013
+Quebec / Québec,Rouville,2013
+Quebec / Québec,Thérése-De Blainville,2013
+Rhode Island,Providence,2018
+South Carolina,Anderson,2019
+South Carolina,Pickens,2019
+South Carolina,Spartanburg,2017
+South Carolina,York,2019
+South Dakota,Lincoln,2020
+South Dakota,Minnehaha,2018
+Tennessee,Anderson,2012
+Tennessee,Blount,2011
+Tennessee,Bradley,2019
+Tennessee,Campbell,2012
+Tennessee,Cannon,2020
+Tennessee,Cannon,2019
+Tennessee,Cheatham,2018
+Tennessee,Claiborne,2011
+Tennessee,Clay,2020
+Tennessee,Cocke,2012
+Tennessee,Coffee,2019
+Tennessee,Davidson,2014
+Tennessee,Dickson,2020
+Tennessee,Fentress,2014
+Tennessee,Giles,2018
+Tennessee,Grainger,2011
+Tennessee,Greene,2012
+Tennessee,Grundy,2020
+Tennessee,Hamblen,2012
+Tennessee,Hamilton,2013
+Tennessee,Hancock,2012
+Tennessee,Hawkins,2012
+Tennessee,Hickman,2020
+Tennessee,Jackson,2013
+Tennessee,Jefferson,2012
+Tennessee,Johnson,2019
+Tennessee,Knox,2010
+Tennessee,Lewis,2020
+Tennessee,Loudon,2010
+Tennessee,Macon,2019
+Tennessee,Maury,2018
+Tennessee,McMinn,2014
+Tennessee,Meigs,2019
+Tennessee,Monroe,2012
+Tennessee,Moore,2019
+Tennessee,Morgan,2014
+Tennessee,Overton,2019
+Tennessee,Pickett,2019
+Tennessee,Polk,2014
+Tennessee,Putnam,2014
+Tennessee,Rhea,2014
+Tennessee,Roane,2012
+Tennessee,Scott,2013
+Tennessee,Sequatchie,2019
+Tennessee,Sevier,2011
+Tennessee,Smith,2012
+Tennessee,Sullivan,2014
+Tennessee,Union,2012
+Tennessee,Warren,2020
+Tennessee,Washington,2014
+Texas,Bowie,2020
+Texas,Cass,2018
+Texas,Denton,2020
+Texas,Harrison,2016
+Texas,Marion,2018
+Vermont,Addison,2019
+Vermont,Bennington,2018
+Vermont,Caledonia,2018
+Vermont,Chittenden,2020
+Vermont,Franklin,2020
+Vermont,Grand Isle,2018
+Vermont,Orange,2018
+Vermont,Orleans,2019
+Vermont,Rutland,2020
+Vermont,Washington,2018
+Vermont,Windham,2019
+Virginia,Charles City,2019
+Virginia,Newport News,2019
+Virginia,Northumberland,2019
+Virginia,Alleghany,2014
+Virginia,Amelia,2018
+Virginia,Bath,2014
+Virginia,Brunswick,2019
+Virginia,Buchanan,2012
+Virginia,Caroline,2012
+Virginia,Carroll,2018
+Virginia,Charlotte,2012
+Virginia,Chesterfield,2018
+Virginia,Cumberland,2018
+Virginia,Dickenson,2018
+Virginia,Dinwiddie,2019
+Virginia,Essex,2018
+Virginia,Fairfax,2008
+Virginia,Fauquier,2014
+Virginia,Fluvanna,2018
+Virginia,Frederick,2010
+Virginia,Giles,2012
+Virginia,Goochland,2018
+Virginia,Greensville,2019
+Virginia,Halifax,2012
+Virginia,Hanover,2012
+Virginia,Henrico,2019
+Virginia,Henry,2018
+Virginia,King and Queen,2019
+Virginia,King George,2018
+Virginia,King William,2019
+Virginia,Lee,2012
+Virginia,Loudoun,2012
+Virginia,Louisa,2018
+Virginia,Mecklenburg,2012
+Virginia,New Kent,2019
+Virginia,Page,2014
+Virginia,Patrick,2018
+Virginia,Pittsylvania,2012
+Virginia,Powhatan,2018
+Virginia,Prince Edward,2012
+Virginia,Prince William,2010
+Virginia,Richmond City,2019
+Virginia,Smyth,2018
+Virginia,Southampton,2019
+Virginia,Stafford,2012
+Virginia,Sussex,2019
+Virginia,Warren,2012
+West Virginia,Berkeley,2011
+West Virginia,Boone,2013
+West Virginia,Braxton,2012
+West Virginia,Brooke,2011
+West Virginia,Cabell,2015
+West Virginia,Calhoun,2010
+West Virginia,Clay,2011
+West Virginia,Doddridge,2013
+West Virginia,Fayette,2007
+West Virginia,Gilmer,2011
+West Virginia,Greenbrier,2011
+West Virginia,Hampshire,2012
+West Virginia,Hancock,2011
+West Virginia,Hardy,2014
+West Virginia,Harrison,2015
+West Virginia,Jackson,2014
+West Virginia,Jefferson,2013
+West Virginia,Kanawha,2011
+West Virginia,Lewis,2012
+West Virginia,Lincoln,2012
+West Virginia,Logan,2014
+West Virginia,Mason,2014
+West Virginia,McDowell,2014
+West Virginia,Mercer,2012
+West Virginia,Mineral,2012
+West Virginia,Mingo,2011
+West Virginia,Monongalia,2013
+West Virginia,Morgan,2009
+West Virginia,Nicholas,2010
+West Virginia,Ohio,2014
+West Virginia,Pleasants,2014
+West Virginia,Putnam,2013
+West Virginia,Raleigh,2010
+West Virginia,Ritchie,2012
+West Virginia,Roane,2009
+West Virginia,Summers,2011
+West Virginia,Wayne,2015
+West Virginia,Webster,2011
+West Virginia,Wirt,2011
+West Virginia,Wood,2014
+West Virginia,Wyoming,2014
+Wisconsin,Adams,2014
+Wisconsin,Brown,2009
+Wisconsin,Buffalo,2014
+Wisconsin,Calumet,2014
+Wisconsin,Clark,2018
+Wisconsin,Columbia,2014
+Wisconsin,Crawford,2009
+Wisconsin,Dane,2013
+Wisconsin,Dodge,2013
+Wisconsin,Door,2014
+Wisconsin,Douglas,2013
+Wisconsin,Eau Claire,2017
+Wisconsin,Florence,2020
+Wisconsin,Fond du Lac,2013
+Wisconsin,Grant,2014
+Wisconsin,Jefferson,2014
+Wisconsin,Kenosha,2009
+Wisconsin,Kewaunee,2018
+Wisconsin,La Crosse,2011
+Wisconsin,Milwaukee,2009
+Wisconsin,Monroe,2014
+Wisconsin,Oneida,2014
+Wisconsin,Outagamie,2015
+Wisconsin,Ozaukee,2008
+Wisconsin,Pepin,2020
+Wisconsin,Pierce,2019
+Wisconsin,Price,2020
+Wisconsin,Racine,2011
+Wisconsin,Rock,2012
+Wisconsin,Sauk,2013
+Wisconsin,Shawano,2020
+Wisconsin,Sheboygan,2014
+Wisconsin,St. Croix,2018
+Wisconsin,Trempealeau,2012
+Wisconsin,Vernon,2009
+Wisconsin,Walworth,2012
+Wisconsin,Washington,2008
+Wisconsin,Waukesha,2012
+Wisconsin,Winnebago,2013
