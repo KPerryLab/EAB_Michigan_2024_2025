@@ -1,0 +1,25 @@
+park,center_tree_number,trap_type,trap_number,set_date,collection_date,collection_interval,EAB_trap_field_notes,number_EAB_females_lab_count,number_EAB_males_lab_count,lab_notes
+Kensington,3,prism,1,05_30_2024,06_25_2024,1,Manuka replaced,9,3,This sample also has the insect that I first thought was Atanycolus (I don't really think it is)
+Kensington,3,prism,1,06_25_2024,07_23_2024,2,Trap removed,2,0,Sample also has ash samaras for tree ID. There is also a slightly smaller bluish buprestid
+Kensington,45,prism,2,05_30_2024,06_25_2024,1,Manuka replaced,2,3,One of the males is a bit smaller than the other males
+Kensington,45,prism,2,06_25_2024,07_23_2024,2,Trap removed,0,0,Has a louse fly
+Island Lake,63,prism,3,05_30_2024,06_25_2024,1,Manuka replaced - glue added,0,0,
+Island Lake,63,prism,3,06_25_2024,07_23_2024,2,Trap removed,0,0,
+Island Lake,63,prism,4,05_30_2024,06_25_2024,1,Manuka replaced - glue added,1,0,
+Island Lake,63,prism,4,06_25_2024,07_23_2024,2,Trap removed,0,0,
+Proud Lake,39,prism,5,06_05_2024,06_25_2024,1,Manuka replaced,0,0,
+Proud Lake,39,prism,5,06_25_2024,07_23_2024,2,Trap removed,0,0,
+Proud Lake,39,prism,6,06_05_2024,06_25_2024,1,Manuka replaced,0,0,
+Proud Lake,39,prism,6,06_25_2024,07_23_2024,2,Trap removed,0,0,Contains a black ash samara
+Highland,86,prism,7,05_31_2024,06_25_2024,1,Manuka replaced,0,0,
+Highland,86,prism,7,06_25_2024,07_23_2024,2,Trap removed,0,0,Some smaller buprestids
+Highland,86,prism,8,05_31_2024,06_25_2024,1,Manuka replaced,0,0,A larger buprestid (not EAB) was found
+Highland,86,prism,8,06_25_2024,07_23_2024,2,Trap removed,1,0,
+Pontiac,53,prism,9,05_29_2024,06_27_2024,1,Manuka replaced - glue added,0,0,Many smaller buprestids including (possibly) Agrilus bilineatus
+Pontiac,53,prism,9,06_27_2024,07_25_2024,2,Trap removed,0,0,
+Pontiac,53,prism,10,05_29_2024,06_27_2024,1,Manuka replaced - glue added,1,0,Also a cerambycid that may feed on ash trees (the small kind with long antennae)
+Pontiac,53,prism,10,06_27_2024,07_25_2024,2,Trap removed,0,0,
+Indian Springs,78,prism,11,05_31_2024,06_26_2024,1,Manuka replaced - glue added,0,0,Perhaps a sawfly that we also saw in the ash common garden
+Indian Springs,78,prism,11,06_26_2024,07_24_2024,2,Trap removed,0,0,
+Indian Springs,78,prism,12,05_31_2024,06_26_2024,1,Manuka replaced - glue added,0,1,
+Indian Springs,78,prism,12,06_26_2024,07_24_2024,2,Trap removed,0,0,
