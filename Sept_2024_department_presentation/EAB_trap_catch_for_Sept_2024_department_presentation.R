@@ -6,7 +6,7 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 
-dat <- read.csv("Raw_data/prism_trap_collections_2024.csv")
+dat <- read.csv("Raw_data/EAB_Michigan_2024_prism_trap_collections.csv")
 dat$collection_interval <- as.factor(dat$collection_interval)
 dat$park <- as.factor(dat$park)
 
@@ -25,6 +25,15 @@ ggplot(data=dat, aes(fill=collection_interval, x=park, y=number_EABs)) +
 
 # I'm wondering if the numbers of males and females captured varied based on 
 # sampling interval. Peak emergence of males is before females (Tobin et al. 2021)
+
+# The function group_by groups all the rows from each sampling interval together
+# and creates a "grouped tibble" so that the function summarize can count up all
+# the males and females in each sampling interval
+
+# The function pivot_longer increases the  number of rows. Instead of having 
+# separate columns for male EABs and female EABs, we simply have a single column 
+# for number of EABs, and then a different column which indicates whether each 
+# row is male or female
 dat_summary <- dat %>% group_by(collection_interval) %>% 
   summarize(number_EAB_females_lab_count = sum(number_EAB_females_lab_count),
             number_EAB_males_lab_count = sum(number_EAB_males_lab_count)) %>%
