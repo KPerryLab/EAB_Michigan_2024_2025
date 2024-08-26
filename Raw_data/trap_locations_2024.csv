@@ -1,0 +1,31 @@
+park,center_tree_number,trap_type,initial_set_date,trap_number,quadrant_NE_SE_SW_NW,dist_to_center_tree_meters_approx,direction_to_center_tree_degrees,latitude_degree_part,latitude_minutes_part,longitude_degree_part,longitude_minutes_part,height_ft_approx_to_top_of_trap,tree_trap_is_hung_in_species,diameter_at_137_cm_in_cm_of_nearest_ash,canopy_condition_of_nearest_ash,crown_class_D_C_I_S,ash_saplings_species_EAB_trap_is_above,re_lure_date,final_collection_date,EAB_exit_holes_y_n,woodpecker_marks_y_n,ash_bark_splitting_y_n,epicormic_sprouts_y_n,basal_sprouts_y_n,number_of_EAB_exit_holes_from_125_to_175_cm,number_of_woodpecker_marks_from_125_to_175_cm,trap_locations_notes
+Kensington,3,prism,05_30_2024,1,SW,23.29,180,42,31.993,-83,-40.237,25,green or white,11,3,C,NA,,,y,y,y,y,y,,,
+Kensington,45,prism,05_30_2024,2,SW,25,227,42,31.879,-83,-40.12,7,black ash,9.9,1,D,NA,,,n,n,n,y,n,0,0,epicormic sprouts are older
+Island Lake,63,prism,05_30_2024,3,NE,14.2,0,42,30.306,-83,-42.666,16,ash (green?),3.72,1,S,green?,,,n,n,n,n,n,0,0,
+Island Lake,63,prism,05_30_2024,4,NW,5.97,299,42,30.303,-83,-42.668,12,ash (green?),8.2,1,I,green?,,,n,n,n,n,n,0,0,the healthy ash tree was very near to an ash with canopy condition 5 (dead)
+Proud Lake,39,prism,06_05_2024,5,NE,20,46,42,34.467,-83,-32.816,8,elm (black ash nearby),4.48,1,I,black ash,,,n,n,n,n,n,0,0,
+Proud Lake,39,prism,06_05_2024,6,NW,16,300,42,34.459,-83,-32.835,9,black ash,11.5,1,C,,,,n,n,n,n,y,0,0,trap was hastily installed and is resting against the trunk
+Highland,86,prism,05_31_2024,7,NW,10,345,42,38.715,-83,-33.054,5,shepard hook,NA,NA,S,green?,,,NA,NA,NA,NA,NA,NA,NA,on shepard hook
+Highland,86,prism,05_31_2024,8,NE,18,13,42,38.724,-83,-33.056,5,shepard hook,NA,NA,S,green?,,,NA,NA,NA,NA,NA,NA,NA,on shepard hook
+Pontiac,53,prism,05_29_2024,9,NW,19.55,295,42,40.662,-83,-29.109,10,elm,7.2,1,C,ash,,,n,n,y,y,y,0,0,
+Pontiac,53,prism,05_29_2024,10,SW,25,265,42,40.646,-83,-29.102,20,red maple,2.1,1,S,ash,,,n,n,n,n,n,0,0,
+Indian Springs,78,prism,05_31_2024,11,NE,18,62,42,42.295,-83,-29.637,30,maple (silver?),2.78,1,I,green?,,,n,n,y,n,n,0,0,
+Indian Springs,78,prism,05_31_2024,12,SW,40,210,42,42.276,-83,-29.648,9,serviceberry?,9.31,1,C,black,,,n,n,n,y,y,0,0,possible basal sprout is a 5 for canopy condition - the basal sprout has woodpecker predation marks and bark splitting
+Pontiac,53,multifunnel,05_29_2024,13,SW,17.72,245,42,40.655,-83,-29.104,20,hickory,6.95,1,S,ash,,,n,n,n,y,n,0,0,
+Pontiac,53,multifunnel,05_29_2024,14,NW,30,307,42,40.666,-83,-29.119,12,ash,4.4,1,I,NA,,,n,n,y,n,n,0,0,
+Pontiac,53,multifunnel,05_29_2024,15,NW,30,302,42,40.666,-83,-29.115,20,ash,10,2,C,NA,,,n,y,y,n,y,0,0,
+Pontiac,53,yellow pan,06_04_2024,101,SE,,162,42,40.657,-83,-29.094,5,green or white ash,3.2,3,S,NA,,,n,n,y,y,y,0,0,there is also a dead stem connected to the living ash stem
+Pontiac,53,yellow pan,06_04_2024,102,SW,,,42,40.647,-83,-29.113,5,green or white ash,5.2,1,I,NA,,,n,n,y,n,n,0,0,
+Pontiac,53,yellow pan,06_04_2024,103,SW,,,42,40.647,-83,-29.109,4.6,green or white ash,6.6,1,S,NA,,,n,n,y,y,n,0,0,
+Pontiac,53,yellow pan,06_04_2024,104,SW,,,42,40.65,-83,-29.106,4.6,green or white ash,7.2,1,S,NA,,,n,n,y,y,n,0,0,
+Pontiac,53,yellow pan,06_04_2024,105,SW,,,42,40.655,-83,-29.113,5,green or white ash,3.1,3,I,NA,,,y,n,y,y,y,1,0,
+Pontiac,53,yellow pan,06_04_2024,106,NW,,,42,40.66,-83,-29.111,5,green or white ash,5.9,1,I,NA,,,n,n,y,n,n,0,0,
+Pontiac,53,yellow pan,06_04_2024,107,NW,,,42,40.662,-83,-29.107,5,green or white ash,3.6,1,I,NA,,,n,n,n,y,n,0,0,
+Pontiac,53,yellow pan,06_04_2024,108,NW,,,42,40.663,-83,-29.107,5,green or white ash,4.45,1,I,NA,,,n,n,y,n,n,0,0,
+Pontiac,53,yellow pan,06_04_2024,109,NW,,,42,40.663,-83,-29.112,4.6,green or white ash,7.2,1,C,NA,,,n,n,y,y,n,0,0,
+Pontiac,53,yellow pan,06_04_2024,110,NW,,,42,40.664,-83,-29.103,5,green or white ash,8.9,1,I,NA,,,n,n,n,n,n,0,0,
+Pontiac,53,yellow pan,06_04_2024,111,NW,,,42,40.666,-83,-29.112,4.6,green or white ash,4.6,4,I,NA,,,n,n,y,y,y,0,0,
+Pontiac,53,yellow pan,06_04_2024,112,NW,,,42,40.668,-83,-29.115,5,green or white ash,6.7,3,I,NA,,,n,n,y,y,n,0,0,
+Pontiac,53,yellow pan,06_04_2024,113,West,,,42,40.66,-83,-29.121,5,green or white ash,9.6,2,S,NA,,,n,n,n,n,n,0,0,
+Pontiac,53,yellow pan,06_04_2024,114,NW,,,42,40.66,-83,-29.105,5,green or white ash,4.2,1,I,NA,,,n,n,y,y,n,0,0,
+Pontiac,53,yellow pan,06_04_2024,115,NW,,,42,40.661,-83,-29.112,5,green or white ash,9.1,4,I,NA,,,n,y,y,y,y,0,0,
