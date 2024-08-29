@@ -151,7 +151,6 @@ ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_density_seedlings))
   xlab("Hydroclass") +
   ylab(bquote("Density of ash seedlings " ~ (stems/m^2))) +
   scale_y_continuous(breaks=seq(0,9,2)) +
-  ylim(-0.15, 9) +
   theme_bw()
 
 # Make a similar graph for short seedlings (under 25 cm):
@@ -212,11 +211,11 @@ saplings_by_plot$density_saplings_stems_per_ha <-
 # Now, make a violin plot that shows the number of saplings found at each plot, 
 # as a function of hydroclass
 ggplot(data=saplings_by_plot, aes(x=factor(mstrlvl), 
-                                  y=density_saplings_stems_per_ha)) + 
+                                  y=density_saplings)) + 
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
-  ylab(bquote("Density of ash saplings " ~ (stems/hectare))) +
+  ylab(bquote("Density of ash saplings " ~ (stems/m^2))) +
   theme_bw()
 
 # Small trees and trees -------------------------------------------------------
@@ -267,7 +266,7 @@ trees$distance_to_center_meters_simple[trees$distance_to_center_meters_simple ==
 trees$distance_to_center_meters_simple[trees$distance_to_center_meters_simple == "between 8 and 18"] <- "13"
 trees$distance_to_center_meters_simple[trees$distance_to_center_meters_simple == "greater than 18"] <- "25"
 trees$distance_to_center_meters_simple[trees$distance_to_center_meters_simple == "approx 100 m"] <- "100"
-trees$distance_to_center_meters_test <- as.numeric(as.character(trees$distance_to_center_meters))
+#trees$distance_to_center_meters_test <- as.numeric(as.character(trees$distance_to_center_meters))
 
 
 
