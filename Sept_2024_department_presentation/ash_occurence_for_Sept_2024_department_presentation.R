@@ -230,6 +230,7 @@ trees$center_tree_number <- as.integer(trees$center_tree_number)
 trees$ash_species <- as.factor(trees$ash_species)
 
 # Remove any rows where the species of tree is not ash (keep rows where ash_species is NA)
+# Note: the hickory and Zanthoxylum rows were tagged trees
 levels(trees$ash_species)
 trees <- trees[( trees$ash_species != "hickory" | is.na(trees$ash_species) ), ]
 trees <- trees[( trees$ash_species != "Zanthoxylum (prickly ash)" | is.na(trees$ash_species) ), ]
@@ -254,21 +255,43 @@ levels(trees$ash_species_simple)
 # trees?
 a <- seedlings_by_plot$center_tree_number
 b <- unique(trees$center_tree_number)
+b
 setdiff(a, b)
 # Plot 91 at Hudson Mills is correct to be missing from trees
+
+# Make sure the variable that records which quadrant the tree was in is accurate:
+trees$quadrant_NE_SE_SW_NW <- as.factor(trees$quadrant_NE_SE_SW_NW)
+summary(trees$quadrant_NE_SE_SW_NW)
+trees[trees$quadrant_NE_SE_SW_NW == "?",]
+# Which rows are simply recording the absence of any trees?
+trees$center_tree_number[trees$quadrant_NE_SE_SW_NW == "none"]
+unique(trees$center_tree_number[trees$quadrant_NE_SE_SW_NW == "none"])
+
 
 # I want to create a new dataframe of trees so that small trees (2.5-10 cm DBH)
 # are counted only if they occur within the 8 meter radius subplot. Furthermore,
 # trees (10 cm DBH and up) are counted only if they occur within the 18 meter
 # radius main plot
+
+# First I need to change the variable distance_to_center_meters into a 
+# numeric variable.  For many of the trees inside the 8 meter subplot, we
+# simply wrote "less than 8" to indicate it was in the subplot. So now I 
+# will name these as 4 (4 meters) even though they ranged from 0 m to 8 m
 trees$distance_to_center_meters_simple <- trees$distance_to_center_meters
 trees$distance_to_center_meters_simple[trees$distance_to_center_meters_simple == "less than 8"] <- "4"
 trees$distance_to_center_meters_simple[trees$distance_to_center_meters_simple == "between 8 and 18"] <- "13"
 trees$distance_to_center_meters_simple[trees$distance_to_center_meters_simple == "greater than 18"] <- "25"
 trees$distance_to_center_meters_simple[trees$distance_to_center_meters_simple == "approx 100 m"] <- "100"
-#trees$distance_to_center_meters_test <- as.numeric(as.character(trees$distance_to_center_meters))
+trees$distance_to_center_meters_simple <- as.numeric(trees$distance_to_center_meters_simple)
+hist(trees$distance_to_center_meters_simple, breaks=100)
 
-
+# Small trees must be >= 2.5 cm DBH AND < 12.5 cm DBH AND distance to the center
+# must be <= 8 meters
+small_trees_filtered <- trees %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
+  dplyr::filter(diameter_at_137_cm_in_cm >= 2.5) %>%
+  dplyr::filter(diameter_at_137_cm_in_cm < 10) %>%
+  dplyr::filter(distance_to_center_meters_simple <= 8)
+  
 
 
 
