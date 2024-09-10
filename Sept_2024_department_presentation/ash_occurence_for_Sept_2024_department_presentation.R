@@ -262,11 +262,34 @@ setdiff(a, b)
 # Make sure the variable that records which quadrant the tree was in is accurate:
 trees$quadrant_NE_SE_SW_NW <- as.factor(trees$quadrant_NE_SE_SW_NW)
 summary(trees$quadrant_NE_SE_SW_NW)
-trees[trees$quadrant_NE_SE_SW_NW == "?",]
-# Which rows are simply recording the absence of any trees?
-trees$center_tree_number[trees$quadrant_NE_SE_SW_NW == "none"]
-unique(trees$center_tree_number[trees$quadrant_NE_SE_SW_NW == "none"])
+trees[trees$quadrant_NE_SE_SW_NW == "?",] # The only rows with ? for quadrant
+# are about 100 meters from the center
 
+# Which rows are simply recording the absence of any trees?
+c <- trees$center_tree_number[trees$quadrant_NE_SE_SW_NW == "none"]
+c
+unique(c)
+d <- trees$center_tree_number[trees$quadrant_NE_SE_SW_NW != "none"]
+unique(d)
+intersect(unique(c), unique(d)) # Make sure no trees are recorded from plots
+# also marked as having no trees.
+
+# We only recorded compass direction at the begginning of summer 
+# (it was a lot of work). But we can at least check the data against quadrant
+# to see if they agree
+trees$compass_direction <- as.numeric(trees$compass_direction)
+ggplot(data=trees, aes(x=quadrant_NE_SE_SW_NW, y=compass_direction)) +
+  geom_point() +
+  geom_hline(yintercept=90) +
+  geom_hline(yintercept=180) +
+  geom_hline(yintercept=270)
+# Looks like there are three rows where compass direction and quadrant disagree:
+trees[trees$compass_direction > 270 & trees$quadrant_NE_SE_SW_NW != "NW" &
+        is.na(trees$compass_direction) == FALSE , ]
+# All of these three rows were tagged ash. When it comes time to identify tagged
+# ash in datasets from previous years, we will know about this issue. I'm not
+# going to try to change anything right now.
+  
 
 # I want to create a new dataframe of trees so that small trees (2.5-10 cm DBH)
 # are counted only if they occur within the 8 meter radius subplot. Furthermore,
