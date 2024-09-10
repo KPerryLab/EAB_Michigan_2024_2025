@@ -29,13 +29,13 @@ sum(plot_centers$trees_done_y_n == "y")
 # There are 2 plots where we found and measured the center tree but did not 
 # collect any seedling, sapling, or tree data due to high waters and a time 
 # crunch. These were plots 23 and 66, both at Island Lake.
-View(plot_centers[plot_centers$seedlings_done_y_n == "n",])
+#View(plot_centers[plot_centers$seedlings_done_y_n == "n",])
 
 # This leaves 11 plots that we have neither found the center or recorded data
 # for. Four at Hudson Mills, six at Indian Springs, and one at Island Lake. 
 # Note: we technically found plot 61 at Island Lake, but I forgot to write
 # the center tree DBH, and thus I'm considering it completely not-started.
-View(plot_centers[plot_centers$seedlings_done_y_n == "",])
+#View(plot_centers[plot_centers$seedlings_done_y_n == "",])
 
 # Summary: 97 done + 3 partially done + 11 not-started = 111 plots
 
@@ -291,7 +291,11 @@ small_trees_filtered <- trees %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") 
   dplyr::filter(diameter_at_137_cm_in_cm >= 2.5) %>%
   dplyr::filter(diameter_at_137_cm_in_cm < 10) %>%
   dplyr::filter(distance_to_center_meters_simple <= 8)
-  
+
+# Big trees must be >= 10 cm DBH AND distance to the center must be <= 18 meters
+big_trees_filtered <- trees %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
+  dplyr::filter(diameter_at_137_cm_in_cm >= 10) %>%
+  dplyr::filter(distance_to_center_meters_simple <= 18)
 
 
 
