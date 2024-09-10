@@ -229,47 +229,51 @@ trees$center_tree_number[trees$center_tree_number == "75_south"] <- "75"
 trees$center_tree_number <- as.integer(trees$center_tree_number)
 trees$ash_species <- as.factor(trees$ash_species)
 
+# Add in hydroclass data
+trees2 <- inner_join(trees, hydro, by="center_tree_number")
+nrow(trees) == nrow(trees2)
+
 # Remove any rows where the species of tree is not ash (keep rows where ash_species is NA)
 # Note: the hickory and Zanthoxylum rows were tagged trees
-levels(trees$ash_species)
-trees <- trees[( trees$ash_species != "hickory" | is.na(trees$ash_species) ), ]
-trees <- trees[( trees$ash_species != "Zanthoxylum (prickly ash)" | is.na(trees$ash_species) ), ]
-trees$ash_species <- droplevels(trees$ash_species)
-levels(trees$ash_species)
+levels(trees2$ash_species)
+trees2 <- trees2[( trees2$ash_species != "hickory" | is.na(trees2$ash_species) ), ]
+trees2 <- trees2[( trees2$ash_species != "Zanthoxylum (prickly ash)" | is.na(trees2$ash_species) ), ]
+trees2$ash_species <- droplevels(trees2$ash_species)
+levels(trees2$ash_species)
 
 # I want to make a column that simplifies ash_species so that there are only 
 # three categories: black, green/white/pumpkin, and unknown
-trees$ash_species_simple <- as.character(trees$ash_species)
-trees$ash_species_simple[trees$ash_species_simple == "green"] <- "green_white_or_pumpkin"
-trees$ash_species_simple[trees$ash_species_simple == "green or pumpkin"] <- "green_white_or_pumpkin"
-trees$ash_species_simple[trees$ash_species_simple == "green or white"] <- "green_white_or_pumpkin"
-trees$ash_species_simple[trees$ash_species_simple == "green white or pumpkin"] <- "green_white_or_pumpkin"
-trees$ash_species_simple[trees$ash_species_simple == "black?"] <- "unknown"
-trees$ash_species_simple[trees$ash_species_simple == "?"] <- "unknown"
-trees$ash_species_simple[trees$ash_species_simple == "green?"] <- "unknown"
-trees$ash_species_simple[trees$ash_species_simple == "white?"] <- "unknown"
-trees$ash_species_simple <- as.factor(trees$ash_species_simple)
-levels(trees$ash_species_simple)
+trees2$ash_species_simple <- as.character(trees2$ash_species)
+trees2$ash_species_simple[trees2$ash_species_simple == "green"] <- "green_white_or_pumpkin"
+trees2$ash_species_simple[trees2$ash_species_simple == "green or pumpkin"] <- "green_white_or_pumpkin"
+trees2$ash_species_simple[trees2$ash_species_simple == "green or white"] <- "green_white_or_pumpkin"
+trees2$ash_species_simple[trees2$ash_species_simple == "green white or pumpkin"] <- "green_white_or_pumpkin"
+trees2$ash_species_simple[trees2$ash_species_simple == "black?"] <- "unknown"
+trees2$ash_species_simple[trees2$ash_species_simple == "?"] <- "unknown"
+trees2$ash_species_simple[trees2$ash_species_simple == "green?"] <- "unknown"
+trees2$ash_species_simple[trees2$ash_species_simple == "white?"] <- "unknown"
+trees2$ash_species_simple <- as.factor(trees2$ash_species_simple)
+table(trees2$ash_species_simple)
 
 # Which center_tree_number values are found in seedlings but not found in 
 # trees?
 a <- seedlings_by_plot$center_tree_number
-b <- unique(trees$center_tree_number)
+b <- unique(trees2$center_tree_number)
 b
 setdiff(a, b)
-# Plot 91 at Hudson Mills is correct to be missing from trees
+# Plot 91 at Hudson Mills is correct to be missing from trees2
 
 # Make sure the variable that records which quadrant the tree was in is accurate:
-trees$quadrant_NE_SE_SW_NW <- as.factor(trees$quadrant_NE_SE_SW_NW)
-summary(trees$quadrant_NE_SE_SW_NW)
-trees[trees$quadrant_NE_SE_SW_NW == "?",] # The only rows with ? for quadrant
+trees2$quadrant_NE_SE_SW_NW <- as.factor(trees2$quadrant_NE_SE_SW_NW)
+summary(trees2$quadrant_NE_SE_SW_NW)
+trees2[trees2$quadrant_NE_SE_SW_NW == "?",] # The only rows with ? for quadrant
 # are about 100 meters from the center
 
 # Which rows are simply recording the absence of any trees?
-c <- trees$center_tree_number[trees$quadrant_NE_SE_SW_NW == "none"]
+c <- trees2$center_tree_number[trees2$quadrant_NE_SE_SW_NW == "none"]
 c
 unique(c)
-d <- trees$center_tree_number[trees$quadrant_NE_SE_SW_NW != "none"]
+d <- trees2$center_tree_number[trees2$quadrant_NE_SE_SW_NW != "none"]
 unique(d)
 intersect(unique(c), unique(d)) # Make sure no trees are recorded from plots
 # also marked as having no trees.
@@ -277,15 +281,15 @@ intersect(unique(c), unique(d)) # Make sure no trees are recorded from plots
 # We only recorded compass direction at the begginning of summer 
 # (it was a lot of work). But we can at least check the data against quadrant
 # to see if they agree
-trees$compass_direction <- as.numeric(trees$compass_direction)
-ggplot(data=trees, aes(x=quadrant_NE_SE_SW_NW, y=compass_direction)) +
+trees2$compass_direction <- as.numeric(trees2$compass_direction)
+ggplot(data=trees2, aes(x=quadrant_NE_SE_SW_NW, y=compass_direction)) +
   geom_point() +
   geom_hline(yintercept=90) +
   geom_hline(yintercept=180) +
   geom_hline(yintercept=270)
 # Looks like there are three rows where compass direction and quadrant disagree:
-trees[trees$compass_direction > 270 & trees$quadrant_NE_SE_SW_NW != "NW" &
-        is.na(trees$compass_direction) == FALSE , ]
+trees2[trees2$compass_direction > 270 & trees2$quadrant_NE_SE_SW_NW != "NW" &
+        is.na(trees2$compass_direction) == FALSE , ]
 # All of these three rows were tagged ash. When it comes time to identify tagged
 # ash in datasets from previous years, we will know about this issue. I'm not
 # going to try to change anything right now.
@@ -300,26 +304,42 @@ trees[trees$compass_direction > 270 & trees$quadrant_NE_SE_SW_NW != "NW" &
 # numeric variable.  For many of the trees inside the 8 meter subplot, we
 # simply wrote "less than 8" to indicate it was in the subplot. So now I 
 # will name these as 4 (4 meters) even though they ranged from 0 m to 8 m
-trees$distance_to_center_meters_simple <- trees$distance_to_center_meters
-trees$distance_to_center_meters_simple[trees$distance_to_center_meters_simple == "less than 8"] <- "4"
-trees$distance_to_center_meters_simple[trees$distance_to_center_meters_simple == "between 8 and 18"] <- "13"
-trees$distance_to_center_meters_simple[trees$distance_to_center_meters_simple == "greater than 18"] <- "25"
-trees$distance_to_center_meters_simple[trees$distance_to_center_meters_simple == "approx 100 m"] <- "100"
-trees$distance_to_center_meters_simple <- as.numeric(trees$distance_to_center_meters_simple)
-hist(trees$distance_to_center_meters_simple, breaks=100)
+trees2$distance_to_center_meters_simple <- trees2$distance_to_center_meters
+trees2$distance_to_center_meters_simple[trees2$distance_to_center_meters_simple == "less than 8"] <- "4"
+trees2$distance_to_center_meters_simple[trees2$distance_to_center_meters_simple == "between 8 and 18"] <- "13"
+trees2$distance_to_center_meters_simple[trees2$distance_to_center_meters_simple == "greater than 18"] <- "25"
+trees2$distance_to_center_meters_simple[trees2$distance_to_center_meters_simple == "approx 100 m"] <- "100"
+trees2$distance_to_center_meters_simple <- as.numeric(trees2$distance_to_center_meters_simple)
+hist(trees2$distance_to_center_meters_simple, breaks=100)
 
 # Small trees must be >= 2.5 cm DBH AND < 12.5 cm DBH AND distance to the center
 # must be <= 8 meters
-small_trees_filtered <- trees %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
+small_trees_filtered <- trees2 %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
   dplyr::filter(diameter_at_137_cm_in_cm >= 2.5) %>%
   dplyr::filter(diameter_at_137_cm_in_cm < 10) %>%
   dplyr::filter(distance_to_center_meters_simple <= 8)
+plot(small_trees_filtered$diameter_at_137_cm_in_cm)
+plot(small_trees_filtered$distance_to_center_meters_simple)
 
 # Big trees must be >= 10 cm DBH AND distance to the center must be <= 18 meters
-big_trees_filtered <- trees %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
+big_trees_filtered <- trees2 %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
   dplyr::filter(diameter_at_137_cm_in_cm >= 10) %>%
   dplyr::filter(distance_to_center_meters_simple <= 18)
+plot(big_trees_filtered$diameter_at_137_cm_in_cm)
+plot(big_trees_filtered$distance_to_center_meters_simple)
 
+# Now, create a summary of how many ash small trees were found in each plot
+small_trees_filtered_by_plot <- small_trees_filtered %>% 
+  group_by(center_tree_number, ash_species_simple) %>%
+  summarise(number_small_trees = n(),
+            mstrlvl = first(mstrlvl))
+
+# Now the same type of summary for big trees
+big_trees_filtered_by_plot <- big_trees_filtered %>% group_by(center_tree_number) %>%
+  summarise(number_big_trees = n())
+
+trees_filtered_by_plot <- full_join(small_trees_filtered_by_plot, 
+                                    big_trees_filtered_by_plot, by="center_tree_number")
 
 
 
