@@ -258,7 +258,7 @@ table(trees2$ash_species_simple)
 # Which center_tree_number values are found in seedlings but not found in 
 # trees?
 a <- seedlings_by_plot$center_tree_number
-b <- unique(trees2$center_tree_number)
+b <- sort(unique(trees2$center_tree_number))
 b
 setdiff(a, b)
 # Plot 91 at Hudson Mills is correct to be missing from trees2
@@ -267,7 +267,7 @@ setdiff(a, b)
 trees2$quadrant_NE_SE_SW_NW <- as.factor(trees2$quadrant_NE_SE_SW_NW)
 summary(trees2$quadrant_NE_SE_SW_NW)
 trees2[trees2$quadrant_NE_SE_SW_NW == "?",] # The only rows with ? for quadrant
-# are about 100 meters from the center
+# are about 100 meters from the center (and so will be filtered out)
 
 # Which rows are simply recording the absence of any trees?
 c <- trees2$center_tree_number[trees2$quadrant_NE_SE_SW_NW == "none"]
@@ -278,7 +278,7 @@ unique(d)
 intersect(unique(c), unique(d)) # Make sure no trees are recorded from plots
 # also marked as having no trees.
 
-# We only recorded compass direction at the begginning of summer 
+# We only recorded compass direction at the beginning of summer 
 # (it was a lot of work). But we can at least check the data against quadrant
 # to see if they agree
 trees2$compass_direction <- as.numeric(trees2$compass_direction)
@@ -314,32 +314,100 @@ hist(trees2$distance_to_center_meters_simple, breaks=100)
 
 # Small trees must be >= 2.5 cm DBH AND < 12.5 cm DBH AND distance to the center
 # must be <= 8 meters
-small_trees_filtered <- trees2 %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
+small_trees <- trees2 %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
   dplyr::filter(diameter_at_137_cm_in_cm >= 2.5) %>%
   dplyr::filter(diameter_at_137_cm_in_cm < 10) %>%
   dplyr::filter(distance_to_center_meters_simple <= 8)
-plot(small_trees_filtered$diameter_at_137_cm_in_cm)
-plot(small_trees_filtered$distance_to_center_meters_simple)
+plot(small_trees$diameter_at_137_cm_in_cm)
+hist(small_trees$diameter_at_137_cm_in_cm, breaks=50)
+plot(small_trees$distance_to_center_meters_simple)
 
 # Big trees must be >= 10 cm DBH AND distance to the center must be <= 18 meters
-big_trees_filtered <- trees2 %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
+big_trees <- trees2 %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
   dplyr::filter(diameter_at_137_cm_in_cm >= 10) %>%
   dplyr::filter(distance_to_center_meters_simple <= 18)
-plot(big_trees_filtered$diameter_at_137_cm_in_cm)
-plot(big_trees_filtered$distance_to_center_meters_simple)
+plot(big_trees$diameter_at_137_cm_in_cm)
+plot(big_trees$distance_to_center_meters_simple)
 
 # Now, create a summary of how many ash small trees were found in each plot
-small_trees_filtered_by_plot <- small_trees_filtered %>% 
-  group_by(center_tree_number, ash_species_simple) %>%
+small_trees_by_plot <- small_trees %>% 
+  group_by(center_tree_number) %>%
   summarise(number_small_trees = n(),
             mstrlvl = first(mstrlvl))
 
+# Now, for any center tree numbers not mentioned in small_trees_by_plot,
+# but that are in trees2, I'd like to put another row with a zero in it:
+b # b is all the center tree numbers where presence/absence of trees was recorded
+e <- small_trees_by_plot$center_tree_number
+e # e is all the center tree numbers where small trees were found in the subplot
+f <- sort(setdiff(b, e))
+
+# Add a row for each center tree where no small trees were found in the subplot:
+for (k in (1:length(f))){
+  small_trees_by_plot <- small_trees_by_plot %>% 
+    bind_rows(data.frame(center_tree_number = f[k],
+                        number_small_trees = 0,
+                        mstrlvl = hydro$mstrlvl[which(hydro$center_tree_number == f[k])]))
+}
+# Reorder the rows by center_tree_number
+small_trees_by_plot <- small_trees_by_plot %>% arrange(center_tree_number)
+
+g <- small_trees_by_plot$center_tree_number
+all.equal(b, g) # This shows that small_trees_by_plot now has all the same center
+# trees that we recorded the presence or absence of trees at
+
+# To find the density of small trees, I need to divide the number of them 
+# found in the subplot (8 meters in radius) by the area of that subplot. 
+# The area of the subplot is 201.062 m^2. The unit will be stems per m^2.
+small_trees_by_plot$density_small_trees <- small_trees_by_plot$number_small_trees / 201.062
+
+# I would like to also change the units to stems per hectare:
+small_trees_by_plot$density_small_trees_stems_per_ha <- 
+  small_trees_by_plot$density_small_trees * 10000
+
+# Now, make a violin plot that shows the number of small trees found at each 
+# plot, as a function of hydroclass
+ggplot(data=small_trees_by_plot, aes(x=factor(mstrlvl), 
+                                    y=density_small_trees)) + 
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of ash small trees " ~ (stems/m^2))) +
+  theme_bw()
+
 # Now the same type of summary for big trees
-big_trees_filtered_by_plot <- big_trees_filtered %>% group_by(center_tree_number) %>%
+big_trees_by_plot <- big_trees %>% group_by(center_tree_number) %>%
   summarise(number_big_trees = n())
 
-trees_filtered_by_plot <- full_join(small_trees_filtered_by_plot, 
-                                    big_trees_filtered_by_plot, by="center_tree_number")
+# Now merge big_trees_by_plot into the small_trees_by_plot dataframe:
+trees_by_plot <- full_join(small_trees_by_plot, 
+                                    big_trees_by_plot, by="center_tree_number")
+# Replace NAs with zeros for number of big trees:
+trees_by_plot$number_big_trees[is.na(trees_by_plot$number_big_trees)] <- 0
+
+# Calculate the density of big trees in stems per m^2:
+trees_by_plot$density_big_trees <- trees_by_plot$number_big_trees / 1017.876
+
+# And in stems per hectare:
+trees_by_plot$density_big_trees_stems_per_ha <- 
+  trees_by_plot$density_big_trees * 10000
+
+# Now, make a violin plot that shows the number of big trees found at each 
+# plot, as a function of hydroclass
+ggplot(data=trees_by_plot, aes(x=factor(mstrlvl), 
+                                     y=density_big_trees)) + 
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of ash big trees " ~ (stems/m^2))) +
+  theme_bw()
+
+# Make a scatter plot of the small trees with diameter in the x-axis and 
+# canopy condition in the y-axis.
+ggplot(data=small_trees, aes(x=diameter_at_137_cm_in_cm, y=canopy_condition_1_5,
+                             color=ash_species_simple)) +
+  geom_jitter(height=0.05, width=0, alpha=0.4) +
+  theme_classic()
 
 
 
