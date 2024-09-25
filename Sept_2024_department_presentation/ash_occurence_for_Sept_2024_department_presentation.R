@@ -322,6 +322,7 @@ plot(small_trees$diameter_at_137_cm_in_cm)
 hist(small_trees$diameter_at_137_cm_in_cm, breaks=50)
 plot(small_trees$distance_to_center_meters_simple)
 
+
 # Big trees must be >= 10 cm DBH AND distance to the center must be <= 18 meters
 big_trees <- trees2 %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
   dplyr::filter(diameter_at_137_cm_in_cm >= 10) %>%
@@ -355,6 +356,15 @@ small_trees_by_plot <- small_trees_by_plot %>% arrange(center_tree_number)
 g <- small_trees_by_plot$center_tree_number
 all.equal(b, g) # This shows that small_trees_by_plot now has all the same center
 # trees that we recorded the presence or absence of trees at
+
+# Create a histogram of number of small trees to investigate whether the 
+# distribution follows a Poisson distribution.
+ggplot(data=small_trees_by_plot, aes(x=number_small_trees)) +
+  geom_histogram() +
+  theme_classic()
+# The Poisson distribution assumes that events (here the presence of a small
+# tree) occur independently of the position of other small trees. That assumption
+# is obviously false, since 
 
 # To find the density of small trees, I need to divide the number of them 
 # found in the subplot (8 meters in radius) by the area of that subplot. 
