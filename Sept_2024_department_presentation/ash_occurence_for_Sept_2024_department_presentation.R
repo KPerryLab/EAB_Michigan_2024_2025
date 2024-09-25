@@ -9,6 +9,9 @@ library(dplyr)
 # Plot centers ---------------------------------------------------------------
 
 plot_centers <- read.csv("Raw_data/EAB_Michigan_2024_plot_centers.csv")
+str(plot_centers)
+# for the center_tree column, I would encourage to split that into two (one for species and one for dbh)
+# same for the center tree updated column
 
 # There are 111 plots (37 transects) that I plan to visit (and 2 extra rows due 
 # to confusion about the true center for plot 75):
@@ -42,6 +45,7 @@ sum(plot_centers$trees_done_y_n == "y")
 # Hydroclass -----------------------------------------------------------------
 
 hydro <- read.csv("Raw_data/MI-plot-hydroclasses.csv")
+str(hydro)
 # The column "mstrlvl" is either xeric, mesic, or hydric. All plots in one
 # transect (3 plots) will have the same assignment of mstrlvl. I will also 
 # call this the "hydroclass". The column "plotmstr" has a value from 1 to 5 
@@ -56,13 +60,14 @@ hydro <- read.csv("Raw_data/MI-plot-hydroclasses.csv")
 # Seedlings -------------------------------------------------------------------
 
 seedlings <- read.csv("Raw_data/EAB_Michigan_2024_seedlings.csv")
-
+str(seedlings)
 # At one plot (75 at Indian Springs), we found two center trees marked 75.
 # The true, original plot 75 is the one I want to use. I called this one 
 # "75_south" in my datasheet this year. So I need to remove "75_north" rows and
 # rename "75_south" rows as simply "75".
 seedlings <- seedlings[seedlings$center_tree_number != "75_north",]
 seedlings$center_tree_number[seedlings$center_tree_number == "75_south"] <- "75"
+str(seedlings)
 
 seedlings$center_tree_number <- as.integer(seedlings$center_tree_number)
 
@@ -114,6 +119,10 @@ plot(seedlings2$density_short,
 # the qualitative shape of the distribution:
 hist(seedlings2$density_short, breaks=100)
 hist(seedlings2$density_tall, breaks=100)
+
+hist(seedlings2$number_short) # I wanted to see the count data, too
+hist(seedlings2$number_tall)
+hist(seedlings2$number_seedlings)
 
 # Note: these density variables are pseudo-continuous, but really they are
 # discrete, because the counts are discrete, and so there are only a limited
@@ -183,6 +192,7 @@ ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_percent_cover)) +
 # Saplings --------------------------------------------------------------------
 
 saplings <- read.csv("Raw_data/EAB_Michigan_2024_saplings.csv")
+str(saplings)
 # Remove 75_north and rename 75_south to 75 (see seedlings for details)
 saplings <- saplings[saplings$center_tree_number != "75_north",]
 saplings$center_tree_number[saplings$center_tree_number == "75_south"] <- "75"
