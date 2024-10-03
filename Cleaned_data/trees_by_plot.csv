@@ -1,0 +1,98 @@
+"","center_tree_number","Park","Transect","mstrlvl","plotmstr","number_small_trees","density_small_trees","density_small_trees_stems_per_ha","number_big_trees","density_big_trees","density_big_trees_stems_per_ha"
+"1",1,"Kensington","A","xeric",1,0,0,0,0,0,0
+"2",2,"Kensington","A","xeric",1,0,0,0,0,0,0
+"3",3,"Kensington","A","xeric",1,0,0,0,0,0,0
+"4",5,"Hudson Mills","AA","mesic",3,0,0,0,0,0,0
+"5",7,"Kensington","B","xeric",1,0,0,0,0,0,0
+"6",8,"Kensington","B","xeric",1,0,0,0,0,0,0
+"7",9,"Kensington","B","xeric",1,0,0,0,0,0,0
+"8",10,"Hudson Mills","BB","xeric",2,0,0,0,0,0,0
+"9",11,"Hudson Mills","BB","xeric",2,0,0,0,0,0,0
+"10",12,"Hudson Mills","BB","xeric",1,0,0,0,0,0,0
+"11",13,"Kensington","C","xeric",1,0,0,0,0,0,0
+"12",14,"Kensington","C","xeric",1,0,0,0,0,0,0
+"13",15,"Kensington","C","xeric",1,0,0,0,0,0,0
+"14",16,"Island Lake","CC","mesic",2,0,0,0,0,0,0
+"15",17,"Island Lake","CC","mesic",3,0,0,0,0,0,0
+"16",18,"Island Lake","CC","mesic",4,16,0.0795774437735624,795.774437735624,0,0,0
+"17",19,"Kensington","D","xeric",1,0,0,0,0,0,0
+"18",20,"Kensington","D","xeric",1,0,0,0,0,0,0
+"19",21,"Kensington","D","xeric",1,0,0,0,0,0,0
+"20",22,"Island Lake","DD","hydric",4,12,0.0596830828301718,596.830828301718,0,0,0
+"21",24,"Island Lake","DD","hydric",4,35,0.174075658254668,1740.75658254668,0,0,0
+"22",25,"Proud Lake","E","xeric",3,8,0.0397887218867812,397.887218867812,0,0,0
+"23",26,"Proud Lake","E","xeric",1,0,0,0,0,0,0
+"24",27,"Proud Lake","E","xeric",1,0,0,0,0,0,0
+"25",28,"Highland","EE","xeric",3,0,0,0,0,0,0
+"26",29,"Highland","EE","xeric",1,0,0,0,0,0,0
+"27",30,"Highland","EE","xeric",1,0,0,0,0,0,0
+"28",31,"Proud Lake","F","xeric",1,0,0,0,0,0,0
+"29",32,"Proud Lake","F","xeric",2,0,0,0,0,0,0
+"30",33,"Proud Lake","F","xeric",1,4,0.0198943609433906,198.943609433906,0,0,0
+"31",34,"Proud Lake","G","xeric",1,0,0,0,0,0,0
+"32",35,"Proud Lake","G","xeric",1,0,0,0,0,0,0
+"33",36,"Proud Lake","G","xeric",1,0,0,0,0,0,0
+"34",37,"Proud Lake","H","hydric",5,31,0.154181297311277,1541.81297311277,1,0.000982437939395368,9.82437939395368
+"35",38,"Proud Lake","H","hydric",5,28,0.139260526603734,1392.60526603734,1,0.000982437939395368,9.82437939395368
+"36",39,"Proud Lake","H","hydric",5,22,0.109418985188648,1094.18985188648,1,0.000982437939395368,9.82437939395368
+"37",40,"Kensington","I","hydric",5,0,0,0,0,0,0
+"38",41,"Kensington","I","hydric",4,0,0,0,0,0,0
+"39",42,"Kensington","I","hydric",5,0,0,0,0,0,0
+"40",43,"Kensington","J","hydric",5,0,0,0,0,0,0
+"41",44,"Kensington","J","hydric",5,0,0,0,0,0,0
+"42",45,"Kensington","J","hydric",5,0,0,0,0,0,0
+"43",49,"Pontiac Lake","L","xeric",2,0,0,0,0,0,0
+"44",50,"Pontiac Lake","L","xeric",2,0,0,0,0,0,0
+"45",51,"Pontiac Lake","L","xeric",2,0,0,0,0,0,0
+"46",52,"Pontiac Lake","M","mesic",3,0,0,0,0,0,0
+"47",53,"Pontiac Lake","M","mesic",1,3,0.0149207707075429,149.207707075429,0,0,0
+"48",54,"Pontiac Lake","M","mesic",3,0,0,0,0,0,0
+"49",55,"Pontiac Lake","N","xeric",2,0,0,0,0,0,0
+"50",56,"Pontiac Lake","N","xeric",2,0,0,0,0,0,0
+"51",57,"Pontiac Lake","N","xeric",2,0,0,0,0,0,0
+"52",58,"Pontiac Lake","O","xeric",1,0,0,0,0,0,0
+"53",59,"Pontiac Lake","O","xeric",1,0,0,0,0,0,0
+"54",60,"Pontiac Lake","O","xeric",1,3,0.0149207707075429,149.207707075429,0,0,0
+"55",62,"Island Lake","P","hydric",4,8,0.0397887218867812,397.887218867812,0,0,0
+"56",63,"Island Lake","P","hydric",4,63,0.313336184858402,3133.36184858402,0,0,0
+"57",64,"Island Lake","Q","hydric",4,2,0.0099471804716953,99.471804716953,0,0,0
+"58",65,"Island Lake","Q","hydric",3,6,0.0298415414150859,298.415414150859,0,0,0
+"59",67,"Indian Springs","R","mesic",2,0,0,0,0,0,0
+"60",68,"Indian Springs","R","mesic",3,0,0,0,0,0,0
+"61",69,"Indian Springs","R","mesic",2,0,0,0,0,0,0
+"62",70,"Indian Springs","S","hydric",3,0,0,0,0,0,0
+"63",71,"Indian Springs","S","hydric",4,2,0.0099471804716953,99.471804716953,3,0.00294731381818611,29.4731381818611
+"64",72,"Indian Springs","S","hydric",4,49,0.243705921556535,2437.05921556535,3,0.00294731381818611,29.4731381818611
+"65",73,"Indian Springs","T","xeric",2,0,0,0,0,0,0
+"66",74,"Indian Springs","T","xeric",3,0,0,0,0,0,0
+"67",75,"Indian Springs","T","xeric",2,0,0,0,0,0,0
+"68",76,"Indian Springs","U","hydric",4,1,0.00497359023584765,49.7359023584765,0,0,0
+"69",77,"Indian Springs","U","hydric",4,0,0,0,0,0,0
+"70",78,"Indian Springs","U","hydric",4,12,0.0596830828301718,596.830828301718,0,0,0
+"71",79,"Indian Springs","V","mesic",3,0,0,0,0,0,0
+"72",80,"Indian Springs","V","mesic",2,0,0,0,0,0,0
+"73",81,"Indian Springs","V","mesic",2,0,0,0,0,0,0
+"74",82,"Highland","W","xeric",2,0,0,0,0,0,0
+"75",83,"Highland","W","xeric",2,0,0,0,0,0,0
+"76",84,"Highland","W","xeric",2,0,0,0,0,0,0
+"77",85,"Highland","X","mesic",1,0,0,0,0,0,0
+"78",86,"Highland","X","mesic",3,0,0,0,0,0,0
+"79",87,"Highland","X","mesic",3,1,0.00497359023584765,49.7359023584765,0,0,0
+"80",88,"Highland","Y","xeric",1,0,0,0,0,0,0
+"81",89,"Highland","Y","xeric",1,0,0,0,0,0,0
+"82",90,"Highland","Y","xeric",1,0,0,0,0,0,0
+"83",94,"Pontiac Lake","ZA","xeric",2,0,0,0,0,0,0
+"84",95,"Pontiac Lake","ZA","xeric",2,0,0,0,0,0,0
+"85",96,"Pontiac Lake","ZA","xeric",2,0,0,0,0,0,0
+"86",97,"Pontiac Lake","ZB","mesic",3,0,0,0,0,0,0
+"87",98,"Pontiac Lake","ZB","mesic",2,0,0,0,0,0,0
+"88",99,"Pontiac Lake","ZB","mesic",2,0,0,0,0,0,0
+"89",100,"Pontiac Lake","ZC","xeric",2,0,0,0,0,0,0
+"90",101,"Pontiac Lake","ZC","xeric",1,0,0,0,0,0,0
+"91",102,"Pontiac Lake","ZC","xeric",2,0,0,0,0,0,0
+"92",109,"Indian Springs","ZF","mesic",2,0,0,0,0,0,0
+"93",110,"Indian Springs","ZF","mesic",3,0,0,0,0,0,0
+"94",111,"Indian Springs","ZF","mesic",2,0,0,0,0,0,0
+"95",112,"Kensington","ZG","xeric",1,1,0.00497359023584765,49.7359023584765,0,0,0
+"96",113,"Kensington","ZG","xeric",1,3,0.0149207707075429,149.207707075429,0,0,0
+"97",114,"Kensington","ZG","xeric",1,3,0.0149207707075429,149.207707075429,0,0,0

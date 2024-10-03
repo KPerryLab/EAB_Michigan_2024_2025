@@ -1,0 +1,35 @@
+"","Transect","Park","mstrlvl","mean_plotmstr","mean_density_small_trees","mean_density_small_trees_stems_per_ha","mean_density_big_trees","mean_density_big_trees_stems_per_ha"
+"1","A","Kensington","xeric",1,0,0,0,0
+"2","AA","Hudson Mills","mesic",3,0,0,0,0
+"3","B","Kensington","xeric",1,0,0,0,0
+"4","BB","Hudson Mills","xeric",1.66666666666667,0,0,0,0
+"5","C","Kensington","xeric",1,0,0,0,0
+"6","CC","Island Lake","mesic",3,0.0265258145911875,265.258145911875,0,0
+"7","D","Kensington","xeric",1,0,0,0,0
+"8","DD","Island Lake","hydric",4,0.11687937054242,1168.7937054242,0,0
+"9","E","Proud Lake","xeric",1.66666666666667,0.0132629072955937,132.629072955937,0,0
+"10","EE","Highland","xeric",1.66666666666667,0,0,0,0
+"11","F","Proud Lake","xeric",1.33333333333333,0.00663145364779686,66.3145364779686,0,0
+"12","G","Proud Lake","xeric",1,0,0,0,0
+"13","H","Proud Lake","hydric",5,0.134286936367887,1342.86936367887,0.000982437939395368,9.82437939395368
+"14","I","Kensington","hydric",4.66666666666667,0,0,0,0
+"15","J","Kensington","hydric",5,0,0,0,0
+"16","L","Pontiac Lake","xeric",2,0,0,0,0
+"17","M","Pontiac Lake","mesic",2.33333333333333,0.00497359023584765,49.7359023584765,0,0
+"18","N","Pontiac Lake","xeric",2,0,0,0,0
+"19","O","Pontiac Lake","xeric",1,0.00497359023584765,49.7359023584765,0,0
+"20","P","Island Lake","hydric",4,0.176562453372592,1765.62453372592,0,0
+"21","Q","Island Lake","hydric",3.5,0.0198943609433906,198.943609433906,0,0
+"22","R","Indian Springs","mesic",2.33333333333333,0,0,0,0
+"23","S","Indian Springs","hydric",3.66666666666667,0.08455103400941,845.5103400941,0.00196487587879074,19.6487587879074
+"24","T","Indian Springs","xeric",2.33333333333333,0,0,0,0
+"25","U","Indian Springs","hydric",4,0.0215522243553398,215.522243553398,0,0
+"26","V","Indian Springs","mesic",2.33333333333333,0,0,0,0
+"27","W","Highland","xeric",2,0,0,0,0
+"28","X","Highland","mesic",2.33333333333333,0.00165786341194922,16.5786341194922,0,0
+"29","Y","Highland","xeric",1,0,0,0,0
+"30","ZA","Pontiac Lake","xeric",2,0,0,0,0
+"31","ZB","Pontiac Lake","mesic",2.33333333333333,0,0,0,0
+"32","ZC","Pontiac Lake","xeric",1.66666666666667,0,0,0,0
+"33","ZF","Indian Springs","mesic",2.33333333333333,0,0,0,0
+"34","ZG","Kensington","xeric",1,0.0116050438836445,116.050438836445,0,0

@@ -6,46 +6,12 @@
 library(ggplot2)
 library(dplyr)
 
-# Plot centers ---------------------------------------------------------------
-
-plot_centers <- read.csv("Raw_data/EAB_Michigan_2024_plot_centers.csv")
-str(plot_centers)
-# for the center_tree column, I would encourage to split that into two (one for species and one for dbh)
-# same for the center tree updated column
-
-# There are 111 plots (37 transects) that I plan to visit (and 2 extra rows due 
-# to confusion about the true center for plot 75):
-nrow(plot_centers)
-
-# There are 98 plots that I have collected seedling data (not counting 75_north):
-sum(plot_centers$seedlings_done_y_n == "y")
-
-# Similarly, there are 98 plots that I have collected sapling data (not counting 
-# 75_north):
-sum(plot_centers$saplings_done_y_n == "y")
-
-# There are 97 plots that I have collected tree data for (not counting 75_north).
-# At plot 91 at Hudson Mills, we ran out of time to collect tree data due to a 
-# thunderstorm
-sum(plot_centers$trees_done_y_n == "y")
-
-# There are 2 plots where we found and measured the center tree but did not 
-# collect any seedling, sapling, or tree data due to high waters and a time 
-# crunch. These were plots 23 and 66, both at Island Lake.
-#View(plot_centers[plot_centers$seedlings_done_y_n == "n",])
-
-# This leaves 11 plots that we have neither found the center or recorded data
-# for. Four at Hudson Mills, six at Indian Springs, and one at Island Lake. 
-# Note: we technically found plot 61 at Island Lake, but I forgot to write
-# the center tree DBH, and thus I'm considering it completely not-started.
-#View(plot_centers[plot_centers$seedlings_done_y_n == "",])
-
-# Summary: 97 done + 3 partially done + 11 not-started = 111 plots
 
 # Hydroclass -----------------------------------------------------------------
 
 hydro <- read.csv("Raw_data/MI-plot-hydroclasses.csv")
 str(hydro)
+hydro$mstrlvl <- as.factor(hydro$mstrlvl)
 # The column "mstrlvl" is either xeric, mesic, or hydric. All plots in one
 # transect (3 plots) will have the same assignment of mstrlvl. I will also 
 # call this the "hydroclass". The column "plotmstr" has a value from 1 to 5 
@@ -56,6 +22,67 @@ str(hydro)
 # Note: "MI-plot-hydroclasses.csv" has hydroclass data for 129 plots, including
 # some that I do not plan to visit because they are designated "non-ash" plots
 # or they are at Brighton.
+
+# Plot centers ---------------------------------------------------------------
+
+plot_centers0 <- read.csv("Raw_data/EAB_Michigan_2024_plot_centers.csv")
+str(plot_centers0)
+# Kayla: for the center_tree column, I would encourage to split that into two (one for species and one for dbh)
+# same for the center tree updated column
+
+# There are 111 plots (37 transects) that I plan to visit (and 2 extra rows due 
+# to confusion about the true center for plot 75):
+nrow(plot_centers0)
+
+# Remove the 2 additional rows listing info on 75_north and 75_south:
+plot_centers0 <- plot_centers0[plot_centers0$center_tree_number != "75_north",]
+plot_centers0 <- plot_centers0[plot_centers0$center_tree_number != "75_south",]
+
+nrow(plot_centers0)
+
+# Make transect and park into factors:
+plot_centers0$Transect <- as.factor(plot_centers0$Transect)
+plot_centers0$Park <- as.factor(plot_centers0$Park)
+
+# Make center tree number into an integer:
+plot_centers0$center_tree_number <- as.integer(plot_centers0$center_tree_number)
+
+# There are 98 plots that I have collected seedling data (not counting 75_north):
+sum(plot_centers0$seedlings_done_y_n == "y")
+
+# Similarly, there are 98 plots that I have collected sapling data (not counting 
+# 75_north):
+sum(plot_centers0$saplings_done_y_n == "y")
+
+# There are 97 plots that I have collected tree data for (not counting 75_north).
+# At plot 91 at Hudson Mills, we ran out of time to collect tree data due to a 
+# thunderstorm
+sum(plot_centers0$trees_done_y_n == "y")
+
+# There are 2 plots where we found and measured the center tree but did not 
+# collect any seedling, sapling, or tree data due to high waters and a time 
+# crunch. These were plots 23 and 66, both at Island Lake.
+
+# This leaves 11 plots that we have neither found the center or recorded data
+# for. Four at Hudson Mills, six at Indian Springs, and one at Island Lake. 
+# Note: we technically found plot 61 at Island Lake, but I forgot to write
+# the center tree DBH, and thus I'm considering it completely not-started.
+
+# Summary: 97 done + 3 partially done + 11 not-started = 111 plots
+
+# Join the hydroclass data into the plot_centers dataframe:
+plot_centers <- right_join(hydro, plot_centers0)
+nrow(plot_centers) == nrow(plot_centers0)
+
+# Try to understand which hydroclasses (hydric, mesic, xeric) are found at 
+# each Park:
+table((plot_centers %>% filter(Park == "Highland"))$mstrlvl)
+table((plot_centers %>% filter(Park == "Hudson Mills"))$mstrlvl)
+table((plot_centers %>% filter(Park == "Indian Springs"))$mstrlvl)
+table((plot_centers %>% filter(Park == "Island Lake"))$mstrlvl)
+table((plot_centers %>% filter(Park == "Kensington"))$mstrlvl)
+table((plot_centers %>% filter(Park == "Pontiac Lake"))$mstrlvl)
+table((plot_centers %>% filter(Park == "Proud Lake"))$mstrlvl)
 
 # Seedlings -------------------------------------------------------------------
 
@@ -71,14 +98,12 @@ str(seedlings)
 
 seedlings$center_tree_number <- as.integer(seedlings$center_tree_number)
 
-# To combine the data on hydroclasses with the seedling data, I will
-# use inner_join, which keeps only the rows which have center_tree_number
-# matching between the two datasets:
-seedlings2 <- inner_join(seedlings, hydro, by="center_tree_number")
-# I notice that the number of rows of seedlings and seedlings2 are the same,
-# indicating that the dataframe hydro contained all the center tree numbers
-# that I have
-nrow(seedlings) == nrow(seedlings2)
+# To combine the data on plot centers with the seedling data, I want to
+# keep all rows in seedlings:
+seedlings2 <- right_join(plot_centers, seedlings, by="center_tree_number")
+# I notice test if the number of rows are the same,
+# indicating that the datasets combined sucessfully:
+nrow(seedlings2) == nrow(seedlings)
 
 # We recorded data for each quadrant of each microplot, so I need to add up the
 # four quadrants for short seedlings (those that are shorter than 25 cm):
@@ -146,12 +171,20 @@ ggplot(data=seedlings2, aes(x=factor(mstrlvl),
 # values, but I need to check on this.
 
 seedlings_by_plot <- seedlings2 %>% group_by(center_tree_number) %>% 
-  summarize(mean_percent_cover = mean(percent_cover_0_0.5_1_3.5_8_15.5_25.5_etc, 
+  summarize(Park = first(Park),
+            Transect = first(Transect),
+            mstrlvl = first(mstrlvl),
+            plotmstr = first(plotmstr),
+            mean_percent_cover = mean(percent_cover_0_0.5_1_3.5_8_15.5_25.5_etc, 
                                  na.rm=TRUE),
             mean_density_short = mean(density_short),
             mean_density_tall = mean(density_tall),
             mean_density_seedlings = mean(density_seedlings),
-            mstrlvl = first(mstrlvl))
+            total_number_short = sum(number_short),
+            total_number_tall = sum(number_tall),
+            total_number_seedlings = sum(number_seedlings))
+
+#write.csv(seedlings_by_plot, file="Cleaned_data/seedlings_by_plot.csv")
 
 # Make a graph that shows the seedling densities by hydroclass, at the plot level
 ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_density_seedlings)) +
@@ -189,6 +222,56 @@ ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_percent_cover)) +
   ylab("Percent cover of ash seedlings (%)") +
   theme_bw()
 
+# Make a transect-level summary:
+seedlings_by_transect <- seedlings2 %>% group_by(Transect) %>% 
+  summarize(Park = first(Park),
+            mstrlvl = first(mstrlvl),
+            mean_plotmstr = mean(plotmstr),
+            mean_percent_cover = mean(percent_cover_0_0.5_1_3.5_8_15.5_25.5_etc, 
+                                      na.rm=TRUE),
+            mean_density_short = mean(density_short),
+            mean_density_tall = mean(density_tall),
+            mean_density_seedlings = mean(density_seedlings),
+            total_number_short = sum(number_short),
+            total_number_tall = sum(number_tall),
+            total_number_seedlings = sum(number_seedlings))
+
+#write.csv(seedlings_by_transect, file="Cleaned_data/seedlings_by_transect.csv")
+
+# Make a graph that shows the seedling densities by hydroclass, at the transect level:
+ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_density_seedlings)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of ash seedlings " ~ (stems/m^2))) +
+  scale_y_continuous(breaks=seq(0,9,2)) +
+  theme_bw()
+
+# Make a graph that shows the number of seedlings by hydroclass, at the transect level:
+ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_seedlings)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab("Total number of ash seedlings (stems)") +
+  theme_bw()
+
+# Make a graph that shows the percent cover by hydroclass, at the transect level
+ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_percent_cover)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab("Percent cover of ash seedlings (%)") +
+  theme_bw()
+
+# Make a graph that shows the seedling densities by park, at the transect level:
+ggplot(data=seedlings_by_transect, aes(x=Park, y=mean_density_seedlings)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of ash seedlings " ~ (stems/m^2))) +
+  scale_y_continuous(breaks=seq(0,9,2)) +
+  theme_bw()
+
 # Saplings --------------------------------------------------------------------
 
 saplings <- read.csv("Raw_data/EAB_Michigan_2024_saplings.csv")
@@ -199,15 +282,18 @@ saplings$center_tree_number[saplings$center_tree_number == "75_south"] <- "75"
 
 saplings$center_tree_number <- as.integer(saplings$center_tree_number)
 
-# Trying to add in the hydroclass to this dataframe:
-saplings2 <- inner_join(saplings, hydro, by="center_tree_number")
+# Trying to add in the plot center info to this dataframe:
+saplings2 <- right_join(plot_centers, saplings, by="center_tree_number")
 nrow(saplings) == nrow(saplings2)
 
 # Saplings were counted in each quadrant, so I want to sum up the quadrants
 # to get a total number of saplings by plot
 saplings_by_plot <- saplings2 %>% group_by(center_tree_number) %>% 
-  summarize(number_saplings = sum(number_of_stems),
-            mstrlvl = first(mstrlvl))
+  summarize(Park = first(Park),
+            Transect = first(Transect),
+            mstrlvl = first(mstrlvl),
+            plotmstr = first(plotmstr),
+            number_saplings = sum(number_of_stems))
 
 # To find the density of saplings, I need to divide the number of saplings 
 # found in the subplot (8 meters in radius) by the area of that subplot. 
@@ -218,10 +304,32 @@ saplings_by_plot$density_saplings <- saplings_by_plot$number_saplings / 201.062
 saplings_by_plot$density_saplings_stems_per_ha <- 
   saplings_by_plot$density_saplings * 10000
 
-# Now, make a violin plot that shows the number of saplings found at each plot, 
+#write.csv(saplings_by_plot, file="Cleaned_data/saplings_by_plot.csv")
+
+
+# Now, make a violin plot that shows the density of saplings found at each plot, 
 # as a function of hydroclass
 ggplot(data=saplings_by_plot, aes(x=factor(mstrlvl), 
                                   y=density_saplings)) + 
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of ash saplings " ~ (stems/m^2))) +
+  theme_bw()
+
+# Now create a summary at the transect level:
+saplings_by_transect <- saplings_by_plot %>% group_by(Transect) %>%
+  summarise(Park = first(Park),
+            mstrlvl = first(mstrlvl),
+            mean_plotmstr = mean(plotmstr),
+            mean_density_saplings = mean(density_saplings))
+
+write.csv(saplings_by_transect, file="Cleaned_data/saplings_by_transect.csv")
+
+# Now, make a violin plot that shows the mean density of saplings found at each 
+# transect, as a function of hydroclass
+ggplot(data=saplings_by_transect, aes(x=mstrlvl, 
+                                  y=mean_density_saplings)) + 
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
@@ -239,8 +347,8 @@ trees$center_tree_number[trees$center_tree_number == "75_south"] <- "75"
 trees$center_tree_number <- as.integer(trees$center_tree_number)
 trees$ash_species <- as.factor(trees$ash_species)
 
-# Add in hydroclass data
-trees2 <- inner_join(trees, hydro, by="center_tree_number")
+# Add in plot center data
+trees2 <- right_join(plot_centers, trees, by="center_tree_number")
 nrow(trees) == nrow(trees2)
 
 # Remove any rows where the species of tree is not ash (keep rows where ash_species is NA)
@@ -332,6 +440,7 @@ plot(small_trees$diameter_at_137_cm_in_cm)
 hist(small_trees$diameter_at_137_cm_in_cm, breaks=50)
 plot(small_trees$distance_to_center_meters_simple)
 
+#write.csv(small_trees, file="Cleaned_data/individual_small_trees.csv")
 
 # Big trees must be >= 10 cm DBH AND distance to the center must be <= 18 meters
 big_trees <- trees2 %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
@@ -340,26 +449,32 @@ big_trees <- trees2 %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
 plot(big_trees$diameter_at_137_cm_in_cm)
 plot(big_trees$distance_to_center_meters_simple)
 
+write.csv(big_trees, file="Cleaned_data/individual_big_trees.csv")
+
 # Now, create a summary of how many ash small trees were found in each plot
-small_trees_by_plot <- small_trees %>% 
-  group_by(center_tree_number) %>%
-  summarise(number_small_trees = n(),
-            mstrlvl = first(mstrlvl))
+small_trees_by_plot <- small_trees %>% group_by(center_tree_number) %>%
+  summarise(Park = first(Park),
+            Transect = first(Transect),
+            mstrlvl = first(mstrlvl),
+            plotmstr = first(plotmstr),
+            number_small_trees = n())
 
 # Now, for any center tree numbers not mentioned in small_trees_by_plot,
 # but that are in trees2, I'd like to put another row with a zero in it:
 b # b is all the center tree numbers where presence/absence of trees was recorded
 e <- small_trees_by_plot$center_tree_number
 e # e is all the center tree numbers where small trees were found in the subplot
-f <- sort(setdiff(b, e))
+f <- sort(setdiff(b, e)) # f is all the center tree numbers were zero small
+# trees were found in the subplot
 
 # Add a row for each center tree where no small trees were found in the subplot:
 for (k in (1:length(f))){
-  small_trees_by_plot <- small_trees_by_plot %>% 
-    bind_rows(data.frame(center_tree_number = f[k],
-                        number_small_trees = 0,
-                        mstrlvl = hydro$mstrlvl[which(hydro$center_tree_number == f[k])]))
+  info <- plot_centers %>% filter(center_tree_number == f[k]) %>% 
+    select(center_tree_number, Park, Transect, mstrlvl, plotmstr)
+  info$number_small_trees <- 0
+  small_trees_by_plot <- small_trees_by_plot %>% bind_rows(info)
 }
+
 # Reorder the rows by center_tree_number
 small_trees_by_plot <- small_trees_by_plot %>% arrange(center_tree_number)
 
@@ -374,7 +489,7 @@ ggplot(data=small_trees_by_plot, aes(x=number_small_trees)) +
   theme_classic()
 # The Poisson distribution assumes that events (here the presence of a small
 # tree) occur independently of the position of other small trees. That assumption
-# is obviously false, since 
+# is obviously false
 
 # To find the density of small trees, I need to divide the number of them 
 # found in the subplot (8 meters in radius) by the area of that subplot. 
@@ -414,12 +529,35 @@ trees_by_plot$density_big_trees_stems_per_ha <-
 
 # Now, make a violin plot that shows the number of big trees found at each 
 # plot, as a function of hydroclass
-ggplot(data=trees_by_plot, aes(x=factor(mstrlvl), 
+ggplot(data=trees_by_plot, aes(x=mstrlvl, 
                                      y=density_big_trees)) + 
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
   ylab(bquote("Density of ash big trees " ~ (stems/m^2))) +
+  theme_bw()
+
+#write.csv(trees_by_plot, file="Cleaned_data/trees_by_plot.csv")
+
+# Create a transect-level summary of the tree data:
+trees_by_transect <- trees_by_plot %>% group_by(Transect) %>%
+  summarise(Park = first(Park),
+            mstrlvl = first(mstrlvl),
+            mean_plotmstr = mean(plotmstr),
+            mean_density_small_trees = mean(density_small_trees),
+            mean_density_small_trees_stems_per_ha = mean(density_small_trees_stems_per_ha),
+            mean_density_big_trees = mean(density_big_trees),
+            mean_density_big_trees_stems_per_ha = mean(density_big_trees_stems_per_ha))
+
+write.csv(trees_by_transect, file="Cleaned_data/trees_by_transect.csv")
+
+# Graph the number of small trees by hydroclass, at the transect level:
+ggplot(data=trees_by_transect, aes(x=mstrlvl, 
+                               y=mean_density_small_trees)) + 
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of ash small trees " ~ (stems/m^2))) +
   theme_bw()
 
 # Make a scatter plot of the small trees with diameter in the x-axis and 
