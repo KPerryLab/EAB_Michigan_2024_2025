@@ -322,18 +322,19 @@ saplings_by_transect <- saplings_by_plot %>% group_by(Transect) %>%
   summarise(Park = first(Park),
             mstrlvl = first(mstrlvl),
             mean_plotmstr = mean(plotmstr),
-            mean_density_saplings = mean(density_saplings))
+            mean_density_saplings = mean(density_saplings),
+            mean_density_saplings_stems_per_ha = mean(density_saplings_stems_per_ha))
 
-write.csv(saplings_by_transect, file="Cleaned_data/saplings_by_transect.csv")
+#write.csv(saplings_by_transect, file="Cleaned_data/saplings_by_transect.csv")
 
 # Now, make a violin plot that shows the mean density of saplings found at each 
 # transect, as a function of hydroclass
 ggplot(data=saplings_by_transect, aes(x=mstrlvl, 
-                                  y=mean_density_saplings)) + 
+                                  y=mean_density_saplings_stems_per_ha)) + 
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
-  ylab(bquote("Density of ash saplings " ~ (stems/m^2))) +
+  ylab(bquote("Density of ash saplings " ~ (stems/ha))) +
   theme_bw()
 
 # Small trees and trees -------------------------------------------------------
@@ -449,15 +450,22 @@ big_trees <- trees2 %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
 plot(big_trees$diameter_at_137_cm_in_cm)
 plot(big_trees$distance_to_center_meters_simple)
 
-write.csv(big_trees, file="Cleaned_data/individual_big_trees.csv")
+#write.csv(big_trees, file="Cleaned_data/individual_big_trees.csv")
 
 # Now, create a summary of how many ash small trees were found in each plot
+# and what the basal area was. To calculate basal area, take the diameters, 
+# and convert to areas and add them up, then convert the units from cm^2 to 
+# meters^2 by dividing by 10,000. Note: I have not yet divided
+# by the area of the subplot yet.
 small_trees_by_plot <- small_trees %>% group_by(center_tree_number) %>%
   summarise(Park = first(Park),
             Transect = first(Transect),
             mstrlvl = first(mstrlvl),
             plotmstr = first(plotmstr),
-            number_small_trees = n())
+            number_small_trees = n(),
+            basal_area_small_trees_in_m_squared = 
+              pi * sum(diameter_at_137_cm_in_cm ^ 2) / 10000
+            )
 
 # Now, for any center tree numbers not mentioned in small_trees_by_plot,
 # but that are in trees2, I'd like to put another row with a zero in it:
@@ -466,12 +474,14 @@ e <- small_trees_by_plot$center_tree_number
 e # e is all the center tree numbers where small trees were found in the subplot
 f <- sort(setdiff(b, e)) # f is all the center tree numbers were zero small
 # trees were found in the subplot
+f
 
 # Add a row for each center tree where no small trees were found in the subplot:
 for (k in (1:length(f))){
   info <- plot_centers %>% filter(center_tree_number == f[k]) %>% 
     select(center_tree_number, Park, Transect, mstrlvl, plotmstr)
   info$number_small_trees <- 0
+  info$basal_area_small_trees_in_m_squared <- 0
   small_trees_by_plot <- small_trees_by_plot %>% bind_rows(info)
 }
 
@@ -491,34 +501,53 @@ ggplot(data=small_trees_by_plot, aes(x=number_small_trees)) +
 # tree) occur independently of the position of other small trees. That assumption
 # is obviously false
 
+
 # To find the density of small trees, I need to divide the number of them 
 # found in the subplot (8 meters in radius) by the area of that subplot. 
 # The area of the subplot is 201.062 m^2. The unit will be stems per m^2.
 small_trees_by_plot$density_small_trees <- small_trees_by_plot$number_small_trees / 201.062
-
+ 
 # I would like to also change the units to stems per hectare:
 small_trees_by_plot$density_small_trees_stems_per_ha <- 
   small_trees_by_plot$density_small_trees * 10000
 
-# Now, make a violin plot that shows the number of small trees found at each 
+# Now find the basal area of small trees in meters^2 per hectare. I do this by 
+# dividing by the area of the subplot over which small trees were recorded and
+# then multiplying by 10,000 to convert into meters^2 of basal area per hectare
+small_trees_by_plot$basal_area_small_trees_m_squared_per_ha <-
+  ( small_trees_by_plot$basal_area_small_trees_in_m_squared / 201.062 ) * 10000
+
+# Now, make a violin plot that shows the density of small trees found at each 
 # plot, as a function of hydroclass
-ggplot(data=small_trees_by_plot, aes(x=factor(mstrlvl), 
-                                    y=density_small_trees)) + 
+ggplot(data=small_trees_by_plot, aes(x=mstrlvl, 
+                                    y=density_small_trees_stems_per_ha)) + 
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
-  ylab(bquote("Density of ash small trees " ~ (stems/m^2))) +
+  ylab(bquote("Density of ash small trees " ~ (stems/hectare))) +
+  theme_bw()
+
+# Plot the basal area per hectare found at each plot as a function of hydroclass:
+ggplot(data=small_trees_by_plot, aes(x=mstrlvl,
+                                     y=basal_area_small_trees_m_squared_per_ha)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Basal area of ash small trees " ~ (m^2/hectare))) +
   theme_bw()
 
 # Now the same type of summary for big trees
 big_trees_by_plot <- big_trees %>% group_by(center_tree_number) %>%
-  summarise(number_big_trees = n())
+  summarise(number_big_trees = n(),
+            basal_area_big_trees_in_m_squared = 
+              pi * sum(diameter_at_137_cm_in_cm ^ 2) / 10000)
 
 # Now merge big_trees_by_plot into the small_trees_by_plot dataframe:
 trees_by_plot <- full_join(small_trees_by_plot, 
                                     big_trees_by_plot, by="center_tree_number")
-# Replace NAs with zeros for number of big trees:
+# Replace NAs with zeros for number of big trees and basal area of big trees:
 trees_by_plot$number_big_trees[is.na(trees_by_plot$number_big_trees)] <- 0
+trees_by_plot$basal_area_big_trees_in_m_squared[is.na(trees_by_plot$basal_area_big_trees_in_m_squared)] <- 0
 
 # Calculate the density of big trees in stems per m^2:
 trees_by_plot$density_big_trees <- trees_by_plot$number_big_trees / 1017.876
@@ -526,6 +555,10 @@ trees_by_plot$density_big_trees <- trees_by_plot$number_big_trees / 1017.876
 # And in stems per hectare:
 trees_by_plot$density_big_trees_stems_per_ha <- 
   trees_by_plot$density_big_trees * 10000
+
+# Calculate the basal area of big trees in meters^2 per hectare
+trees_by_plot$basal_area_big_trees_m_squared_per_ha <-
+  ( trees_by_plot$basal_area_big_trees_in_m_squared / 1017.876 ) * 10000
 
 # Now, make a violin plot that shows the number of big trees found at each 
 # plot, as a function of hydroclass
@@ -537,6 +570,8 @@ ggplot(data=trees_by_plot, aes(x=mstrlvl,
   ylab(bquote("Density of ash big trees " ~ (stems/m^2))) +
   theme_bw()
 
+plot(trees_by_plot$basal_area_big_trees_m_squared_per_ha)
+
 #write.csv(trees_by_plot, file="Cleaned_data/trees_by_plot.csv")
 
 # Create a transect-level summary of the tree data:
@@ -547,17 +582,28 @@ trees_by_transect <- trees_by_plot %>% group_by(Transect) %>%
             mean_density_small_trees = mean(density_small_trees),
             mean_density_small_trees_stems_per_ha = mean(density_small_trees_stems_per_ha),
             mean_density_big_trees = mean(density_big_trees),
-            mean_density_big_trees_stems_per_ha = mean(density_big_trees_stems_per_ha))
+            mean_density_big_trees_stems_per_ha = mean(density_big_trees_stems_per_ha),
+            mean_BA_small_trees_m_squared_per_ha = mean(basal_area_small_trees_m_squared_per_ha),
+            mean_BA_big_trees_m_squared_per_ha = mean(basal_area_big_trees_m_squared_per_ha))
 
 write.csv(trees_by_transect, file="Cleaned_data/trees_by_transect.csv")
 
 # Graph the number of small trees by hydroclass, at the transect level:
 ggplot(data=trees_by_transect, aes(x=mstrlvl, 
-                               y=mean_density_small_trees)) + 
+                               y=mean_density_small_trees_stems_per_ha)) + 
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
-  ylab(bquote("Density of ash small trees " ~ (stems/m^2))) +
+  ylab(bquote("Density of ash small trees " ~ (stems/hectare))) +
+  theme_bw()
+
+# Graph the basal area per ha of small trees by hydroclass, at the transect level:
+ggplot(data=trees_by_transect, aes(x=mstrlvl, 
+                                   y=mean_BA_small_trees_m_squared_per_ha)) + 
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Basal area of ash small trees " ~ (m^2/hectare))) +
   theme_bw()
 
 # Make a scatter plot of the small trees with diameter in the x-axis and 
