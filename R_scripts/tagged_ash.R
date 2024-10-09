@@ -18,7 +18,8 @@ tagged_ash$diameter_at_breast_height_2011_in_cm <- tagged_ash$diameter_at_breast
 
 # Now graph the relationship between DBH in 2011 and DBH in 2024, 13 years later:
 ggplot(data=tagged_ash, mapping=aes(x=diameter_at_breast_height_2011_in_cm,
-                                    y=diameter_at_137_cm_in_cm)) +
+                                    y=diameter_at_137_cm_in_cm,
+                                    color=Park)) +
   geom_point()+
   xlab("Ash sapling diameter in 2011 (cm)")+
   ylab("Ash sapling diameter in 2024 (cm)")+

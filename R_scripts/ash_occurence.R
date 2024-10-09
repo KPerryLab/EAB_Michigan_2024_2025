@@ -563,11 +563,11 @@ trees_by_plot$basal_area_big_trees_m_squared_per_ha <-
 # Now, make a violin plot that shows the number of big trees found at each 
 # plot, as a function of hydroclass
 ggplot(data=trees_by_plot, aes(x=mstrlvl, 
-                                     y=density_big_trees)) + 
+                                     y=density_big_trees_stems_per_ha)) + 
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
-  ylab(bquote("Density of ash big trees " ~ (stems/m^2))) +
+  ylab(bquote("Density of ash big trees " ~ (stems/ha))) +
   theme_bw()
 
 plot(trees_by_plot$basal_area_big_trees_m_squared_per_ha)
