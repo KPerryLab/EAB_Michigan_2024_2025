@@ -441,6 +441,7 @@ plot(small_trees$diameter_at_137_cm_in_cm)
 hist(small_trees$diameter_at_137_cm_in_cm, breaks=50)
 plot(small_trees$distance_to_center_meters_simple)
 
+
 #write.csv(small_trees, file="Cleaned_data/individual_small_trees.csv")
 
 # Big trees must be >= 10 cm DBH AND distance to the center must be <= 18 meters
@@ -611,7 +612,12 @@ ggplot(data=trees_by_transect, aes(x=mstrlvl,
 ggplot(data=small_trees, aes(x=diameter_at_137_cm_in_cm, y=canopy_condition_1_5,
                              color=ash_species_simple)) +
   geom_jitter(height=0.05, width=0, alpha=0.4) +
-  theme_classic()
+  theme_classic() +
+  xlab("Diameter at 137 cm (cm)")+
+  ylab("Canopy condition rating \n(1=healthy, 5=defoliated)") +
+  labs(color="Ash species")
+  
+
 
 
 
