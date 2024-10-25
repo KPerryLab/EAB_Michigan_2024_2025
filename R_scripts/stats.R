@@ -16,7 +16,7 @@ seedlings_by_transect$Park <- as.factor(seedlings_by_transect$Park)
 seedlings_by_transect$mstrlvl <- as.factor(seedlings_by_transect$mstrlvl)
 
 dotchart(seedlings_by_transect$total_number_seedlings, group = seedlings_by_transect$mstrlvl)
-hist(seedlings_by_transect$total_number_seedlings)
+hist(seedlings_by_transect$total_number_seedlings, breaks=10)
 boxplot(seedlings_by_transect$total_number_seedlings ~ seedlings_by_transect$mstrlvl)
 stripchart(total_number_seedlings ~ mstrlvl, data = seedlings_by_transect, col = c("black"), vertical = TRUE,
            pch = 19, cex = 2, add = TRUE, method = "jitter", jitter = 0.2)

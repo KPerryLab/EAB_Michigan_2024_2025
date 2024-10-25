@@ -31,8 +31,17 @@ ggplot(data=tagged_ash, mapping=aes(x=diameter_at_breast_height_2011_in_cm,
   theme_classic()
 
 tagged_ash$change_in_diameter <- tagged_ash$diameter_at_137_cm_in_cm - tagged_ash$diameter_at_breast_height_2011_in_cm
+tagged_ash$diameter_change_per_year_mm <- tagged_ash$change_in_diameter * 10 / 13
 
-# Now make a graph of the 
+# Now make a graph of the change in diameter per year:
+ggplot(data=tagged_ash, aes(x=0, y=diameter_change_per_year_mm)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.02, alpha=0.5)+
+  theme_classic() +
+  ylab("Change in diameter per year (mm)") +
+  theme(axis.text.x=element_blank(), axis.ticks.x=element_blank()) +
+  xlab("")
+  
 
 
 

@@ -607,13 +607,19 @@ ggplot(data=trees_by_transect, aes(x=mstrlvl,
   ylab(bquote("Basal area of ash small trees " ~ (m^2/hectare))) +
   theme_bw()
 
+# I'm curious what the mean and standard deviation of basal areas of small
+# trees was for different plot hydroclasses:
+trees_by_hydroclass <- trees_by_plot %>% group_by(mstrlvl) %>%
+  summarise(mean_density_small_trees_stems_per_ha = mean(density_small_trees_stems_per_ha),
+            mean_BA_small_trees_m_squared_per_ha = mean(basal_area_small_trees_m_squared_per_ha))
+
 # Make a scatter plot of the small trees with diameter in the x-axis and 
 # canopy condition in the y-axis.
 ggplot(data=small_trees, aes(x=diameter_at_137_cm_in_cm, y=canopy_condition_1_5,
                              color=ash_species_simple)) +
   geom_jitter(height=0.05, width=0, alpha=0.4) +
   theme_classic() +
-  xlab("Diameter at 137 cm (cm)")+
+  xlab("Diameter at breast height (cm)")+
   ylab("Canopy condition rating \n(1=healthy, 5=defoliated)") +
   labs(color="Ash species")
   
