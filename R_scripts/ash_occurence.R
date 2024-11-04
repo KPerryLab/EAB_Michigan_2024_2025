@@ -84,8 +84,10 @@ table((plot_centers %>% filter(Park == "Kensington"))$mstrlvl)
 table((plot_centers %>% filter(Park == "Pontiac Lake"))$mstrlvl)
 table((plot_centers %>% filter(Park == "Proud Lake"))$mstrlvl)
 
-#write.csv(plot_centers, file="EAB_Michigan_2024_plot_centers_with_hydro.csv",
+# write.csv(plot_centers, file="EAB_Michigan_2024_plot_centers_with_hydro.csv",
 #          row.names = FALSE)
+
+
 
 # Seedlings -------------------------------------------------------------------
 
@@ -148,9 +150,9 @@ plot(seedlings2$density_short,
 hist(seedlings2$density_short, breaks=100)
 hist(seedlings2$density_tall, breaks=100)
 
-hist(seedlings2$number_short) # I wanted to see the count data, too
-hist(seedlings2$number_tall)
-hist(seedlings2$number_seedlings)
+hist(seedlings2$number_short, breaks=seq(0,40,1)) # I wanted to see the count data, too
+hist(seedlings2$number_tall, breaks=seq(0,40,1))
+hist(seedlings2$number_seedlings, breaks=seq(0,60,1))
 
 # Note: these density variables are pseudo-continuous, but really they are
 # discrete, because the counts are discrete, and so there are only a limited
@@ -163,7 +165,7 @@ ggplot(data=seedlings2, aes(x=factor(mstrlvl),
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
-  ylab(bquote("Density of ash seedlings " ~ (stems/m^2)))
+  ylab(bquote("Density of ash seedlings " ~ (stems/m^2))) + theme_classic()
 
 # I want to take an average of the 4 microplots in order to report data at the 
 # plot level. 
@@ -187,7 +189,15 @@ seedlings_by_plot <- seedlings2 %>% group_by(center_tree_number) %>%
             total_number_tall = sum(number_tall),
             total_number_seedlings = sum(number_seedlings))
 
-#write.csv(seedlings_by_plot, file="Cleaned_data/seedlings_by_plot.csv")
+#write.csv(seedlings_by_plot, file="Cleaned_data/seedlings_by_plot.csv", row.names = FALSE)
+
+table(seedlings_by_plot$Transect) # Note that not all three plots have been
+# visited for transects AA (1 visited), DD (2 visited), P (2), Q (2), Z(1), 
+# ZD(0), and ZE (0). This creates a problem for Poisson GLMs if the response
+# is the total number of seedlings in a transect. I'll need to exclude these.
+
+seedlings_exclude_partials <- 
+  seedlings2 %>% filter((!(Transect %in% c("AA", "DD", "P", "Q", "Z"))))
 
 # Make a graph that shows the seedling densities by hydroclass, at the plot level
 ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_density_seedlings)) +
@@ -225,13 +235,16 @@ ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_percent_cover)) +
   ylab("Percent cover of ash seedlings (%)") +
   theme_bw()
 
-# Make a transect-level summary:
-seedlings_by_transect <- seedlings2 %>% group_by(Transect) %>% 
+# Make a transect-level summary (IMPORTANT NOTE: Here I'm excluding transects
+# that we didn't visit all the plots in)
+seedlings_by_transect <- seedlings_exclude_partials %>% group_by(Transect) %>% 
   summarize(Park = first(Park),
+            number_microplots = n(),
             mstrlvl = first(mstrlvl),
             mean_plotmstr = mean(plotmstr),
             mean_percent_cover = mean(percent_cover_0_0.5_1_3.5_8_15.5_25.5_etc, 
                                       na.rm=TRUE),
+            mean_area_microplot_m_squared = mean(area_of_microplot_m_squared),
             mean_density_short = mean(density_short),
             mean_density_tall = mean(density_tall),
             mean_density_seedlings = mean(density_seedlings),
@@ -239,7 +252,7 @@ seedlings_by_transect <- seedlings2 %>% group_by(Transect) %>%
             total_number_tall = sum(number_tall),
             total_number_seedlings = sum(number_seedlings))
 
-#write.csv(seedlings_by_transect, file="Cleaned_data/seedlings_by_transect.csv")
+#write.csv(seedlings_by_transect, file="Cleaned_data/seedlings_by_transect.csv", row.names = FALSE)
 
 # Make a graph that shows the seedling densities by hydroclass, at the transect level:
 ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_density_seedlings)) +
@@ -325,6 +338,7 @@ saplings_by_transect <- saplings_by_plot %>% group_by(Transect) %>%
   summarise(Park = first(Park),
             mstrlvl = first(mstrlvl),
             mean_plotmstr = mean(plotmstr),
+            total_number_saplings = sum(number_saplings),
             mean_density_saplings = mean(density_saplings),
             mean_density_saplings_stems_per_ha = mean(density_saplings_stems_per_ha))
 

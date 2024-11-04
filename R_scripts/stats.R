@@ -1,18 +1,22 @@
 # 10/2/2024
 # Aaron Tayal
 # Emerald ash borer Michigan 2024: analysis with transect as unit of replication
+# I have written the word "Question" where I need help
 
 library(ggplot2)
 library(dplyr)
 library(lme4) # Linear Mixed-Effects Models
 
-library(car) # Companion to applied regression
-library(emmeans) # Estimated Marginal Means, aka Least Squares Means
+library(car) # Companion to applied regression - Used to get an Anova table for
+# the generalized linear mixed-effects model
 
-# Transect is unit of replication - seedlings #####################################
+library(emmeans) # Estimated Marginal Means, aka Least Squares Means (enables 
+# pairwise comparisons to be made)
 
-# I want to run a generalized linear mixed-effects model to determine if the number of 
-# ash seedlings varies by hydroclass. 
+# Seedlings model - transect is unit of replication ############################
+
+# I want to run a generalized linear mixed-effects model to determine if the 
+# number of ash seedlings varies by hydroclass. 
 
 # Predictor variable: Hydroclass (xeric, mesic, hydric). The column is called 
 # mstrlvl. It is a categorical predictor.
@@ -23,46 +27,107 @@ library(emmeans) # Estimated Marginal Means, aka Least Squares Means
 
 # Grouping variable to account for spatial structure of the data: Park. There 
 # are 7 Parks located on the western side of Detroit, Michigan. Not all hydroclasses
-# are represented at each park, but at least 2 out of 3 are found at each park.
+# are represented at each park, but at least 2 out of 3 are found at each park 
+# (see ash_occurence.R)
 
 seedlings_by_transect <- read.csv("Cleaned_data/seedlings_by_transect.csv")
-seedlings_by_transect$Park <- as.factor(seedlings_by_transect$Park) # Grouping variable
+seedlings_by_transect$Park <- as.factor(seedlings_by_transect$Park) # Grouping variable (random effect)
 seedlings_by_transect$mstrlvl <- as.factor(seedlings_by_transect$mstrlvl) # Predictor
+
+# Question: Major problem with data? ###########################################
+# Unfourtunately, the first trip to Michigan in 2024 we counted seedlings using 
+# microplot PVCs that were too small (with an area of only 3.37 m^2). After that
+# we switched to PVCs with an area of 4.06 m^2 in order to be consistent with 
+# previous studies, which had a microplot area of 4 m^2. I corrected for this 
+# problem in the seedling density variables. However, the seedling counts are 
+# uncorrected. Thus, this is a weakness in the data. In the code below, you can
+# see which transects are affected by the microplot area discrepancy:
+seedlings_by_transect[
+  seedlings_by_transect$mean_area_microplot_m_squared < 4.06, 
+  c("Park", "Transect", "mean_area_microplot_m_squared")]
+
+# Back to stats...
 
 # Graph the data first:
 dotchart(seedlings_by_transect$total_number_seedlings, 
          group = seedlings_by_transect$mstrlvl)
-hist(seedlings_by_transect$total_number_seedlings, breaks=10)
-boxplot(seedlings_by_transect$total_number_seedlings ~ seedlings_by_transect$mstrlvl)
-stripchart(total_number_seedlings ~ mstrlvl, data = seedlings_by_transect, 
-           col = c("black"), vertical = TRUE, pch = 19, cex = 2, add = TRUE, 
-           method = "jitter", jitter = 0.2)
+hist(seedlings_by_transect$total_number_seedlings, breaks=seq(0,270,10))
+ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_seedlings)) +
+  geom_boxplot(outlier.colour = "white") +
+  geom_jitter(aes(color=mean_area_microplot_m_squared), height=0, width=0.1, alpha=0.9) +
+  theme_classic() +
+  xlab("Hydroclass") +
+  ylab("Number of seedlings in transect")
 # There seems to be around 8 transects where high numbers of ash seedlings occur. 
-# I wonder what commonality, if any, exists between those transects.
+# I wonder what commonality, if any, exists between those transects. It should 
+# be noted that 6 out of 8 of these high-seedling transects were located at 
+# Pontiac. Something about Pontiac (previous ash tree density? soil type? water
+# availability in the soil?) is causing it to have many ash seedlings
 
 # Fit the model:
 seedling_mod <- glmer(total_number_seedlings ~ mstrlvl + (1|Park), 
                       data=seedlings_by_transect, family="poisson")
+
+# Below is code for running the model without a random effect:
+seedling_mod_without_Park <- glm(total_number_seedlings ~ mstrlvl, 
+                              data=seedlings_by_transect, family="poisson")
+
 summary(seedling_mod)
+
+# To check the estimates of the fixed effect (hydroclass), I'll compute the mean
+# number of seedlings in hydric, mesic, and xeric, and then compare that to
+# what the model says:
+seedling_means <- as.data.frame(tapply(seedlings_by_transect$total_number_seedlings, seedlings_by_transect$mstrlvl,
+       mean)) # Hydric: 19.75 seedlings; Mesic: 135 seedlings; Xeric: 86.74 seedlings
+colnames(seedling_means) <- "Mean_seedlings"
+seedling_means$log_seedling_means <- log(seedling_means$Mean_seedlings) # Take the 
+# logarithm because that is the link function in the generalized linear model
+seedling_means$fixed_effects_in_GLM <- data.frame(coef(summary(seedling_mod_without_Park)))$Estimate # model without random effect
+seedling_means$fixed_effects_in_GLMM <- data.frame(coef(summary(seedling_mod)))$Estimate # model with random effect
+# The above code allows me to compare the group means to the estimates of the fixed
+# effects. Because the residuals are Poisson distributed with a natural log link,
+# the log of the group mean equals the estimate of the fixed effect WHEN THERE IS
+# NO RANDOM EFFECT INCLUDED. Interestingly, inclusion of the random effect (Park)
+# caused the estimated differences |mesic-hydric| and |xeric-hydric| to become
+# smaller in absolute value. To me, this suggests that the grouping variable (Park) 
+# is helping to account for structure in the dataset. Question: am I interpreting
+# this correctly?
+
 Anova(seedling_mod, type = "III")
 emmeans(seedling_mod, pairwise ~ mstrlvl)
 
-# Check model assumptions (I'm unclear exactly what the assumptions are):
-qqnorm(resid(seedling_mod))
-qqline(resid(seedling_mod))
+# Check model assumptions (Question: I'm unclear exactly what the assumptions are):
+qqnorm(resid(seedling_mod)) # I don't know why we are checking the residuals
+# for normality if we think the residuals are Poisson distributed
+qqline(resid(seedling_mod)) 
 plot(seedling_mod)
 getME(seedling_mod, "b") # Look at the actual estimated intercepts for 
-# each Park (apparently, the "conditional modes of the random effects")
+# each Park (the "conditional modes of the random effects")
 levels(seedlings_by_transect$Park) # Looks like the 6th park is Pontiac, which
 # had a higher number of seedlings
-# Note: I have no idea how to actually make a q-q plot of these 
+# Note: I have no idea how to actually make a q-q plot of these estimated intercepts
+
+# Test for overdispersion: (this function was copied from Ben Bolker's GLMM FAQ:
+# https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html
+overdisp_fun <- function(model) {
+  rdf <- df.residual(model)
+  rp <- residuals(model,type="pearson")
+  Pearson.chisq <- sum(rp^2)
+  prat <- Pearson.chisq/rdf
+  pval <- pchisq(Pearson.chisq, df=rdf, lower.tail=FALSE)
+  c(chisq=Pearson.chisq,ratio=prat,rdf=rdf,p=pval)
+}
+
+overdisp_fun(seedling_mod) # Question: how do I interpret this result?
 
 # Short seedlings model #######################################################
 
-boxplot(seedlings_by_transect$total_number_short ~ seedlings_by_transect$mstrlvl)
-stripchart(total_number_short ~ mstrlvl, data = seedlings_by_transect, 
-           col = c("black"), vertical = TRUE, pch = 19, cex = 2, add = TRUE, 
-           method = "jitter", jitter = 0.2)
+ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_short)) +
+  geom_boxplot(outlier.colour = "white") +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  theme_classic() +
+  xlab("Hydroclass") +
+  ylab("Number of short seedlings in transect")
 
 short_seedling_mod <- glmer(total_number_short ~ mstrlvl + (1|Park), 
                       data=seedlings_by_transect, family="poisson")
@@ -76,14 +141,21 @@ plot(short_seedling_mod)
 
 # Tall seedlings model ########################################################
 
-boxplot(seedlings_by_transect$total_number_tall ~ seedlings_by_transect$mstrlvl)
-stripchart(total_number_tall ~ mstrlvl, data = seedlings_by_transect, 
-           col = c("black"), vertical = TRUE, pch = 1, cex = 1, add = TRUE, 
-           method = "jitter", jitter = 0.2)
+ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_tall)) +
+  geom_boxplot(outlier.colour = "white") +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  theme_classic() +
+  xlab("Hydroclass") +
+  ylab("Number of tall seedlings in transect")
 
 tall_seedling_mod <- glmer(total_number_tall ~ mstrlvl + (1|Park), 
                             data=seedlings_by_transect, family="poisson")
+tall_seedling_mod_without_Park <- glm(total_number_tall ~ mstrlvl, 
+                                      data=seedlings_by_transect, family="poisson")
 summary(tall_seedling_mod)
+# Interestingly, the Park variable is not soaking up as much variation
+# in number of tall seedlings (Variance of random effect = 0.38) as it
+# did in the number of short seedlings (Variance of the random effect = 1.23).
 Anova(tall_seedling_mod, type = "III")
 emmeans(tall_seedling_mod, pairwise ~ mstrlvl)
 
@@ -93,10 +165,12 @@ plot(tall_seedling_mod)
 
 # Percent cover seedlings model ###############################################
 
-boxplot(seedlings_by_transect$mean_percent_cover ~ seedlings_by_transect$mstrlvl)
-stripchart(mean_percent_cover ~ mstrlvl, data = seedlings_by_transect, 
-           col = c("black"), vertical = TRUE, pch = 1, cex = 1, add = TRUE, 
-           method = "jitter", jitter = 0.2)
+ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_percent_cover)) +
+  geom_boxplot(outlier.colour = "white") +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  theme_classic() +
+  xlab("Hydroclass") +
+  ylab("Mean percent cover ash seedlings")
 
 # Mean percent cover is a numeric response variable, so I should be able to run
 # a linear mixed effects model.
@@ -105,15 +179,30 @@ percent_cov_seedling_mod <- lmer(mean_percent_cover ~ mstrlvl + (1|Park),
                            data=seedlings_by_transect)
 summary(percent_cov_seedling_mod)
 Anova(percent_cov_seedling_mod, type = "III")
-emmeans(percent_cov_seedling_mod, pairwise ~ mstrlvl)
+emmeans(percent_cov_seedling_mod, pairwise ~ mstrlvl) # Question: do I only 
+# run pairwise comparisons when the Anova table shows a significant effect?
 
+# Assumptions of linear mixed-effects models: 
+# 1. Relationship between response and predictor is linear
+# 2. Residuals are independent (because the grouping factor accounted for non-independence)
+# 3. Residuals are normally distributed
+# 4. Residuals are homoscedastic
+# 5. The random intercepts (or random slopes, if applicable) are normally distributed
 qqnorm(resid(percent_cov_seedling_mod))
 qqline(resid(percent_cov_seedling_mod))
-plot(percent_cov_seedling_mod)
+plot(percent_cov_seedling_mod) # I'm definitely seeing heteroscedasticity in
+# the residuals. The bigger the fitted value, the larger the residuals are in
+# absolute value. 
+intercepts_percent_cov_model <- ranef(percent_cov_seedling_mod)$Park
+hist(intercepts_percent_cov_model$`(Intercept)`, breaks=10) 
+# The intercepts do not appear to be normally distributed. Overall, this model
+# appears to be invalid.
 
 # Saplings model ##############################################################
 
-
+saplings_by_transect <- read.csv("Cleaned_data/saplings_by_transect.csv")
+saplings_by_transect$Park <- as.factor(saplings_by_transect$Park) # Grouping variable (random effect)
+saplings_by_transect$mstrlvl <- as.factor(saplings_by_transect$mstrlvl) # Predictor
 
 
 
