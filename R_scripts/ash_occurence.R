@@ -448,7 +448,7 @@ trees2$distance_to_center_meters_simple[trees2$distance_to_center_meters_simple 
 trees2$distance_to_center_meters_simple <- as.numeric(trees2$distance_to_center_meters_simple)
 hist(trees2$distance_to_center_meters_simple, breaks=100)
 
-# Small trees must be >= 2.5 cm DBH AND < 12.5 cm DBH AND distance to the center
+# Small trees must be >= 2.5 cm DBH AND < 10 cm DBH AND distance to the center
 # must be <= 8 meters
 small_trees <- trees2 %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
   dplyr::filter(diameter_at_137_cm_in_cm >= 2.5) %>%
@@ -470,20 +470,48 @@ plot(big_trees$distance_to_center_meters_simple)
 
 #write.csv(big_trees, file="Cleaned_data/individual_big_trees.csv")
 
+# How many small trees were found of various diameter classes, colored by ash species?
+species_colors <- c(black="black", green_white_or_pumpkin="darkgreen", unknown="lightblue")
+ggplot(data=small_trees) +
+  geom_histogram(aes(x=diameter_at_137_cm_in_cm, fill=ash_species_simple),
+                 position="stack", breaks=c(2.5,5,7.5,10), color="black") + 
+  scale_fill_manual(values=species_colors) + 
+  theme_classic() + ylab("Number of stems") + xlab("Diameter at breast height") +
+  guides(fill = guide_legend(title = "Ash species"))
+
+# How many small trees were found of various diameter classes, colored by hydroclass?
+ggplot(data=small_trees) +
+  geom_histogram(aes(x=diameter_at_137_cm_in_cm, fill=mstrlvl),
+                 position="stack", breaks=c(2.5,5,7.5,10), color="black") + theme_classic()
+
 # Now, create a summary of how many ash small trees were found in each plot
 # and what the basal area was. To calculate basal area, take the diameters, 
 # and convert to areas and add them up, then convert the units from cm^2 to 
 # meters^2 by dividing by 10,000. Note: I have not yet divided
 # by the area of the subplot yet.
 small_trees_by_plot <- small_trees %>% group_by(center_tree_number) %>%
-  summarise(Park = first(Park),
+  summarise(Plot_ID = first(Plot_ID),
+            Park = first(Park),
             Transect = first(Transect),
             mstrlvl = first(mstrlvl),
             plotmstr = first(plotmstr),
             number_small_trees = n(),
+            number_small_trees_green_white_or_pumpkin = sum(ash_species_simple=="green_white_or_pumpkin"),
+            number_small_trees_black = sum(ash_species_simple=="black"),
+            number_small_trees_unknown_species = sum(ash_species_simple=="unknown"),
             basal_area_small_trees_in_m_squared = 
               pi * sum(diameter_at_137_cm_in_cm ^ 2) / 10000
             )
+
+# Make a bar graph to show species of ash for small ash trees. The x-axis is 
+# Plot_ID and the y-axis is the stacked number of occurences of black ash
+# and green/white/pumpkin ash
+ggplot(data=small_trees_by_plot)+
+  geom_col(aes(x=Plot_ID, y=number_small_trees), fill="darkgreen") +
+  geom_col(aes(x=Plot_ID, y=(number_small_trees_black + number_small_trees_unknown_species)), fill="black")+
+  geom_col(aes(x=Plot_ID, y=number_small_trees_unknown_species), fill="grey") +      
+  scale_x_discrete(guide = guide_axis(angle = 90)) + theme_classic() + 
+  ylab("Number of small trees \n(2.5-10 cm DBH)")
 
 # Now, for any center tree numbers not mentioned in small_trees_by_plot,
 # but that are in trees2, I'd like to put another row with a zero in it:
@@ -497,8 +525,11 @@ f
 # Add a row for each center tree where no small trees were found in the subplot:
 for (k in (1:length(f))){
   info <- plot_centers %>% filter(center_tree_number == f[k]) %>% 
-    select(center_tree_number, Park, Transect, mstrlvl, plotmstr)
+    select(center_tree_number, Plot_ID, Park, Transect, mstrlvl, plotmstr)
   info$number_small_trees <- 0
+  info$number_small_trees_green_white_or_pumpkin <- 0
+  info$number_small_trees_black <- 0
+  info$number_small_trees_unknown_species <- 0
   info$basal_area_small_trees_in_m_squared <- 0
   small_trees_by_plot <- small_trees_by_plot %>% bind_rows(info)
 }
@@ -629,11 +660,13 @@ ggplot(data=trees_by_transect, aes(x=mstrlvl,
 trees_by_hydroclass <- trees_by_plot %>% group_by(mstrlvl) %>%
   summarise(mean_density_small_trees_stems_per_ha = mean(density_small_trees_stems_per_ha),
             mean_BA_small_trees_m_squared_per_ha = mean(basal_area_small_trees_m_squared_per_ha))
+trees_by_hydroclass
 
 # Make a scatter plot of the small trees with diameter in the x-axis and 
 # canopy condition in the y-axis.
 ggplot(data=small_trees, aes(x=diameter_at_137_cm_in_cm, y=canopy_condition_1_5,
                              color=ash_species_simple)) +
+  scale_color_manual(values = species_colors)+
   geom_jitter(height=0.05, width=0, alpha=0.4) +
   theme_classic() +
   xlab("Diameter at breast height (cm)")+
