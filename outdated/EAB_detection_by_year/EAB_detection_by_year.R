@@ -6,3 +6,4 @@ dat$County <- as.factor(dat$County)
 hist(dat$Year_detected, breaks=2000:2023)
 dat$State
 unique(dat$State)
+levels(dat$State)

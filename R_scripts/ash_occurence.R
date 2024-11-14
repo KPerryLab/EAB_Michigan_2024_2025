@@ -158,14 +158,7 @@ hist(seedlings2$number_seedlings, breaks=seq(0,60,1))
 # discrete, because the counts are discrete, and so there are only a limited
 # number of values that the density can take.
 
-# I want to make a violin plot that shows the distribution of seedling densities
-# for each of the three hydroclasses (xeric, mesic, and hydric)
-ggplot(data=seedlings2, aes(x=factor(mstrlvl), 
-                            y=density_seedlings)) +
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab(bquote("Density of ash seedlings " ~ (stems/m^2))) + theme_classic()
+# Summarise seedlings by plot #################################################
 
 # I want to take an average of the 4 microplots in order to report data at the 
 # plot level. 
@@ -176,11 +169,7 @@ ggplot(data=seedlings2, aes(x=factor(mstrlvl),
 # values, but I need to check on this.
 
 seedlings_by_plot <- seedlings2 %>% group_by(center_tree_number) %>% 
-  summarize(Park = first(Park),
-            Transect = first(Transect),
-            mstrlvl = first(mstrlvl),
-            plotmstr = first(plotmstr),
-            mean_percent_cover = mean(percent_cover_0_0.5_1_3.5_8_15.5_25.5_etc, 
+  summarise(mean_percent_cover = mean(percent_cover_0_0.5_1_3.5_8_15.5_25.5_etc, 
                                  na.rm=TRUE),
             mean_density_short = mean(density_short),
             mean_density_tall = mean(density_tall),
@@ -189,104 +178,8 @@ seedlings_by_plot <- seedlings2 %>% group_by(center_tree_number) %>%
             total_number_tall = sum(number_tall),
             total_number_seedlings = sum(number_seedlings))
 
-#write.csv(seedlings_by_plot, file="Cleaned_data/seedlings_by_plot.csv", row.names = FALSE)
-
-table(seedlings_by_plot$Transect) # Note that not all three plots have been
-# visited for transects AA (1 visited), DD (2 visited), P (2), Q (2), Z(1), 
-# ZD(0), and ZE (0). This creates a problem for Poisson GLMs if the response
-# is the total number of seedlings in a transect. I'll need to exclude these.
-
-seedlings_exclude_partials <- 
-  seedlings2 %>% filter((!(Transect %in% c("AA", "DD", "P", "Q", "Z"))))
-
-# Make a graph that shows the seedling densities by hydroclass, at the plot level
-ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_density_seedlings)) +
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab(bquote("Density of ash seedlings " ~ (stems/m^2))) +
-  scale_y_continuous(breaks=seq(0,9,2)) +
-  theme_bw()
-
-# Make a similar graph for short seedlings (under 25 cm):
-ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_density_short)) +
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab(bquote("Density of short ash seedlings <25 cm  " ~ (stems/m^2))) +
-  scale_y_continuous(breaks=seq(0,9,2)) +
-  ylim(-0.15, 6) +
-  theme_bw()
-
-# Same for tall seedlings:
-ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_density_tall)) +
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab(bquote("Density of tall ash seedlings 25-137 cm  " ~ (stems/m^2))) +
-  ylim(-0.15, 6) +
-  theme_bw()
-
-# And for percent cover:
-ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_percent_cover)) +
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab("Percent cover of ash seedlings (%)") +
-  theme_bw()
-
-# Make a transect-level summary (IMPORTANT NOTE: Here I'm excluding transects
-# that we didn't visit all the plots in)
-seedlings_by_transect <- seedlings_exclude_partials %>% group_by(Transect) %>% 
-  summarize(Park = first(Park),
-            number_microplots = n(),
-            mstrlvl = first(mstrlvl),
-            mean_plotmstr = mean(plotmstr),
-            mean_percent_cover = mean(percent_cover_0_0.5_1_3.5_8_15.5_25.5_etc, 
-                                      na.rm=TRUE),
-            mean_area_microplot_m_squared = mean(area_of_microplot_m_squared),
-            mean_density_short = mean(density_short),
-            mean_density_tall = mean(density_tall),
-            mean_density_seedlings = mean(density_seedlings),
-            total_number_short = sum(number_short),
-            total_number_tall = sum(number_tall),
-            total_number_seedlings = sum(number_seedlings))
-
-#write.csv(seedlings_by_transect, file="Cleaned_data/seedlings_by_transect.csv", row.names = FALSE)
-
-# Make a graph that shows the seedling densities by hydroclass, at the transect level:
-ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_density_seedlings)) +
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab(bquote("Density of ash seedlings " ~ (stems/m^2))) +
-  scale_y_continuous(breaks=seq(0,9,2)) +
-  theme_bw()
-
-# Make a graph that shows the number of seedlings by hydroclass, at the transect level:
-ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_seedlings)) +
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab("Total number of ash seedlings (stems)") +
-  theme_bw()
-
-# Make a graph that shows the percent cover by hydroclass, at the transect level
-ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_percent_cover)) +
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab("Percent cover of ash seedlings (%)") +
-  theme_bw()
-
-# Make a graph that shows the seedling densities by park, at the transect level:
-ggplot(data=seedlings_by_transect, aes(x=Park, y=mean_density_seedlings)) +
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab(bquote("Density of ash seedlings " ~ (stems/m^2))) +
-  scale_y_continuous(breaks=seq(0,9,2)) +
-  theme_bw()
+# Create an overall data table at the plot level that records all variables
+ash_by_plot1 <- left_join(plot_centers, seedlings_by_plot, by="center_tree_number")
 
 # Saplings --------------------------------------------------------------------
 
@@ -305,11 +198,7 @@ nrow(saplings) == nrow(saplings2)
 # Saplings were counted in each quadrant, so I want to sum up the quadrants
 # to get a total number of saplings by plot
 saplings_by_plot <- saplings2 %>% group_by(center_tree_number) %>% 
-  summarize(Park = first(Park),
-            Transect = first(Transect),
-            mstrlvl = first(mstrlvl),
-            plotmstr = first(plotmstr),
-            number_saplings = sum(number_of_stems))
+  summarise(number_saplings = sum(number_of_stems))
 
 # To find the density of saplings, I need to divide the number of saplings 
 # found in the subplot (8 meters in radius) by the area of that subplot. 
@@ -320,39 +209,8 @@ saplings_by_plot$density_saplings <- saplings_by_plot$number_saplings / 201.062
 saplings_by_plot$density_saplings_stems_per_ha <- 
   saplings_by_plot$density_saplings * 10000
 
-#write.csv(saplings_by_plot, file="Cleaned_data/saplings_by_plot.csv")
-
-
-# Now, make a violin plot that shows the density of saplings found at each plot, 
-# as a function of hydroclass
-ggplot(data=saplings_by_plot, aes(x=factor(mstrlvl), 
-                                  y=density_saplings)) + 
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab(bquote("Density of ash saplings " ~ (stems/m^2))) +
-  theme_bw()
-
-# Now create a summary at the transect level:
-saplings_by_transect <- saplings_by_plot %>% group_by(Transect) %>%
-  summarise(Park = first(Park),
-            mstrlvl = first(mstrlvl),
-            mean_plotmstr = mean(plotmstr),
-            total_number_saplings = sum(number_saplings),
-            mean_density_saplings = mean(density_saplings),
-            mean_density_saplings_stems_per_ha = mean(density_saplings_stems_per_ha))
-
-#write.csv(saplings_by_transect, file="Cleaned_data/saplings_by_transect.csv")
-
-# Now, make a violin plot that shows the mean density of saplings found at each 
-# transect, as a function of hydroclass
-ggplot(data=saplings_by_transect, aes(x=mstrlvl, 
-                                  y=mean_density_saplings_stems_per_ha)) + 
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab(bquote("Density of ash saplings " ~ (stems/ha))) +
-  theme_bw()
+# Join saplings_by_plot to the overall ash_by_plot dataframe:
+ash_by_plot2 <- left_join(ash_by_plot1, saplings_by_plot, by="center_tree_number")
 
 # Small trees and trees -------------------------------------------------------
 
@@ -364,6 +222,7 @@ trees$center_tree_number[trees$center_tree_number == "75_south"] <- "75"
 
 trees$center_tree_number <- as.integer(trees$center_tree_number)
 trees$ash_species <- as.factor(trees$ash_species)
+trees$canopy_condition_1_5 <- as.factor(trees$canopy_condition_1_5)
 
 # Add in plot center data
 trees2 <- right_join(plot_centers, trees, by="center_tree_number")
@@ -448,6 +307,8 @@ trees2$distance_to_center_meters_simple[trees2$distance_to_center_meters_simple 
 trees2$distance_to_center_meters_simple <- as.numeric(trees2$distance_to_center_meters_simple)
 hist(trees2$distance_to_center_meters_simple, breaks=100)
 
+# Filter small and big trees ###################################################
+
 # Small trees must be >= 2.5 cm DBH AND < 10 cm DBH AND distance to the center
 # must be <= 8 meters
 small_trees <- trees2 %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
@@ -458,31 +319,19 @@ plot(small_trees$diameter_at_137_cm_in_cm)
 hist(small_trees$diameter_at_137_cm_in_cm, breaks=50)
 plot(small_trees$distance_to_center_meters_simple)
 
-
-#write.csv(small_trees, file="Cleaned_data/individual_small_trees.csv")
-
 # Big trees must be >= 10 cm DBH AND distance to the center must be <= 18 meters
 big_trees <- trees2 %>% dplyr::filter(quadrant_NE_SE_SW_NW != "none") %>%
   dplyr::filter(diameter_at_137_cm_in_cm >= 10) %>%
   dplyr::filter(distance_to_center_meters_simple <= 18)
-plot(big_trees$diameter_at_137_cm_in_cm)
+plot(big_trees$diameter_at_137_cm_in_cm, ylim=c(10,12.5))
 plot(big_trees$distance_to_center_meters_simple)
 
-#write.csv(big_trees, file="Cleaned_data/individual_big_trees.csv")
+# Make a dataframe that combines the (individual observations of) small trees 
+# and big trees:
+all.equal(colnames(small_trees), colnames(big_trees)) # column names are the same
+small_and_big_trees <- bind_rows(small_trees, big_trees)
 
-# How many small trees were found of various diameter classes, colored by ash species?
-species_colors <- c(black="black", green_white_or_pumpkin="darkgreen", unknown="lightblue")
-ggplot(data=small_trees) +
-  geom_histogram(aes(x=diameter_at_137_cm_in_cm, fill=ash_species_simple),
-                 position="stack", breaks=c(2.5,5,7.5,10), color="black") + 
-  scale_fill_manual(values=species_colors) + 
-  theme_classic() + ylab("Number of stems") + xlab("Diameter at breast height") +
-  guides(fill = guide_legend(title = "Ash species"))
-
-# How many small trees were found of various diameter classes, colored by hydroclass?
-ggplot(data=small_trees) +
-  geom_histogram(aes(x=diameter_at_137_cm_in_cm, fill=mstrlvl),
-                 position="stack", breaks=c(2.5,5,7.5,10), color="black") + theme_classic()
+# Summarise ash tree occurence by plot #########################################
 
 # Now, create a summary of how many ash small trees were found in each plot
 # and what the basal area was. To calculate basal area, take the diameters, 
@@ -490,28 +339,12 @@ ggplot(data=small_trees) +
 # meters^2 by dividing by 10,000. Note: I have not yet divided
 # by the area of the subplot yet.
 small_trees_by_plot <- small_trees %>% group_by(center_tree_number) %>%
-  summarise(Plot_ID = first(Plot_ID),
-            Park = first(Park),
-            Transect = first(Transect),
-            mstrlvl = first(mstrlvl),
-            plotmstr = first(plotmstr),
-            number_small_trees = n(),
+  summarise(number_small_trees = n(),
             number_small_trees_green_white_or_pumpkin = sum(ash_species_simple=="green_white_or_pumpkin"),
             number_small_trees_black = sum(ash_species_simple=="black"),
             number_small_trees_unknown_species = sum(ash_species_simple=="unknown"),
             basal_area_small_trees_in_m_squared = 
-              pi * sum(diameter_at_137_cm_in_cm ^ 2) / 10000
-            )
-
-# Make a bar graph to show species of ash for small ash trees. The x-axis is 
-# Plot_ID and the y-axis is the stacked number of occurences of black ash
-# and green/white/pumpkin ash
-ggplot(data=small_trees_by_plot)+
-  geom_col(aes(x=Plot_ID, y=number_small_trees), fill="darkgreen") +
-  geom_col(aes(x=Plot_ID, y=(number_small_trees_black + number_small_trees_unknown_species)), fill="black")+
-  geom_col(aes(x=Plot_ID, y=number_small_trees_unknown_species), fill="grey") +      
-  scale_x_discrete(guide = guide_axis(angle = 90)) + theme_classic() + 
-  ylab("Number of small trees \n(2.5-10 cm DBH)")
+              pi * sum(diameter_at_137_cm_in_cm ^ 2) / 10000)
 
 # Now, for any center tree numbers not mentioned in small_trees_by_plot,
 # but that are in trees2, I'd like to put another row with a zero in it:
@@ -524,8 +357,7 @@ f
 
 # Add a row for each center tree where no small trees were found in the subplot:
 for (k in (1:length(f))){
-  info <- plot_centers %>% filter(center_tree_number == f[k]) %>% 
-    select(center_tree_number, Plot_ID, Park, Transect, mstrlvl, plotmstr)
+  info <- data.frame(center_tree_number=f[k])
   info$number_small_trees <- 0
   info$number_small_trees_green_white_or_pumpkin <- 0
   info$number_small_trees_black <- 0
@@ -541,16 +373,6 @@ g <- small_trees_by_plot$center_tree_number
 all.equal(b, g) # This shows that small_trees_by_plot now has all the same center
 # trees that we recorded the presence or absence of trees at
 
-# Create a histogram of number of small trees to investigate whether the 
-# distribution follows a Poisson distribution.
-ggplot(data=small_trees_by_plot, aes(x=number_small_trees)) +
-  geom_histogram() +
-  theme_classic()
-# The Poisson distribution assumes that events (here the presence of a small
-# tree) occur independently of the position of other small trees. That assumption
-# is obviously false
-
-
 # To find the density of small trees, I need to divide the number of them 
 # found in the subplot (8 meters in radius) by the area of that subplot. 
 # The area of the subplot is 201.062 m^2. The unit will be stems per m^2.
@@ -565,25 +387,6 @@ small_trees_by_plot$density_small_trees_stems_per_ha <-
 # then multiplying by 10,000 to convert into meters^2 of basal area per hectare
 small_trees_by_plot$basal_area_small_trees_m_squared_per_ha <-
   ( small_trees_by_plot$basal_area_small_trees_in_m_squared / 201.062 ) * 10000
-
-# Now, make a violin plot that shows the density of small trees found at each 
-# plot, as a function of hydroclass
-ggplot(data=small_trees_by_plot, aes(x=mstrlvl, 
-                                    y=density_small_trees_stems_per_ha)) + 
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab(bquote("Density of ash small trees " ~ (stems/hectare))) +
-  theme_bw()
-
-# Plot the basal area per hectare found at each plot as a function of hydroclass:
-ggplot(data=small_trees_by_plot, aes(x=mstrlvl,
-                                     y=basal_area_small_trees_m_squared_per_ha)) +
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab(bquote("Basal area of ash small trees " ~ (m^2/hectare))) +
-  theme_bw()
 
 # Now the same type of summary for big trees
 big_trees_by_plot <- big_trees %>% group_by(center_tree_number) %>%
@@ -609,19 +412,47 @@ trees_by_plot$density_big_trees_stems_per_ha <-
 trees_by_plot$basal_area_big_trees_m_squared_per_ha <-
   ( trees_by_plot$basal_area_big_trees_in_m_squared / 1017.876 ) * 10000
 
-# Now, make a violin plot that shows the number of big trees found at each 
-# plot, as a function of hydroclass
-ggplot(data=trees_by_plot, aes(x=mstrlvl, 
-                                     y=density_big_trees_stems_per_ha)) + 
-  geom_violin() +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  xlab("Hydroclass") +
-  ylab(bquote("Density of ash big trees " ~ (stems/ha))) +
-  theme_bw()
+# Combine trees_by_plot with the other ash data:
+ash_by_plot <- left_join(ash_by_plot2, trees_by_plot, by="center_tree_number")
 
-plot(trees_by_plot$basal_area_big_trees_m_squared_per_ha)
+# Write the overall dataframe, ash_by_plot, to a csv file
+write.csv(ash_by_plot, file="Cleaned_data/ash_by_plot.csv", row.names = FALSE)
 
-#write.csv(trees_by_plot, file="Cleaned_data/trees_by_plot.csv")
+# NEEDS WORK Summarise ash occurence by transect #########################################
+
+table(ash_by_plot[ash_by_plot$seedlings_done_y_n == "n","Transect"]) # Note that not all three plots have been
+# visited for transects AA (1 visited), DD (2 visited), P (2), Q (2), Z(1), 
+# ZD(0), and ZE (0). This creates a problem for Poisson GLMs if the response
+# is the total number of seedlings in a transect. I'll need to exclude these.
+
+seedlings_exclude_partials <- 
+  seedlings2 %>% filter((!(Transect %in% c("AA", "DD", "P", "Q", "Z"))))
+
+# Make a transect-level summary (IMPORTANT NOTE: Here I'm excluding transects
+# that we didn't visit all the plots in)
+seedlings_by_transect <- seedlings_exclude_partials %>% group_by(Transect) %>% 
+  summarize(Park = first(Park),
+            number_microplots = n(),
+            mstrlvl = first(mstrlvl),
+            mean_plotmstr = mean(plotmstr),
+            mean_percent_cover = mean(percent_cover_0_0.5_1_3.5_8_15.5_25.5_etc, 
+                                      na.rm=TRUE),
+            mean_area_microplot_m_squared = mean(area_of_microplot_m_squared),
+            mean_density_short = mean(density_short),
+            mean_density_tall = mean(density_tall),
+            mean_density_seedlings = mean(density_seedlings),
+            total_number_short = sum(number_short),
+            total_number_tall = sum(number_tall),
+            total_number_seedlings = sum(number_seedlings))
+
+# Now create a summary of saplings at the transect level:
+saplings_by_transect <- saplings_by_plot %>% group_by(Transect) %>%
+  summarise(Park = first(Park),
+            mstrlvl = first(mstrlvl),
+            mean_plotmstr = mean(plotmstr),
+            total_number_saplings = sum(number_saplings),
+            mean_density_saplings = mean(density_saplings),
+            mean_density_saplings_stems_per_ha = mean(density_saplings_stems_per_ha))
 
 # Create a transect-level summary of the tree data:
 trees_by_transect <- trees_by_plot %>% group_by(Transect) %>%
@@ -635,10 +466,192 @@ trees_by_transect <- trees_by_plot %>% group_by(Transect) %>%
             mean_BA_small_trees_m_squared_per_ha = mean(basal_area_small_trees_m_squared_per_ha),
             mean_BA_big_trees_m_squared_per_ha = mean(basal_area_big_trees_m_squared_per_ha))
 
-write.csv(trees_by_transect, file="Cleaned_data/trees_by_transect.csv")
+# Graph the data ##############################################################
 
-# Graph the number of small trees by hydroclass, at the transect level:
-ggplot(data=trees_by_transect, aes(x=mstrlvl, 
+# I want to make a violin plot that shows the distribution of seedling densities
+# for each of the three hydroclasses (xeric, mesic, and hydric)
+ggplot(data=seedlings2, aes(x=factor(mstrlvl), 
+                            y=density_seedlings)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of ash seedlings \n in microplots" ~ (stems/m^2))) + theme_classic()
+
+
+# Make a graph that shows the seedling densities by hydroclass, at the plot level
+ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_density_seedlings)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of ash seedlings " ~ (stems/m^2))) +
+  scale_y_continuous(breaks=seq(0,9,2)) +
+  theme_bw()
+
+# Make a similar graph for short seedlings (under 25 cm):
+ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_density_short)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of short ash seedlings <25 cm  " ~ (stems/m^2))) +
+  scale_y_continuous(breaks=seq(0,9,2)) +
+  ylim(-0.15, 6) +
+  theme_bw()
+
+# Same for tall seedlings:
+ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_density_tall)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of tall ash seedlings 25-137 cm  " ~ (stems/m^2))) +
+  ylim(-0.15, 6) +
+  theme_bw()
+
+# And for percent cover:
+ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_percent_cover)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab("Percent cover of ash seedlings (%)") +
+  theme_bw()
+
+# Make a graph that shows the seedling densities by hydroclass, at the transect level:
+ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_density_seedlings)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of ash seedlings " ~ (stems/m^2))) +
+  scale_y_continuous(breaks=seq(0,9,2)) +
+  theme_bw()
+
+# Make a graph that shows the number of seedlings by hydroclass, at the transect level:
+ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_seedlings)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab("Total number of ash seedlings (stems)") +
+  theme_bw()
+
+# Make a graph that shows the percent cover by hydroclass, at the transect level
+ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_percent_cover)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab("Percent cover of ash seedlings (%)") +
+  theme_bw()
+
+# Make a graph that shows the seedling densities by park, at the transect level:
+ggplot(data=seedlings_by_transect, aes(x=Park, y=mean_density_seedlings)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of ash seedlings " ~ (stems/m^2))) +
+  scale_y_continuous(breaks=seq(0,9,2)) +
+  theme_bw()
+
+# Now, make a violin plot that shows the density of saplings found at each plot, 
+# as a function of hydroclass
+ggplot(data=saplings_by_plot, aes(x=factor(mstrlvl), 
+                                  y=density_saplings)) + 
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of ash saplings " ~ (stems/m^2))) +
+  theme_bw()
+
+# Now, make a violin plot that shows the mean density of saplings found at each 
+# transect, as a function of hydroclass
+ggplot(data=saplings_by_transect, aes(x=mstrlvl, 
+                                      y=mean_density_saplings_stems_per_ha)) + 
+  geom_violin() + geom_jitter(height=0, width=0.1, alpha=0.5) + xlab("Hydroclass") +
+  ylab(bquote("Density of ash saplings " ~ (stems/ha))) + theme_bw()
+
+# Ash tree histograms and scatters (individual trees) ##########################
+
+# How many trees were found of various diameter classes, colored by ash species?
+species_colors <- c(black="black", green_white_or_pumpkin="darkgreen", unknown="lightblue")
+ggplot(data=small_and_big_trees) +
+  geom_histogram(aes(x=diameter_at_137_cm_in_cm, fill=ash_species_simple),
+                 position="stack", breaks=c(2.5,5,7.5,10,12.5), color="black") + 
+  scale_fill_manual(values=species_colors) + 
+  theme_classic() + ylab("Number of stems") + xlab("Diameter at breast height (cm)") +
+  guides(fill = guide_legend(title = "Ash species"))
+
+# How many small trees were found of various diameter classes, colored by hydroclass?
+ggplot(data=small_and_big_trees) +
+  geom_histogram(aes(x=diameter_at_137_cm_in_cm, fill=mstrlvl),
+                 position="stack", breaks=c(2.5,5,7.5,10, 12.5), color="black") + theme_classic()
+
+# How many small trees were found of various diameter classes, colored by
+# canopy condition (1-5)?
+ggplot(data=small_and_big_trees) +
+  geom_histogram(aes(x=diameter_at_137_cm_in_cm, fill=canopy_condition_1_5),
+                 position="stack", breaks=seq(2.5,12.5,2.5), color="black") + 
+  theme_classic() + scale_fill_brewer() + xlab("Diameter at breast height (cm)") +
+  ylab("Number of stems") + guides(fill = guide_legend(title = "Canopy condition rating \n(1=healthy, 5=defoliated)"))
+
+# Make a scatter plot of the trees with diameter in the x-axis and 
+# canopy condition in the y-axis.
+ggplot(data=small_and_big_trees, aes(x=diameter_at_137_cm_in_cm, 
+                                     y=as.integer(canopy_condition_1_5),
+                                     color=ash_species_simple)) +
+  scale_color_manual(values = species_colors)+
+  geom_jitter(height=0.05, width=0, alpha=0.4) +
+  theme_classic() + xlim(c(2.5, 12.5))+
+  xlab("Diameter at breast height (cm)")+
+  ylab("Canopy condition rating \n(1=healthy, 5=defoliated)") +
+  labs(color="Ash species")
+# Eventually, I want to build a generalized linear mixed effects model to
+# explore the relationship (canopy condition) ~ DBH + (1|Park)
+
+# Make a bar graph to show species of ash for small ash trees. The x-axis is 
+# Plot_ID and the y-axis is the stacked number of occurences of black ash
+# and green/white/pumpkin ash
+ggplot(data=small_trees_by_plot)+
+  geom_col(aes(x=Plot_ID, y=number_small_trees), fill="darkgreen") +
+  geom_col(aes(x=Plot_ID, y=(number_small_trees_black + number_small_trees_unknown_species)), fill="black")+
+  geom_col(aes(x=Plot_ID, y=number_small_trees_unknown_species), fill="grey") +      
+  scale_x_discrete(guide = guide_axis(angle = 90)) + theme_classic() + 
+  ylab("Number of small trees \n(2.5-10 cm DBH)")
+
+# Create a histogram of number of small trees to investigate whether the 
+# distribution follows a Poisson distribution.
+ggplot(data=small_trees_by_plot, aes(x=number_small_trees)) +
+  geom_histogram() +
+  theme_classic()
+# The Poisson distribution assumes that events (here the presence of a small
+# tree) occur independently of the position of other small trees. That assumption
+# is obviously false
+
+# Now, make a violin plot that shows the density of small trees found at each 
+# plot, as a function of hydroclass
+ggplot(data=small_trees_by_plot, aes(x=mstrlvl, 
+                                    y=density_small_trees_stems_per_ha)) + 
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of ash small trees " ~ (stems/hectare))) +
+  theme_bw()
+
+# Plot the basal area per hectare found at each plot as a function of hydroclass:
+ggplot(data=small_trees_by_plot, aes(x=mstrlvl,
+                                     y=basal_area_small_trees_m_squared_per_ha)) +
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Basal area of ash small trees " ~ (m^2/hectare))) +
+  theme_bw()
+
+# Now, make a violin plot that shows the number of big trees found at each 
+# plot, as a function of hydroclass
+ggplot(data=trees_by_plot, aes(x=mstrlvl, 
+                                     y=density_big_trees_stems_per_ha)) + 
+  geom_violin() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  xlab("Hydroclass") +
+  ylab(bquote("Density of ash big trees " ~ (stems/ha))) +
+  theme_bw()
+
+plot(trees_by_plot$basal_area_big_trees_m_squared_per_ha)ggplot(data=trees_by_transect, aes(x=mstrlvl, 
                                y=mean_density_small_trees_stems_per_ha)) + 
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
@@ -655,25 +668,9 @@ ggplot(data=trees_by_transect, aes(x=mstrlvl,
   ylab(bquote("Basal area of ash small trees " ~ (m^2/hectare))) +
   theme_bw()
 
-# I'm curious what the mean and standard deviation of basal areas of small
+# I'm curious what the mean of basal areas of small
 # trees was for different plot hydroclasses:
 trees_by_hydroclass <- trees_by_plot %>% group_by(mstrlvl) %>%
   summarise(mean_density_small_trees_stems_per_ha = mean(density_small_trees_stems_per_ha),
             mean_BA_small_trees_m_squared_per_ha = mean(basal_area_small_trees_m_squared_per_ha))
 trees_by_hydroclass
-
-# Make a scatter plot of the small trees with diameter in the x-axis and 
-# canopy condition in the y-axis.
-ggplot(data=small_trees, aes(x=diameter_at_137_cm_in_cm, y=canopy_condition_1_5,
-                             color=ash_species_simple)) +
-  scale_color_manual(values = species_colors)+
-  geom_jitter(height=0.05, width=0, alpha=0.4) +
-  theme_classic() +
-  xlab("Diameter at breast height (cm)")+
-  ylab("Canopy condition rating \n(1=healthy, 5=defoliated)") +
-  labs(color="Ash species")
-  
-
-
-
-
