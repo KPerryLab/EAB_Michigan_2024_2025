@@ -83,6 +83,7 @@ table((plot_centers %>% filter(Park == "Island Lake"))$mstrlvl)
 table((plot_centers %>% filter(Park == "Kensington"))$mstrlvl)
 table((plot_centers %>% filter(Park == "Pontiac Lake"))$mstrlvl)
 table((plot_centers %>% filter(Park == "Proud Lake"))$mstrlvl)
+table(plot_centers$mstrlvl)
 
 # write.csv(plot_centers, file="EAB_Michigan_2024_plot_centers_with_hydro.csv",
 #          row.names = FALSE)
@@ -416,7 +417,7 @@ trees_by_plot$basal_area_big_trees_m_squared_per_ha <-
 ash_by_plot <- left_join(ash_by_plot2, trees_by_plot, by="center_tree_number")
 
 # Write the overall dataframe, ash_by_plot, to a csv file
-write.csv(ash_by_plot, file="Cleaned_data/ash_by_plot.csv", row.names = FALSE)
+#write.csv(ash_by_plot, file="Cleaned_data/ash_by_plot.csv", row.names = FALSE)
 
 # NEEDS WORK Summarise ash occurence by transect #########################################
 
@@ -576,18 +577,34 @@ ggplot(data=small_and_big_trees) +
   theme_classic() + ylab("Number of stems") + xlab("Diameter at breast height (cm)") +
   guides(fill = guide_legend(title = "Ash species"))
 
-# How many small trees were found of various diameter classes, colored by hydroclass?
+# How many trees were found of various diameter classes, colored by hydroclass?
 ggplot(data=small_and_big_trees) +
   geom_histogram(aes(x=diameter_at_137_cm_in_cm, fill=mstrlvl),
                  position="stack", breaks=c(2.5,5,7.5,10, 12.5), color="black") + theme_classic()
 
-# How many small trees were found of various diameter classes, colored by
+# How many black ash trees were found of various diameter classes, colored by
 # canopy condition (1-5)?
-ggplot(data=small_and_big_trees) +
+black_ash_in_hydric <- filter(small_and_big_trees, ash_species_simple=="black", 
+                              mstrlvl=="hydric", !is.na(canopy_condition_1_5)) # drop one observation without a canopy condition
+ggplot(data=black_ash_in_hydric) +
   geom_histogram(aes(x=diameter_at_137_cm_in_cm, fill=canopy_condition_1_5),
                  position="stack", breaks=seq(2.5,12.5,2.5), color="black") + 
   theme_classic() + scale_fill_brewer() + xlab("Diameter at breast height (cm)") +
-  ylab("Number of stems") + guides(fill = guide_legend(title = "Canopy condition rating \n(1=healthy, 5=defoliated)"))
+  ylab("Number of stems") + ylim(0,85)+
+  guides(fill ="none")+
+  labs(title="Black ash in hydric forests")
+
+# How many green/pumpkin ash trees were found of various diameter classes, colored by
+# canopy condition (1-5)?
+green_pumpkin_ash_in_hydric <- filter(small_and_big_trees, ash_species_simple=="green_white_or_pumpkin", mstrlvl=="hydric")
+ggplot(data=green_pumpkin_ash_in_hydric) +
+  geom_histogram(aes(x=diameter_at_137_cm_in_cm, fill=canopy_condition_1_5),
+                 position="stack", breaks=seq(2.5,12.5,2.5), color="black") + 
+  theme_classic() + scale_fill_brewer() + xlab("Diameter at breast height (cm)") +
+  ylab("Number of stems") + ylim(0,85)+
+  guides(fill = guide_legend(title = "Canopy condition \nrating \n(1=healthy, \n5=defoliated)"))+
+  labs(title="Green and pumpkin ash in hydric forests")
+
 
 # Make a scatter plot of the trees with diameter in the x-axis and 
 # canopy condition in the y-axis.
@@ -605,13 +622,17 @@ ggplot(data=small_and_big_trees, aes(x=diameter_at_137_cm_in_cm,
 
 # Make a bar graph to show species of ash for small ash trees. The x-axis is 
 # Plot_ID and the y-axis is the stacked number of occurences of black ash
-# and green/white/pumpkin ash
-ggplot(data=small_trees_by_plot)+
+# and green/white/pumpkin ash. **Note: only hydric plots are shown.**
+ggplot(data=(ash_by_plot %>% filter(mstrlvl=="hydric")))+
   geom_col(aes(x=Plot_ID, y=number_small_trees), fill="darkgreen") +
   geom_col(aes(x=Plot_ID, y=(number_small_trees_black + number_small_trees_unknown_species)), fill="black")+
   geom_col(aes(x=Plot_ID, y=number_small_trees_unknown_species), fill="grey") +      
   scale_x_discrete(guide = guide_axis(angle = 90)) + theme_classic() + 
   ylab("Number of small trees \n(2.5-10 cm DBH)")
+
+ggplot(data=filter(small_and_big_trees, mstrlvl=="hydric")) +
+  geom_bar(aes(x=ash_species_simple, fill=canopy_condition_1_5),color="black") + scale_fill_brewer() +
+  theme_bw()
 
 # Create a histogram of number of small trees to investigate whether the 
 # distribution follows a Poisson distribution.
