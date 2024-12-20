@@ -30,31 +30,28 @@ library(emmeans) # Estimated Marginal Means, aka Least Squares Means (enables
 # are represented at each park, but at least 2 out of 3 are found at each park 
 # (see ash_occurence.R)
 
-seedlings_by_transect <- read.csv("Cleaned_data/seedlings_by_transect.csv")
-seedlings_by_transect$Park <- as.factor(seedlings_by_transect$Park) # Grouping variable (random effect)
-seedlings_by_transect$mstrlvl <- as.factor(seedlings_by_transect$mstrlvl) # Predictor
+ash_by_transect <- read.csv("Cleaned_data/ash_by_transect.csv")
+ash_by_transect$Park <- as.factor(ash_by_transect$Park) # Grouping variable (random effect)
+ash_by_transect$mstrlvl <- as.factor(ash_by_transect$mstrlvl) # Predictor
 
-# Question: Major problem with data? ###########################################
+# Question: Major problem with data ###########################################
 # Unfourtunately, the first trip to Michigan in 2024 we counted seedlings using 
 # microplot PVCs that were too small (with an area of only 3.37 m^2). After that
 # we switched to PVCs with an area of 4.06 m^2 in order to be consistent with 
 # previous studies, which had a microplot area of 4 m^2. I corrected for this 
 # problem in the seedling density variables. However, the seedling counts are 
-# uncorrected. Thus, this is a weakness in the data. In the code below, you can
-# see which transects are affected by the microplot area discrepancy:
-seedlings_by_transect[
-  seedlings_by_transect$mean_area_microplot_m_squared < 4.06, 
-  c("Park", "Transect", "mean_area_microplot_m_squared")]
+# uncorrected. Thus, this is a weakness in the data. In 2025 we may revisit these
+# plots.
 
 # Back to stats...
 
 # Graph the data first:
-dotchart(seedlings_by_transect$total_number_seedlings, 
-         group = seedlings_by_transect$mstrlvl)
-hist(seedlings_by_transect$total_number_seedlings, breaks=seq(0,270,10))
-ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_seedlings)) +
+dotchart(ash_by_transect$total_number_seedlings, 
+         group = ash_by_transect$mstrlvl)
+hist(ash_by_transect$total_number_seedlings, breaks=seq(0,270,10))
+ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_seedlings)) +
   geom_boxplot(outlier.colour = "white") +
-  geom_jitter(aes(color=mean_area_microplot_m_squared), height=0, width=0.1, alpha=0.9) +
+  geom_jitter(aes(color=Park), height=0, width=0.1, alpha=0.6) +
   theme_classic() +
   xlab("Hydroclass") +
   ylab("Number of seedlings in transect")
@@ -66,19 +63,20 @@ ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_seedlings)) +
 
 # Fit the model:
 seedling_mod <- glmer(total_number_seedlings ~ mstrlvl + (1|Park), 
-                      data=seedlings_by_transect, family="poisson")
+                      data=ash_by_transect, family="poisson")
+summary(seedling_mod)
 
 # Below is code for running the model without a random effect:
 seedling_mod_without_Park <- glm(total_number_seedlings ~ mstrlvl, 
-                              data=seedlings_by_transect, family="poisson")
+                              data=ash_by_transect, family="poisson")
+summary(seedling_mod_without_Park)
 
-summary(seedling_mod)
 
 # To check the estimates of the fixed effect (hydroclass), I'll compute the mean
 # number of seedlings in hydric, mesic, and xeric, and then compare that to
 # what the model says:
-seedling_means <- as.data.frame(tapply(seedlings_by_transect$total_number_seedlings, seedlings_by_transect$mstrlvl,
-       mean)) # Hydric: 19.75 seedlings; Mesic: 135 seedlings; Xeric: 86.74 seedlings
+seedling_means <- as.data.frame(tapply(ash_by_transect$total_number_seedlings, ash_by_transect$mstrlvl,
+       mean)) # Hydric: 22.6 seedlings; Mesic: 154 seedlings; Xeric: 90.83 seedlings
 colnames(seedling_means) <- "Mean_seedlings"
 seedling_means$log_seedling_means <- log(seedling_means$Mean_seedlings) # Take the 
 # logarithm because that is the link function in the generalized linear model
@@ -90,8 +88,7 @@ seedling_means$fixed_effects_in_GLMM <- data.frame(coef(summary(seedling_mod)))$
 # NO RANDOM EFFECT INCLUDED. Interestingly, inclusion of the random effect (Park)
 # caused the estimated differences |mesic-hydric| and |xeric-hydric| to become
 # smaller in absolute value. To me, this suggests that the grouping variable (Park) 
-# is helping to account for structure in the dataset. Question: am I interpreting
-# this correctly?
+# is helping to account for structure in the dataset.
 
 Anova(seedling_mod, type = "III")
 emmeans(seedling_mod, pairwise ~ mstrlvl)
@@ -103,7 +100,7 @@ qqline(resid(seedling_mod))
 plot(seedling_mod)
 getME(seedling_mod, "b") # Look at the actual estimated intercepts for 
 # each Park (the "conditional modes of the random effects")
-levels(seedlings_by_transect$Park) # Looks like the 6th park is Pontiac, which
+levels(ash_by_transect$Park) # Looks like the 6th park is Pontiac, which
 # had a higher number of seedlings
 # Note: I have no idea how to actually make a q-q plot of these estimated intercepts
 
@@ -122,7 +119,7 @@ overdisp_fun(seedling_mod) # Question: how do I interpret this result?
 
 # Short seedlings model #######################################################
 
-ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_short)) +
+ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_short)) +
   geom_boxplot(outlier.colour = "white") +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   theme_classic() +
@@ -130,7 +127,7 @@ ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_short)) +
   ylab("Number of short seedlings in transect")
 
 short_seedling_mod <- glmer(total_number_short ~ mstrlvl + (1|Park), 
-                      data=seedlings_by_transect, family="poisson")
+                      data=ash_by_transect, family="poisson")
 summary(short_seedling_mod)
 Anova(short_seedling_mod, type = "III")
 emmeans(short_seedling_mod, pairwise ~ mstrlvl)
@@ -141,7 +138,7 @@ plot(short_seedling_mod)
 
 # Tall seedlings model ########################################################
 
-ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_tall)) +
+ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_tall)) +
   geom_boxplot(outlier.colour = "white") +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   theme_classic() +
@@ -149,9 +146,9 @@ ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_tall)) +
   ylab("Number of tall seedlings in transect")
 
 tall_seedling_mod <- glmer(total_number_tall ~ mstrlvl + (1|Park), 
-                            data=seedlings_by_transect, family="poisson")
+                            data=ash_by_transect, family="poisson")
 tall_seedling_mod_without_Park <- glm(total_number_tall ~ mstrlvl, 
-                                      data=seedlings_by_transect, family="poisson")
+                                      data=ash_by_transect, family="poisson")
 summary(tall_seedling_mod)
 # Interestingly, the Park variable is not soaking up as much variation
 # in number of tall seedlings (Variance of random effect = 0.38) as it
@@ -165,7 +162,7 @@ plot(tall_seedling_mod)
 
 # Percent cover seedlings model ###############################################
 
-ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_percent_cover)) +
+ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_percent_cover_seedlings)) +
   geom_boxplot(outlier.colour = "white") +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   theme_classic() +
@@ -175,8 +172,8 @@ ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_percent_cover)) +
 # Mean percent cover is a numeric response variable, so I should be able to run
 # a linear mixed effects model.
 library(lmerTest)
-percent_cov_seedling_mod <- lmer(mean_percent_cover ~ mstrlvl + (1|Park), 
-                           data=seedlings_by_transect)
+percent_cov_seedling_mod <- lmer(mean_percent_cover_seedlings ~ mstrlvl + (1|Park), 
+                           data=ash_by_transect)
 summary(percent_cov_seedling_mod)
 Anova(percent_cov_seedling_mod, type = "III")
 emmeans(percent_cov_seedling_mod, pairwise ~ mstrlvl) # Question: do I only 
@@ -200,10 +197,17 @@ hist(intercepts_percent_cov_model$`(Intercept)`, breaks=10)
 
 # Saplings model ##############################################################
 
-saplings_by_transect <- read.csv("Cleaned_data/saplings_by_transect.csv")
-saplings_by_transect$Park <- as.factor(saplings_by_transect$Park) # Grouping variable (random effect)
-saplings_by_transect$mstrlvl <- as.factor(saplings_by_transect$mstrlvl) # Predictor
+# graph the data:
+ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_saplings)) +
+  geom_boxplot(outlier.colour = "white") +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  theme_classic() +
+  xlab("Hydroclass") +
+  ylab("Total number of saplings")
 
-
-
+saplings_model <- glmer(total_number_saplings ~ mstrlvl + (1|Park),
+                        data=ash_by_transect, family="poisson")
+summary(saplings_model)
+# I'm noticing that the median number of saplings is highest in hydric, then
+# mesic, then xeric, but the mean shows a different ranking.
 
