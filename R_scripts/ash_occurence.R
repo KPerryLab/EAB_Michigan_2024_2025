@@ -336,6 +336,8 @@ plot(big_trees$distance_to_center_meters_simple)
 all.equal(colnames(small_trees), colnames(big_trees)) # column names are the same
 small_and_big_trees <- bind_rows(small_trees, big_trees)
 
+write.csv(small_and_big_trees, file="Cleaned_data/individual_trees.csv", row.names = FALSE)
+
 # Summarise ash tree occurence by plot #########################################
 
 # Now, create a summary of how many ash small trees were found in each plot
