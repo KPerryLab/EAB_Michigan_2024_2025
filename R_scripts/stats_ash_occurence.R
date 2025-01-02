@@ -36,6 +36,9 @@ ash_by_transect$Park <- as.factor(ash_by_transect$Park) # Grouping variable (ran
 ash_by_transect$mstrlvl <- as.factor(ash_by_transect$mstrlvl) # Predictor
 table(ash_by_transect$mstrlvl) # 5 hydric transects, 7 mesic, 18 xeric
 
+ash_by_plot <- read.csv("Cleaned_data/ash_by_plot.csv")
+ash_by_plot$Park <- as.factor(ash_by_plot$Park)
+
 # Question: Major problem with data ###########################################
 # Unfortunately, the first trip to Michigan in 2024 we counted seedlings using 
 # microplot PVCs that were too small (with an area of only 3.37 m^2). After that
@@ -349,7 +352,12 @@ summary(small_trees_model_without_Park_negbin)
 Anova(small_trees_model_without_Park_negbin, type="III")
 emmeans(small_trees_model_without_Park_negbin, pairwise ~ mstrlvl)
 
-# Basal area of small trees model #############################################
+# Basal area of all ash trees model #############################################
+
+# Make another column for total basal area of living ash trees >=2.5 cm DBH
+ash_by_transect$mean_basal_area_living_ash_trees_m_squared_per_ha <-
+  ash_by_transect$mean_basal_area_living_small_trees_m_squared_per_ha +
+  ash_by_transect$mean_basal_area_living_big_trees_m_squared_per_ha
 
 # Graph the data:
 ggplot(data=ash_by_transect, 
