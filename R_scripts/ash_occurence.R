@@ -196,15 +196,49 @@ saplings$center_tree_number[saplings$center_tree_number == "75_south"] <- "75"
 
 saplings$center_tree_number <- as.integer(saplings$center_tree_number)
 
+# Recode the ash species presence or absence as 0 or 1
+saplings$black_ash_present_0_1 <- 
+  ifelse(saplings$black_ash_present_y_n == "y", 1,
+        ifelse(saplings$black_ash_present_y_n == "n", 0, NA))
+  
+saplings$green_white_pumpkin_ash_present_0_1 <- 
+  ifelse(saplings$green_white_pumpkin_ash_present_y_n == "y", 1,
+         ifelse(saplings$green_white_pumpkin_ash_present_y_n == "n", 0, NA))
+
+# Compute the number of saplings showing signs or symptoms of EAB:
+saplings$number_stems_with_signs_symptoms <- round(
+  saplings$number_of_stems * saplings$percent_stems_with_signs_or_symptoms / 100,
+  digits = 0)
+
+# What was the most common sign or symptom for ash saplings?
+sum(saplings$number_of_stems != 0) # 150 subplot quadrants where nonzero numbers of ash saplings
+sum(saplings$EAB_exit_holes_y_n == "y", na.rm=TRUE) # no exit holes were found on saplings
+sum(saplings$woodpecker_marks_y_n == "y", na.rm=T) # 1 quadrant with woodpecker marks on saplings
+sum(saplings$ash_bark_splitting_y_n == "y", na.rm=T) # 31 quadrants with ash bark splitting on saplings
+sum(saplings$epicormic_sprouts_y_n == "y", na.rm = T) # 6 quadrants with epicormics on saplings
+sum(saplings$basal_sprouts_y_n == "y", na.rm = T) # 3 quadrants with basal sprouts on saplings
+
 # Trying to add in the plot center info to this dataframe:
 saplings2 <- right_join(plot_centers, saplings, by="center_tree_number")
 nrow(saplings) == nrow(saplings2)
+
 
 # Saplings were counted in each quadrant, so I want to sum up the quadrants
 # to get a total number of saplings by plot
 saplings_by_plot <- saplings2 %>% group_by(center_tree_number) %>% 
   summarise(number_subplot_quadrants=n(),
-            number_saplings = sum(number_of_stems))
+            number_saplings = sum(number_of_stems),
+            number_subplot_quadrants_with_black_ash_saplings = 
+              sum(black_ash_present_0_1, na.rm = F),
+            number_subplot_quadrants_with_green_white_pumpkin_ash_saplings = 
+              sum(green_white_pumpkin_ash_present_0_1, na.rm = F),
+            number_saplings_with_signs_symptoms = 
+              sum(number_stems_with_signs_symptoms, na.rm=T))
+
+# How many saplings showed signs and 
+
+# Make a dataframe that shows all the plots with nonzero numbers of saplings:
+plots_with_nonzero_saplings <- saplings_by_plot %>% filter(number_saplings != 0)
 
 # To find the density of saplings, I need to divide the number of saplings 
 # found in the subplot (8 meters in radius) by the area of that subplot. 
@@ -336,7 +370,7 @@ plot(big_trees$distance_to_center_meters_simple)
 all.equal(colnames(small_trees), colnames(big_trees)) # column names are the same
 small_and_big_trees <- bind_rows(small_trees, big_trees)
 
-write.csv(small_and_big_trees, file="Cleaned_data/individual_trees.csv", row.names = FALSE)
+#write.csv(small_and_big_trees, file="Cleaned_data/individual_trees.csv", row.names = FALSE)
 
 # Summarise ash tree occurence by plot #########################################
 
@@ -481,7 +515,7 @@ sum(is.na(ash_by_plot))
 sum(is.na(ash_by_plot_exclude_partial_transects)) # By removing transects that 
 # were not fully completed, we took out all the cells with NA in them.
 
-# Transect-level summary (excluding transects that are incomplete):
+# Transect-level summary (***excluding transects that are incomplete***):
 ash_by_transect <- ash_by_plot_exclude_partial_transects %>% group_by(Transect) %>%
   summarize(
             number_of_plots = n(),
@@ -503,6 +537,7 @@ ash_by_transect <- ash_by_plot_exclude_partial_transects %>% group_by(Transect) 
             number_subplot_quadrants = sum(number_subplot_quadrants),
             total_number_saplings = sum(number_saplings),
             mean_density_saplings_stems_per_m_squared = mean(density_saplings_stems_per_m_squared), # stems/m^2
+            total_number_saplings_with_signs_symptoms = sum(number_saplings_with_signs_symptoms),
             
             # small trees:
             total_number_small_trees = sum(number_small_trees),
@@ -677,7 +712,7 @@ trees_by_hydroclass <- trees_by_plot %>% group_by(mstrlvl) %>%
 trees_by_hydroclass
 
 
-# Ash tree histograms and scatters (individual trees) ##########################
+# Ash tree histograms and scatters #############################################
 
 # How many trees were found of various diameter classes, colored by ash species?
 species_colors <- c(black="black", green_white_or_pumpkin="darkgreen", unknown="lightblue")
@@ -732,8 +767,8 @@ ggplot(data=small_and_big_trees, aes(x=diameter_at_137_cm_in_cm,
 # Eventually, I want to build a generalized linear mixed effects model to
 # explore the relationship (canopy condition) ~ DBH + (1|Park)
 
-# Make a bar graph to show species of ash for small ash trees. The x-axis is 
-# Plot_ID and the y-axis is the stacked number of occurences of black ash
+# Make a bar graph to show species of ash for small ash trees at plots. The 
+# x-axis is Plot_ID and the y-axis is the stacked number of occurences of black ash
 # and green/white/pumpkin ash. **Note: only hydric plots are shown.**
 ggplot(data=(ash_by_plot %>% filter(mstrlvl=="hydric")))+
   geom_col(aes(x=Plot_ID, y=number_small_trees), fill="darkgreen") +
@@ -743,6 +778,14 @@ ggplot(data=(ash_by_plot %>% filter(mstrlvl=="hydric")))+
   ylab("Number of small trees \n(2.5-10 cm DBH)") # Note: warning messages are 
 # just because some plots have not been visited yet, so they do not have a 
 # value for number of small trees
+
+# Make a bar graph to show species of ash for small ash trees at transects.
+ggplot(data=ash_by_transect)+
+  geom_col(aes(x=Transect, y=total_number_small_trees_green_white_or_pumpkin + total_number_small_trees_black + total_number_small_trees_unknown_species), fill="darkgreen") +
+  geom_col(aes(x=Transect, y=total_number_small_trees_black + total_number_small_trees_unknown_species), fill="black")+
+  geom_col(aes(x=Transect, y=total_number_small_trees_unknown_species), fill="lightblue") +      
+  scale_x_discrete(guide = guide_axis(angle = 90)) + theme_classic() + 
+  ylab("Number of small trees \n(2.5-10 cm DBH")
 
 # Looking at all ash trees, organized by species, how many are 
 # canopy condition = 1, 2, 3, 4, and 5?
