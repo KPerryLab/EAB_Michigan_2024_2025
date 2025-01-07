@@ -47,6 +47,7 @@ ash_by_plot$Park <- as.factor(ash_by_plot$Park)
 # problem in the seedling density variables. However, the seedling counts are 
 # uncorrected. Thus, this is a weakness in the data. In 2025 we may revisit these
 # plots.
+#### If you have time this summer, yes, good idea to revisit the plots to take new seedling counts
 
 # Back to stats...
 
@@ -93,6 +94,11 @@ seedling_mod_without_Park <- glm(total_number_seedlings ~ mstrlvl,
                               data=ash_by_transect, family="poisson")
 summary(seedling_mod_without_Park)
 
+#### Here are two ways to check which model is a better fit
+# In this case, both suggest the model that includes park
+anova(seedling_mod, seedling_mod_without_Park)
+library(bbmle)
+AICctab(seedling_mod, seedling_mod_without_Park)
 
 # To check the estimates of the fixed effect (hydroclass), I'll compute the mean
 # number of seedlings in hydric, mesic, and xeric, and then compare that to
@@ -111,6 +117,7 @@ seedling_means$fixed_effects_in_GLMM <- data.frame(coef(summary(seedling_mod)))$
 # caused the estimated differences |mesic-hydric| and |xeric-hydric| to become
 # smaller in absolute value. To me, this suggests that the grouping variable (Park) 
 # is helping to account for structure in the dataset.
+#### yep, and model selection procedures agree
 
 car::Anova(seedling_mod, type = "III")
 emmeans(seedling_mod, pairwise ~ mstrlvl) # pairwise comparisons
@@ -126,6 +133,13 @@ getME(seedling_mod, "b") # Look at the actual estimated intercepts for
 levels(ash_by_transect$Park) # Looks like the 6th park is Pontiac, which
 # had a higher number of seedlings
 # Note: I have no idea how to actually make a q-q plot of these estimated intercepts
+
+qqnorm(resid(seedling_mod))
+qqline(resid(seedling_mod))
+library(DHARMa)
+# check out this package for checking model assumptions
+# https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html
+plot(simulateResiduals(seedling_mod))
 
 # Test for overdispersion. The Poisson GLM with log link assumes that 1) the 
 # logarithm of the response is linearly related to the predictor, and 2) the 
@@ -147,6 +161,8 @@ overdisp_fun <- function(model) {
 }
 
 overdisp_fun(seedling_mod) # Question: how do I interpret this result?
+#### ratio is greater than 1, p value is significant which means the data are overdispersed
+# High p value indicates rejecting the hypothesis of 'equidispersion' according to Bolker
 
 # Here is a different overdispersion test (here I'm testing the model that 
 # omits the random effect of Park):
@@ -204,6 +220,12 @@ summary(seedling_mod_negbin) # Incorporating the random effect Park actually
 # decreased the p-values, which is not what I would expect.
 Anova(seedling_mod_negbin, type="III")
 emmeans(seedling_mod_negbin, pairwise~mstrlvl)
+
+anova(seedling_mod, seedling_mod_negbin)
+### negative binomial for the win. Makes sense since all evidence suggested overdispersion
+
+#### For each response variable, run a regular poisson regression, check for overdispersion, then run the
+# negbinom if it is appropriate.
 
 # Short seedlings model #######################################################
 
@@ -324,6 +346,8 @@ ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_saplings)) +
 
 saplings_model_negbin <- lme4::glmer.nb(total_number_saplings ~ mstrlvl + (1|Park),
                         data=ash_by_transect)
+summary(saplings_model_negbin) # park explains 0 variance
+
 # I got a singular fit (Question: don't know what that means), so I'm going to
 # simply run a model excluding the Park variable:
 saplings_model_without_Park_negbin <- 
@@ -331,6 +355,8 @@ saplings_model_without_Park_negbin <-
 summary(saplings_model_without_Park_negbin)
 Anova(saplings_model_without_Park_negbin, type="III")
 emmeans(saplings_model_without_Park_negbin, pairwise~mstrlvl)
+
+anova(saplings_model_negbin, saplings_model_without_Park_negbin)
 
 # Living small trees model ####################################################
 
@@ -345,12 +371,16 @@ ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_living_small_trees)) 
 small_trees_model_negbin <- 
   lme4::glmer.nb(total_number_living_small_trees ~ mstrlvl + (1|Park),
                  data=ash_by_transect)
+summary(small_trees_model_negbin)
+
 # The model did not converge, so I'll need to run it without the random effect
 small_trees_model_without_Park_negbin <- 
   MASS::glm.nb(total_number_living_small_trees ~ mstrlvl, data=ash_by_transect)
 summary(small_trees_model_without_Park_negbin)
 Anova(small_trees_model_without_Park_negbin, type="III")
 emmeans(small_trees_model_without_Park_negbin, pairwise ~ mstrlvl)
+
+anova(small_trees_model_negbin, small_trees_model_without_Park_negbin)
 
 # Basal area of all ash trees model #############################################
 
