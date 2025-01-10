@@ -78,7 +78,11 @@ trees_without_missing_basal_sprout_data <-
 # EAB exit holes (descriptive) #################################################
 # Plot presence/absence of EAB exit holes against DBH
 ggplot(data=trees, aes(x=DBH, y=EAB_exit_holes_0_1)) +
-  geom_jitter(alpha=0.5, height=0.03, width=0)
+  geom_jitter(aes(color=Park), alpha=0.5, height=0.03, width=0)
+# I was confused, because I know we found EAB exit holes at Pontiac, but then I
+# realized that the trees were filtered so that the small trees had to be within
+# the subplot.
+
 table(trees$EAB_exit_holes_0_1)
 # There are only 8/321 recorded trees with EAB exit holes that were 
 # spotted. This seems like too few to create a meaningful model
@@ -178,13 +182,21 @@ new_data$center_tree_number = as.factor(c(rep(18, 1000),rep(22,1000),rep(24,1000
                                           rep(63,1000),rep(72,1000),rep(78,1000)))
 new_data$predicted_woodpecker_marks <- 
   predict(fit_woodpecker_marks, newdata=new_data, type="response")
-# Note: re.form=NA tells R to avoid trying to plot the line for each grouping
-# variable and to just plot the global fit
 
 ggplot(data=trees_subset_for_models, aes(x=DBH, y=woodpecker_marks_0_1)) +
   geom_jitter(aes(color=center_tree_number), alpha=0.5, height=0.03, width=0) +
   geom_line(data=new_data, aes(x=DBH, y=predicted_woodpecker_marks, 
                                color=center_tree_number))
+
+# Make a graph that shows the overall trend:
+new_data2 <- data.frame(DBH = seq(2.5, 12.49, 0.01))
+new_data2$predicted_woodpecker_marks <- 
+  predict(fit_woodpecker_marks, newdata=new_data2, type="response", re.form=NA)
+# Note: re.form=NA tells R to avoid trying to plot the line for each grouping
+# variable and to just plot the global fit
+ggplot(data=trees_subset_for_models, aes(x=DBH, y=woodpecker_marks_0_1)) +
+  geom_jitter(alpha=0.5, height=0.03, width=0) +
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_woodpecker_marks))
 
 # Bark splitting model #########################################################
 
@@ -204,13 +216,21 @@ summary(fit_bark_splitting)
 # Plot the regression line. 
 new_data$predicted_bark_splitting <- 
   predict(fit_bark_splitting, newdata=new_data, type="response")
-# Note: re.form=NA tells R to avoid trying to plot the line for each grouping
-# variable and to just plot the global fit
 
 ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_bark_splitting_0_1)) +
   geom_jitter(aes(color=center_tree_number), alpha=0.5, height=0.03, width=0) +
   geom_line(data=new_data, aes(x=DBH, y=predicted_bark_splitting, 
                                color=center_tree_number))
+
+# Make a graph that shows the overall trend:
+new_data2$predicted_bark_splitting <- 
+  predict(fit_bark_splitting, newdata=new_data2, type="response", re.form=NA)
+# Note: re.form=NA tells R to avoid trying to plot the line for each grouping
+# variable and to just plot the global fit
+ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_bark_splitting_0_1)) +
+  geom_jitter(alpha=0.5, height=0.03, width=0) +
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_bark_splitting)) +
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_woodpecker_marks), color="red")
 
 # Epicormics model #############################################################
 
@@ -228,8 +248,6 @@ summary(fit_epicormic_sprouts)
 # Plot the regression line. 
 new_data$predicted_epicormic_sprouts <- 
   predict(fit_epicormic_sprouts, newdata=new_data, type="response")
-# Note: re.form=NA tells R to avoid trying to plot the line for each grouping
-# variable and to just plot the global fit
 
 ggplot(data=trees_subset_for_models, aes(x=DBH, y=epicormic_sprouts_0_1)) +
   geom_jitter(aes(color=center_tree_number), alpha=0.5, height=0.03, width=0) +
@@ -252,8 +270,6 @@ summary(fit_basal_sprouts)
 # Plot the regression line. 
 new_data$predicted_basal_sprouts <- 
   predict(fit_basal_sprouts, newdata=new_data, type="response")
-# Note: re.form=NA tells R to avoid trying to plot the line for each grouping
-# variable and to just plot the global fit
 
 ggplot(data=trees_subset_for_models, aes(x=DBH, y=basal_sprouts_0_1)) +
   geom_jitter(aes(color=center_tree_number), alpha=0.5, height=0.03, width=0) +
@@ -276,8 +292,6 @@ summary(fit_death)
 # Plot the regression line. 
 new_data$predicted_death <- 
   predict(fit_death, newdata=new_data, type="response")
-# Note: re.form=NA tells R to avoid trying to plot the line for each grouping
-# variable and to just plot the global fit
 
 ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_tree_death)) +
   geom_jitter(aes(color=center_tree_number), alpha=0.5, height=0.03, width=0) +
@@ -300,8 +314,6 @@ summary(fit_decline)
 # Plot the regression line. 
 new_data$predicted_decline <- 
   predict(fit_decline, newdata=new_data, type="response")
-# Note: re.form=NA tells R to avoid trying to plot the line for each grouping
-# variable and to just plot the global fit
 
 ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_tree_decline)) +
   geom_jitter(aes(color=center_tree_number), alpha=0.5, height=0.03, width=0) +
