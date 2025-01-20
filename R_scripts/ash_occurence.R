@@ -572,7 +572,7 @@ ggplot(data=seedlings2, aes(x=factor(mstrlvl),
 
 
 # Make a graph that shows the seedling densities by hydroclass, at the plot level
-ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_density_seedlings)) +
+ggplot(data=ash_by_plot, aes(x=factor(mstrlvl), y=mean_density_seedlings)) +
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
@@ -581,26 +581,23 @@ ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_density_seedlings))
   theme_bw()
 
 # Make a similar graph for short seedlings (under 25 cm):
-ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_density_short)) +
+ggplot(data=ash_by_plot, aes(x=factor(mstrlvl), y=mean_density_short_seedlings)) +
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
   ylab(bquote("Density of short ash seedlings <25 cm  " ~ (stems/m^2))) +
-  scale_y_continuous(breaks=seq(0,9,2)) +
-  ylim(-0.15, 6) +
   theme_bw()
 
 # Same for tall seedlings:
-ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_density_tall)) +
+ggplot(data=ash_by_plot, aes(x=factor(mstrlvl), y=mean_density_tall_seedlings)) +
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
   ylab(bquote("Density of tall ash seedlings 25-137 cm  " ~ (stems/m^2))) +
-  ylim(-0.15, 6) +
   theme_bw()
 
 # And for percent cover:
-ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_percent_cover)) +
+ggplot(data=ash_by_plot, aes(x=factor(mstrlvl), y=mean_percent_cover_seedlings)) +
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
@@ -608,7 +605,7 @@ ggplot(data=seedlings_by_plot, aes(x=factor(mstrlvl), y=mean_percent_cover)) +
   theme_bw()
 
 # Make a graph that shows the seedling densities by hydroclass, at the transect level:
-ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_density_seedlings)) +
+ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_seedlings)) +
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
@@ -617,7 +614,7 @@ ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_density_seedlings)) +
   theme_bw()
 
 # Make a graph that shows the number of seedlings by hydroclass, at the transect level:
-ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_seedlings)) +
+ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_seedlings)) +
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
@@ -625,7 +622,7 @@ ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=total_number_seedlings)) +
   theme_bw()
 
 # Make a graph that shows the percent cover by hydroclass, at the transect level
-ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_percent_cover)) +
+ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_percent_cover_seedlings)) +
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
@@ -633,7 +630,7 @@ ggplot(data=seedlings_by_transect, aes(x=mstrlvl, y=mean_percent_cover)) +
   theme_bw()
 
 # Make a graph that shows the seedling densities by park, at the transect level:
-ggplot(data=seedlings_by_transect, aes(x=Park, y=mean_density_seedlings)) +
+ggplot(data=ash_by_transect, aes(x=Park, y=mean_density_seedlings)) +
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
@@ -643,8 +640,8 @@ ggplot(data=seedlings_by_transect, aes(x=Park, y=mean_density_seedlings)) +
 
 # Now, make a violin plot that shows the density of saplings found at each plot, 
 # as a function of hydroclass
-ggplot(data=saplings_by_plot, aes(x=factor(mstrlvl), 
-                                  y=density_saplings)) + 
+ggplot(data=ash_by_plot, aes(x=factor(mstrlvl), 
+                                  y=density_saplings_stems_per_m_squared)) + 
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
@@ -653,8 +650,8 @@ ggplot(data=saplings_by_plot, aes(x=factor(mstrlvl),
 
 # Now, make a violin plot that shows the mean density of saplings found at each 
 # transect, as a function of hydroclass
-ggplot(data=saplings_by_transect, aes(x=mstrlvl, 
-                                      y=mean_density_saplings_stems_per_ha)) + 
+ggplot(data=ash_by_transect, aes(x=mstrlvl, 
+                                      y=mean_density_saplings_stems_per_m_squared)) + 
   geom_violin() + geom_jitter(height=0, width=0.1, alpha=0.5) + xlab("Hydroclass") +
   ylab(bquote("Density of ash saplings " ~ (stems/ha))) + theme_bw()
 
@@ -669,7 +666,7 @@ ggplot(data=ash_by_plot,
   theme_bw()
 
 # Plot the basal area per hectare found at each plot as a function of hydroclass:
-ggplot(data=small_trees_by_plot, aes(x=mstrlvl,
+ggplot(data=ash_by_plot, aes(x=mstrlvl,
                                      y=basal_area_small_trees_m_squared_per_ha)) +
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
@@ -679,7 +676,7 @@ ggplot(data=small_trees_by_plot, aes(x=mstrlvl,
 
 # Now, make a violin plot that shows the number of big trees found at each 
 # plot, as a function of hydroclass
-ggplot(data=trees_by_plot, aes(x=mstrlvl, 
+ggplot(data=ash_by_plot, aes(x=mstrlvl, 
                                      y=density_big_trees_stems_per_ha)) + 
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
@@ -687,7 +684,7 @@ ggplot(data=trees_by_plot, aes(x=mstrlvl,
   ylab(bquote("Density of ash big trees " ~ (stems/ha))) +
   theme_bw()
 
-plot(trees_by_plot$basal_area_big_trees_m_squared_per_ha)ggplot(data=trees_by_transect, aes(x=mstrlvl, 
+ggplot(data=ash_by_transect, aes(x=mstrlvl, 
                                y=mean_density_small_trees_stems_per_ha)) + 
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
@@ -696,21 +693,13 @@ plot(trees_by_plot$basal_area_big_trees_m_squared_per_ha)ggplot(data=trees_by_tr
   theme_bw()
 
 # Graph the basal area per ha of small trees by hydroclass, at the transect level:
-ggplot(data=trees_by_transect, aes(x=mstrlvl, 
-                                   y=mean_BA_small_trees_m_squared_per_ha)) + 
+ggplot(data=ash_by_transect, aes(x=mstrlvl, 
+                                   y=mean_basal_area_small_trees_m_squared_per_ha)) + 
   geom_violin() +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   xlab("Hydroclass") +
   ylab(bquote("Basal area of ash small trees " ~ (m^2/hectare))) +
   theme_bw()
-
-# I'm curious what the mean of basal areas of small
-# trees was for different plot hydroclasses:
-trees_by_hydroclass <- trees_by_plot %>% group_by(mstrlvl) %>%
-  summarise(mean_density_small_trees_stems_per_ha = mean(density_small_trees_stems_per_ha),
-            mean_BA_small_trees_m_squared_per_ha = mean(basal_area_small_trees_m_squared_per_ha))
-trees_by_hydroclass
-
 
 # Ash tree histograms and scatters #############################################
 
@@ -726,7 +715,9 @@ ggplot(data=small_and_big_trees) +
 # How many trees were found of various diameter classes, colored by hydroclass?
 ggplot(data=small_and_big_trees) +
   geom_histogram(aes(x=diameter_at_137_cm_in_cm, fill=mstrlvl),
-                 position="stack", breaks=c(2.5,5,7.5,10, 12.5), color="black") + theme_classic()
+                 position="stack", breaks=c(2.5,5,7.5,10, 12.5), color="black") + 
+  theme_classic() + xlab("Diameter at breast height (cm)") + ylab("Number of stems") +
+  scale_fill_discrete(name = "Hydrological\nclass")
 
 # How many black ash trees were found of various diameter classes, colored by
 # canopy condition (1-5)?
@@ -743,7 +734,9 @@ ggplot(data=black_ash_in_hydric) +
 
 # How many green/pumpkin ash trees were found of various diameter classes, colored by
 # canopy condition (1-5)?
-green_pumpkin_ash_in_hydric <- filter(small_and_big_trees, ash_species_simple=="green_white_or_pumpkin", mstrlvl=="hydric")
+green_pumpkin_ash_in_hydric <- filter(small_and_big_trees, 
+                                      ash_species_simple=="green_white_or_pumpkin", 
+                                      mstrlvl=="hydric")
 ggplot(data=green_pumpkin_ash_in_hydric) +
   geom_histogram(aes(x=diameter_at_137_cm_in_cm, fill=canopy_condition_1_5),
                  position="stack", breaks=seq(2.5,12.5,2.5), color="black") + 

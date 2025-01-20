@@ -4,6 +4,7 @@
 
 library(dplyr)
 library(ggplot2)
+library(ggpubr)
 
 trees0 <- read.csv("Cleaned_data/individual_trees.csv")
 
@@ -195,8 +196,44 @@ new_data2$predicted_woodpecker_marks <-
 # Note: re.form=NA tells R to avoid trying to plot the line for each grouping
 # variable and to just plot the global fit
 ggplot(data=trees_subset_for_models, aes(x=DBH, y=woodpecker_marks_0_1)) +
-  geom_jitter(alpha=0.5, height=0.03, width=0) +
-  geom_line(data=new_data2, aes(x=DBH, y=predicted_woodpecker_marks))
+  geom_jitter(alpha=0.5, height=0.02, width=0) +
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_woodpecker_marks)) +
+  theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of woodpecker \npredation marks")
+
+# Try out a method to test the accuracy of this model:
+# Bin the data points by DBH, then compute the mean and standard deviation
+# of each bin, and plot this to see if the binomial GLMM line runs through
+# the binned means
+
+trees_subset_for_models_1 <- trees_subset_for_models %>% 
+  mutate(new_bin = cut(DBH, breaks = seq(1.5, 12.5, 1)))
+table(trees_subset_for_models_1$new_bin) # Seems like there are no trees 
+# in this subsetted dataset that are 11.5-12.5 cm DBH.
+bins_for_plot <- trees_subset_for_models_1 %>% group_by(new_bin) %>%
+  summarise(mean_woodpecker_marks = mean(woodpecker_marks_0_1), 
+            SDs_woodpecker_marks = sd(woodpecker_marks_0_1),
+            mean_bark_splitting = mean(ash_bark_splitting_0_1),
+            SDs_bark_splitting = sd(ash_bark_splitting_0_1),
+            mean_epicormics = mean(epicormic_sprouts_0_1),
+            SDs_epicormics = sd(epicormic_sprouts_0_1),
+            mean_basal_sprouts = mean(basal_sprouts_0_1),
+            SDs_basal_sprouts = sd(basal_sprouts_0_1),
+            mean_ash_death = mean(ash_tree_death),
+            SDs_ash_death = sd(ash_tree_death),
+            mean_ash_decline = mean(ash_tree_decline),
+            SDs_ash_decline = sd(ash_tree_decline))
+bins_for_plot$DBH <- seq(2, 11, 1)
+
+woodpecker_fig <- ggplot(data=trees_subset_for_models, 
+                         mapping=aes(x=DBH, y=woodpecker_marks_0_1))+
+  geom_jitter(alpha=0.5, height=0.02, width=0) +
+  geom_point(data=bins_for_plot, aes(x=DBH, y=mean_woodpecker_marks), col="red", 
+             size=2, shape=17)+
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_woodpecker_marks), linewidth=1) +
+  theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of woodpecker \npredation marks")
+woodpecker_fig
 
 # Bark splitting model #########################################################
 
@@ -228,9 +265,20 @@ new_data2$predicted_bark_splitting <-
 # Note: re.form=NA tells R to avoid trying to plot the line for each grouping
 # variable and to just plot the global fit
 ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_bark_splitting_0_1)) +
-  geom_jitter(alpha=0.5, height=0.03, width=0) +
+  geom_jitter(alpha=0.5, height=0.02, width=0) +
   geom_line(data=new_data2, aes(x=DBH, y=predicted_bark_splitting)) +
-  geom_line(data=new_data2, aes(x=DBH, y=predicted_woodpecker_marks), color="red")
+  theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of bark splitting")
+
+# Test accuracy of the model visually:
+bark_splitting_fig <- ggplot(data=trees_subset_for_models, mapping=aes(x=DBH, y=ash_bark_splitting_0_1))+
+  geom_jitter(alpha=0.5, height=0.02, width=0) + 
+  geom_point(data=bins_for_plot, aes(x=DBH, y=mean_bark_splitting), col="red", 
+             size = 2, shape = 17)+
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_bark_splitting), linewidth=1) +
+  theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of \nbark splitting")
+bark_splitting_fig
 
 # Epicormics model #############################################################
 
@@ -254,6 +302,27 @@ ggplot(data=trees_subset_for_models, aes(x=DBH, y=epicormic_sprouts_0_1)) +
   geom_line(data=new_data, aes(x=DBH, y=predicted_epicormic_sprouts, 
                                color=center_tree_number))
 
+# Make a graph that shows the overall trend:
+new_data2$predicted_epicormic_sprouts <- 
+  predict(fit_epicormic_sprouts, newdata=new_data2, type="response", re.form=NA)
+# Note: re.form=NA tells R to avoid trying to plot the line for each grouping
+# variable and to just plot the global fit
+ggplot(data=trees_subset_for_models, aes(x=DBH, y=epicormic_sprouts_0_1)) +
+  geom_jitter(alpha=0.5, height=0.02, width=0) +
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_epicormic_sprouts)) +
+  theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of \nepicormic sprouts")
+
+# Test accuracy of the model visually:
+epicormics_fig <- ggplot(data=trees_subset_for_models, mapping=aes(x=DBH, y=epicormic_sprouts_0_1))+
+  geom_jitter(alpha=0.5, height=0.02, width=0) +
+  geom_point(data=bins_for_plot, aes(x=DBH, y=mean_epicormics), col="red", 
+             size=2, shape=17)+
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_epicormic_sprouts), linewidth=1) +
+  theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of \nepicormic sprouts")
+epicormics_fig
+
 # Basal sprouts model ##########################################################
 
 # Plot the data:
@@ -275,6 +344,27 @@ ggplot(data=trees_subset_for_models, aes(x=DBH, y=basal_sprouts_0_1)) +
   geom_jitter(aes(color=center_tree_number), alpha=0.5, height=0.03, width=0) +
   geom_line(data=new_data, aes(x=DBH, y=predicted_basal_sprouts, 
                                color=center_tree_number))
+
+# Make a graph that shows the overall trend:
+new_data2$predicted_basal_sprouts <- 
+  predict(fit_basal_sprouts, newdata=new_data2, type="response", re.form=NA)
+# Note: re.form=NA tells R to avoid trying to plot the line for each grouping
+# variable and to just plot the global fit
+ggplot(data=trees_subset_for_models, aes(x=DBH, y=basal_sprouts_0_1)) +
+  geom_jitter(alpha=0.5, height=0.02, width=0) +
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_basal_sprouts)) +
+  theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of basal sprouts")
+
+# Test accuracy of the model visually:
+basal_sprouts_fig <- ggplot(data=trees_subset_for_models, mapping=aes(x=DBH, y=basal_sprouts_0_1))+
+  geom_jitter(alpha=0.5, height=0.02, width=0) + 
+  geom_point(data=bins_for_plot, aes(x=DBH, y=mean_basal_sprouts), col="red", 
+             size=2, shape=17)+
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_basal_sprouts), linewidth=1) +
+  theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of \nbasal sprouts")
+basal_sprouts_fig
 
 # Ash tree death model #########################################################
 
@@ -298,6 +388,27 @@ ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_tree_death)) +
   geom_line(data=new_data, aes(x=DBH, y=predicted_death, 
                                color=center_tree_number))
 
+# Make a graph that shows the overall trend:
+new_data2$predicted_death <- 
+  predict(fit_death, newdata=new_data2, type="response", re.form=NA)
+# Note: re.form=NA tells R to avoid trying to plot the line for each grouping
+# variable and to just plot the global fit
+ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_tree_death)) +
+  geom_jitter(alpha=0.5, height=0.02, width=0) +
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_death)) +
+  theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of ash \ntree being dead")
+
+# Test accuracy of the model visually:
+ash_death_fig <- ggplot(data=trees_subset_for_models, mapping=aes(x=DBH, y=ash_tree_death))+
+  geom_jitter(alpha=0.5, height=0.02, width=0) + 
+  geom_point(data=bins_for_plot, aes(x=DBH, y=mean_ash_death), col="red", 
+             size=2, shape=17)+
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_death), linewidth=1) +
+  theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of ash \ntree being dead")
+ash_death_fig
+
 # Ash tree decline model #########################################################
 
 # Plot the data:
@@ -320,11 +431,34 @@ ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_tree_decline)) +
   geom_line(data=new_data, aes(x=DBH, y=predicted_decline, 
                                color=center_tree_number))
 
+# Make a graph that shows the overall trend:
+new_data2$predicted_decline <- 
+  predict(fit_decline, newdata=new_data2, type="response", re.form=NA)
+# Note: re.form=NA tells R to avoid trying to plot the line for each grouping
+# variable and to just plot the global fit
+ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_tree_decline)) +
+  geom_jitter(alpha=0.5, height=0.02, width=0) +
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_decline)) +
+  theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of ash tree \nshowing canopy decline")
 
+ash_decline_fig <- ggplot(data=trees_subset_for_models, mapping=aes(x=DBH, y=ash_tree_decline))+
+  geom_jitter(alpha=0.5, height=0.02, width=0) + 
+  geom_point(data=bins_for_plot, aes(x=DBH, y=mean_ash_decline), col="red", 
+             size=2, shape=17)+
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_decline), linewidth=1) +
+  theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of ash tree \nshowing canopy decline")
+ash_decline_fig
 
+# Create a combined figure using ggpubr #######################################
 
-
-
+ggarrange(woodpecker_fig + rremove("xlab"), bark_splitting_fig + rremove("xlab"), 
+          epicormics_fig + rremove("xlab"), basal_sprouts_fig + rremove("xlab"),
+          ash_death_fig, ash_decline_fig,
+          labels = c("A", "B", "C", "D", "E", "F"),
+          ncol = 2, nrow = 3)
+# When saving the image, use Height = 700, Width=600
 
 
 
