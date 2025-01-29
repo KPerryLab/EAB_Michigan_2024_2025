@@ -561,6 +561,14 @@ ash_by_transect <- ash_by_plot_exclude_partial_transects %>% group_by(Transect) 
 
 # NEEDS WORK Graph the data ###################################################
 
+# How many plots (of the 97) had ash of any size class?
+ash_by_plot$sum_of_seedlings_saplings_living_small_big_trees <-
+  ash_by_plot$total_number_seedlings +
+  ash_by_plot$number_saplings +
+  ash_by_plot$number_living_small_trees +
+  ash_by_plot$number_living_big_trees
+sum(ash_by_plot$sum_of_seedlings_saplings_living_small_big_trees == 0, na.rm = T)
+
 # I want to make a violin plot that shows the distribution of seedling densities
 # for each of the three hydroclasses (xeric, mesic, and hydric)
 ggplot(data=seedlings2, aes(x=factor(mstrlvl), 
@@ -778,7 +786,7 @@ ggplot(data=ash_by_transect)+
   geom_col(aes(x=Transect, y=total_number_small_trees_black + total_number_small_trees_unknown_species), fill="black")+
   geom_col(aes(x=Transect, y=total_number_small_trees_unknown_species), fill="lightblue") +      
   scale_x_discrete(guide = guide_axis(angle = 90)) + theme_classic() + 
-  ylab("Number of small trees \n(2.5-10 cm DBH")
+  ylab("Number of small trees \n(2.5-10 cm DBH)")
 
 # Looking at all ash trees, organized by species, how many are 
 # canopy condition = 1, 2, 3, 4, and 5?

@@ -19,9 +19,10 @@ ggplot(data=dat, aes(fill=collection_interval, x=park, y=number_EABs)) +
   theme_bw() +
   scale_y_continuous(breaks=seq(0,13,2)) +
   xlab("Park") +
-  ylab("Number of EAB on prism trap") +
+  ylab("Number of EAB \non prism trap") +
   labs(fill="Collection \nInterval") +
-  scale_fill_manual(values = c("light blue", "orange"))
+  scale_fill_manual(values = c("light blue", "orange")) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 # I'm wondering if the numbers of males and females captured varied based on 
 # sampling interval. Peak emergence of males is before females (Tobin et al. 2021)
@@ -51,3 +52,4 @@ ggplot(data=dat_summary, aes(x=collection_interval, fill=Sex, y=number_EAB_lab_c
   ylab("Total number of EABs captured") +
   labs(fill="Sex")+
   scale_fill_manual(values = c("dark green", "dark red"))
+

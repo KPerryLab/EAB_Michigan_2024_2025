@@ -79,7 +79,9 @@ trees_without_missing_basal_sprout_data <-
 # EAB exit holes (descriptive) #################################################
 # Plot presence/absence of EAB exit holes against DBH
 ggplot(data=trees, aes(x=DBH, y=EAB_exit_holes_0_1)) +
-  geom_jitter(aes(color=Park), alpha=0.5, height=0.03, width=0)
+  geom_jitter(alpha=0.5, height=0.03, width=0) +
+  ylab("Presence of EAB\nexit holes") + xlab("Diameter at breast height (cm)") +
+  theme_bw()
 # I was confused, because I know we found EAB exit holes at Pontiac, but then I
 # realized that the trees were filtered so that the small trees had to be within
 # the subplot.
