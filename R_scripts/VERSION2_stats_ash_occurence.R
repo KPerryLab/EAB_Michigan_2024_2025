@@ -6,6 +6,7 @@
 library(ggplot2)
 library(dplyr)
 library(lme4) # Linear Mixed-Effects Models
+library(ggpubr) # for figure
 
 library(car) # Companion to applied regression - Used to get an Anova table for
 # the generalized linear mixed-effects model
@@ -195,7 +196,7 @@ ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_percent_cover_seedlings)) +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   theme_classic() +
   xlab("Hydroclass") +
-  ylab("Mean percent cover ash seedlings")
+  ylab("Mean percent cover ash seedlings (%)")
 
 # Mean percent cover is a numeric response variable, so I should be able to run
 # a linear mixed effects model.
@@ -257,10 +258,19 @@ hist(intercepts_log_percent_cov_model$`(Intercept)`, breaks=10)
 # Saplings model ##############################################################
 
 # graph the data:
+saplings_graph <- ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_saplings_stems_per_m_squared)) +
+  geom_boxplot(outlier.colour = "white") +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  theme_bw() +
+  xlab("Hydroclass") +
+  ylab("Mean density of \nsaplings (stems/m^2))")+
+  ylim(c(0,0.7))+
+  theme(plot.margin = unit(c(0.2,0.2,0.2,0.6), "cm"))
+
 ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_saplings)) +
   geom_boxplot(outlier.colour = "white") +
-  geom_jitter(aes(color=Park), height=0, width=0.1, alpha=0.5) +
-  theme_classic() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  theme_bw() +
   xlab("Hydroclass") +
   ylab("Total number of saplings")
 # I'm noticing that the median number of saplings is highest in hydric, but 
@@ -315,10 +325,19 @@ anova(saplings_model_negbin, saplings_model_without_Park_negbin) # The negative
 # Living small trees model ####################################################
 
 # Graph the data:
+small_trees_graph <- ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_living_small_trees_stems_per_ha)) +
+  geom_boxplot(outlier.colour = "white") +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  theme_bw() +
+  xlab("Hydroclass") +
+  ylab("Mean density living \n small trees (stems/ha)") +
+  ylim(c(0,1200))+
+  theme(plot.margin = unit(c(0.2,0.2,0.2,0.6), "cm"))
+
 ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_living_small_trees)) +
   geom_boxplot(outlier.colour = "white") +
-  geom_jitter(aes(color=Park), height=0, width=0.1, alpha=0.5) +
-  theme_classic() +
+  geom_jitter(height=0, width=0.1, alpha=0.5) +
+  theme_bw() +
   xlab("Hydroclass") +
   ylab("Number of living small trees")
 
@@ -380,7 +399,7 @@ anova(small_trees_model_negbin, small_trees_model_without_Park_negbin) # The neg
 # This would likely cause problems for estimating the variance of the 
 # random intercepts.
 
-# Basal area of all ash trees model #############################################
+# Basal area of understory and canopy ash trees model ##########################
 
 # Make another column for total basal area of living ash trees >=2.5 cm DBH
 ash_by_transect$mean_basal_area_living_ash_trees_m_squared_per_ha <-
@@ -390,7 +409,7 @@ ash_by_transect$mean_basal_area_living_ash_trees_m_squared_per_ha <-
 # that are 2.5-10 cm DBH.
 
 # Graph the data:
-ggplot(data=ash_by_transect, 
+  ggplot(data=ash_by_transect, 
        aes(x=mstrlvl, y=mean_basal_area_living_ash_trees_m_squared_per_ha)) +
   geom_boxplot(outlier.colour = "white") +
   geom_jitter(aes(color=Park), height=0, width=0.1, alpha=0.5) +
@@ -403,4 +422,31 @@ ggplot(data=ash_by_transect,
 # count of ash trees) and a wide variability in the magnitude. Honestly I
 # don't know if this variable is fit for statistical analyses.
 
+# Make a figure using ggpubr ###################################################
 
+# Make a graph of total seedlings (short and tall)
+seedlings_graph <- ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_seedlings)) +
+    geom_boxplot(outlier.colour = "white") +
+    geom_jitter(height=0, width=0.1, alpha=0.5) +
+    theme_bw() +
+    xlab("Hydroclass") +
+    ylab("Mean density of \nseedlings (stems/m^2)") +
+    ylim(c(0,7))+
+    theme(plot.margin = unit(c(0.5,0.2,0.2,0.6), "cm"))
+  
+  
+ggarrange(seedlings_graph + rremove("xlab"), saplings_graph + rremove("xlab"), 
+          small_trees_graph,
+          labels = c("A", "B", "C"),
+          ncol = 1, nrow = 3, align = "hv")
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  

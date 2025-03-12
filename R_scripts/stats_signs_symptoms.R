@@ -4,7 +4,7 @@
 
 library(dplyr)
 library(ggplot2)
-library(ggpubr)
+library(ggpubr) # for figure
 
 trees0 <- read.csv("Cleaned_data/individual_trees.csv")
 
@@ -123,7 +123,7 @@ table(trees$basal_sprouts_0_1)
 # Subsetting for the models ####################################################
 # How many trees are found at each Plot?
 # For the binomial generalized linear mixed-effects models, I plan to only 
-# consider trees within Plots where more than 10 trees were found.
+# consider trees within Plots where more than *****10***** trees were found.
 ash_by_plot <- read.csv("Cleaned_data/Ash_by_plot.csv")
 ash_by_plot$number_trees <- 
   ash_by_plot$number_small_trees + ash_by_plot$number_big_trees
