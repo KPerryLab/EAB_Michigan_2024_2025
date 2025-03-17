@@ -318,7 +318,7 @@ summary(saplings_model_without_Park_negbin)
 Anova(saplings_model_without_Park_negbin, type="III")
 emmeans(saplings_model_without_Park_negbin, pairwise~mstrlvl)
 
-anova(saplings_model_negbin, saplings_model_without_Park_negbin) # The negative
+anova(saplings_mod_negbin, saplings_model_without_Park_negbin) # The negative
 # binomial model with and without the random intercepts appear to have very similar
 # AIC values.
 
@@ -439,8 +439,32 @@ ggarrange(seedlings_graph + rremove("xlab"), saplings_graph + rremove("xlab"),
           small_trees_graph,
           labels = c("A", "B", "C"),
           ncol = 1, nrow = 3, align = "hv")
-  
-  
+
+#  Extra graphs for Presentation Skills #######################################
+
+ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_seedlings)) +
+  geom_boxplot(outlier.colour = "white", color=c("dodgerblue3", "forestgreen", "orange")) +
+  theme_classic() +
+  xlab("Hydrology class") +
+  ylab("Mean density of \nseedlings (stems/m^2)") +
+  ylim(c(0,7))+
+  theme(plot.margin = unit(c(0.5,0.2,0.2,0.6), "cm"))
+
+ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_saplings_stems_per_m_squared)) +
+  geom_boxplot(outlier.colour = "white", color=c("dodgerblue3", "forestgreen", "orange")) +
+  theme_classic() +
+  xlab("Hydrology class") +
+  ylab("Mean density of \nsaplings (stems/m^2)")+
+  ylim(c(0,0.2))+
+  theme(plot.margin = unit(c(0.2,0.2,0.2,0.6), "cm"))
+
+ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_living_small_trees_stems_per_ha)) +
+  geom_boxplot(outlier.colour = "white", color=c("dodgerblue3", "forestgreen", "orange")) +
+  theme_classic() +
+  xlab("Hydrology class") +
+  ylab("Mean density living \n small trees (stems/ha)") +
+  ylim(c(0,1200))+
+  theme(plot.margin = unit(c(0.2,0.2,0.2,0.6), "cm"))
   
   
   
