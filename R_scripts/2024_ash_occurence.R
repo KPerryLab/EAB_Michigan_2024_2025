@@ -87,10 +87,8 @@ table((plot_centers %>% filter(Park == "Pontiac Lake"))$mstrlvl)
 table((plot_centers %>% filter(Park == "Proud Lake"))$mstrlvl)
 table(plot_centers$mstrlvl)
 
-# write.csv(plot_centers, file="EAB_Michigan_2024_plot_centers_with_hydro.csv",
+#write.csv(plot_centers, file="EAB_Michigan_2024_plot_centers_with_hydro.csv",
 #          row.names = FALSE)
-
-
 
 # Seedlings -------------------------------------------------------------------
 

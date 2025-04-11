@@ -1,4 +1,4 @@
-# Jan 10 2025
+# March 31 2025
 # Preliminary analyses of yellow pan trap counts for 
 # EAB Michigan project
 # Aaron Tayal
@@ -35,10 +35,12 @@ text(ypts$longitude_minutes_part, ypts$latitude_minutes_part,
 # I think the GPS coordinates of the trap locations are completely
 # useless (not accurate enough)
 
-arth0 <- read.csv("Raw_data/10-i-2025_yellow_pan_trap_counts_preliminary.csv")
+arth0 <- read.csv("Raw_data/31-iii-2025_YPT_counts_PRELIM.csv")
 
-# I only want to analyze data from these three weeks:
-arth <- arth0 %>% filter(set_date %in% c("06_14_2024", "06_21_2024", "06_27_2024"))
+# Important note: some trapping intervals were not sorted to superfamily.
+# Thus the "Total Hymenoptera" will not add up to the sum of the superfamily 
+# counts. Also: Cynipids, Platygastrids, and Ceraphronids were not sorted
+# for the first few intervals, but were instead listed as unknown Hymenoptera
 
 # Variables of interest:
 
@@ -48,12 +50,6 @@ arth <- arth0 %>% filter(set_date %in% c("06_14_2024", "06_21_2024", "06_27_2024
 # Specific groups of Hymenoptera:
 # Number of diapriids, dryinids, sawflies, ants, ichneumons, braconids,
 # ceraphronids, chalcidoids, 
-
-# Since in the first interval I was not good at IDing chalcidoids or ceraphronids,
-# I'm going to remove those groups from consideration. Later I'll go back through
-# to get the IDs if I have time. Another group that was extremely common that
-# I'm omitting here is platygastrids/scelionids (due to ID difficulties at the 
-# beginning)
 
 # Hypotheses:
 
@@ -74,10 +70,13 @@ arth <- arth0 %>% filter(set_date %in% c("06_14_2024", "06_21_2024", "06_27_2024
 
 taxa <- c(
   "Diptera", "Hemiptera", "Lepidoptera", "Coleoptera","Other_arthropods", 
-  "Total_Hymenoptera", "Symphyta", "Chrysidoidea", "Proctotrupoidea", "Formicidae", 
-  "Ichneumonoidea_Ichneumonidae", "Ichneumonoidea_Braconidae")
+  "Total_Hymenoptera", "Symphyta", "Chrysidoidea_Dryinidae", "Formicidae",
+  "Pompilloidea", "Apoidea", "Ichneumonoidea_Ichneumonidae", 
+  "Ichneumonoidea_Braconidae", "Cynipoidea", "Proctotrupoidea_Diapriidae",
+  "Ceraphronoidea", "Chalcidoidea_Mymaridae", "Chalcidoidea_Encyrtidae",
+  "Chalcidoidea_other", "Platygastroidea", "Hymenoptera_unknown")
 
-arthpool0 <- arth %>% group_by(trap_number) %>%
+arthpool0 <- arth0 %>% group_by(trap_number) %>%
   summarise(across(all_of(taxa), ~ sum(.x, na.rm=T)))
 
 # Combine with trap location info:
@@ -87,15 +86,21 @@ arthpool$Total_arthropods <- arthpool$Total_Hymenoptera +
   arthpool$Diptera + arthpool$Coleoptera + arthpool$Lepidoptera +
   arthpool$Hemiptera + arthpool$Other_arthropods
 
+# Are the counts of the different taxa correlated with each other?
+library(corrplot)
+cor_matrix <- cor(arthpool[, taxa])
+corrplot::corrplot(cor_matrix, method="ellipse") # Yes, counts of most taxa
+# are correlated
+
 # Testing the hypothesis about dryinids (Chrysidoidea):
-plot(arthpool$Chrysidoidea, arthpool$Hemiptera)
+plot(arthpool$Chrysidoidea_Dryinidae, arthpool$Hemiptera)
 
 # Testing the hypotheses about braconids and ichneumonids:
 ggplot(data=arthpool, aes(x=ash_tree_decline, y=Ichneumonoidea_Ichneumonidae)) +
   geom_jitter(alpha=0.5, height=0, width=0.05) + theme_classic()
 
 ggplot(data=arthpool, aes(x=ash_tree_decline, y=Ichneumonoidea_Braconidae)) +
-  geom_point(alpha=0.5) + theme_classic()
+  geom_jitter(alpha=0.5, height=0, width=0.05) + theme_classic()
 
 arthpool$Total_Ichneumonoidea <- arthpool$Ichneumonoidea_Braconidae + 
   arthpool$Ichneumonoidea_Ichneumonidae
@@ -119,36 +124,41 @@ wilcox.test(testdata$y ~ testdata$x, exact=FALSE) # This nonparametric test
 
 # That brings up the question of whether declining ash trees had more 
 # Hymenoptera in general.
+ggplot(data=arthpool, aes(x=ash_tree_decline, y=Total_Hymenoptera)) +
+  geom_jitter(alpha=0.5, height=0, width=0.05) + theme_classic()
+# Yes, it seems that, on average, more Hymenoptera might be found near
+# ash trees that are declining
 
 # I hypothesize that trees in more sunlight will have higher numbers of 
 # insects:
 ggplot(data=arthpool, aes(x=crown_class_D_C_I_S, y=Total_arthropods)) +
   geom_point() + theme_classic()
+# Although, crown class is a poor proxy for sunlight on the YPT
 
 # Create a bar graph for the total counts of different taxa:
-total_counts_3wks <- colSums(arthpool[,taxa])
+total_counts <- colSums(arthpool[,taxa])
 
-total_counts_3wks_df <- data.frame(taxon = names(total_counts_3wks),
-                                   count = total_counts_3wks)
+total_counts_df <- data.frame(taxon = names(total_counts),
+                                   count = total_counts)
 
-total_counts_3wks_df$taxon <- factor(total_counts_3wks_df$taxon, 
-                                     levels = total_counts_3wks_df$taxon)
+total_counts_df$taxon <- factor(total_counts_df$taxon, 
+                                levels = total_counts_df$taxon)
 
 library(forcats)
-total_counts_3wks_df$taxon <- fct_rev(total_counts_3wks_df$taxon)
-total_counts_3wks_df$taxon <- fct_recode(total_counts_3wks_df$taxon,
+total_counts_df$taxon <- fct_rev(total_counts_df$taxon)
+total_counts_df$taxon <- fct_recode(total_counts_df$taxon,
   Symphyta_Sawflies="Symphyta", Braconidae = "Ichneumonoidea_Braconidae",
   Ichneumonidae = "Ichneumonoidea_Ichneumonidae", Diptera_flies = "Diptera",
   Hemiptera_true_bugs = "Hemiptera", Lepidoptera_moths = "Lepidoptera",
-  Formicidae_ants = "Formicidae", Diapriidae="Proctotrupoidea", 
-  Dryinidae = "Chrysidoidea", Coleoptera_beetles = "Coleoptera")
+  Formicidae_ants = "Formicidae", Coleoptera_beetles = "Coleoptera",
+  Pompilloidea_spider_wasps = "Pompilloidea", Apoidea_bees_and_sphecids = "Apoidea",
+  Cynipoidea_gall_wasps = "Cynipoidea")
 
-ggplot(data=total_counts_3wks_df, aes(x=taxon, y=count)) + 
+ggplot(data=total_counts_df, aes(x=taxon, y=count)) + 
   geom_bar(stat="identity") + coord_flip() + theme_classic() +
   xlab("") + ylab("Number of individuals")
 
-
-# Createarthpool# Create an NMDS plot:
+#  Create an NMDS plot:
 library(vegan)
 dis.matrix <- vegdist(arthpool[,taxa], method = "bray")
 dis.matrix
@@ -156,6 +166,7 @@ nmds.ypts <- metaMDS(dis.matrix, trymax = 500, autotransform = TRUE, k = 2)
 stressplot(nmds.ypts)
 nmds.ypts
 plot(nmds.ypts)
+text(nmds.ypts, labels=arthpool$trap_number)
 
 ordiplot(nmds.ypts, disp = "sites", type = "n", xlim = c(-2, 2), ylim = c(-2, 2))
 points(nmds.ypts, dis = "sites", select = which(arthpool$ash_tree_decline==0), pch = 15, cex = 1, col = "palegreen4")
