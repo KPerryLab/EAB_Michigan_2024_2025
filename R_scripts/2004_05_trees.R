@@ -14,6 +14,11 @@
 # Did the basal area of non-ash trees increase within plots that had a high
 # amount of ash trees initially?
 
+# Another goal is to look at the waterlogging tolerance of the trees. The goal
+# is to determine whether the composition of trees moved towards more flood
+# tolerant trees. With that in mind, I'll look at data compiled in the paper
+# Niinemets and Valladares 2006, as well as at wetland indicator status.
+
 library(dplyr)
 library(ggplot2)
 
@@ -28,12 +33,17 @@ ggplot(data=dat_04_05, aes(x=DBH)) + geom_histogram(breaks=seq(0,130,0.5))
 # The spike at 12.5 cm DBH is because this was the cutoff for measuring 
 # trees in the 18 m radius main plot
 
-# Look at the differect species of tree:
+# Look at the different species of tree:
 dat_04_05$Genus.Species <- as.factor(dat_04_05$Genus.Species)
 table(dat_04_05$Genus.Species)
+species <- levels(dat_04_05$Genus.Species)
+
+# Big trees >=12.5 cm ##########################################################
 
 # Subset the data to just the trees bigger than 12.5 cm DBH:
 dat_04_05_big_trees <- dat_04_05 %>% filter(DBH >= 12.5)
+
+table(dat_04_05_big_trees$Genus.Species)
 
 # Create a plot-level summary
 big_trees_by_plot <- dat_04_05_big_trees %>% group_by(Plot.ID) %>% 
@@ -81,13 +91,12 @@ tree_genera <- c("Acer","Ailanthus","Amelanchier","Betula","Carpinus","Carya",
 big_trees_by_plot$row_sums_test <- rowSums(big_trees_by_plot[,tree_genera])
 big_trees_by_plot$total_trees - big_trees_by_plot$row_sums_test
 
-# Write a function to calculate the basal area, given a set of trees and their
-# diameters
-
-# IDK how!
+# Small trees 2.5 cm <= DBH < 12.5 cm #########################################
 
 # Subset the data to just trees between 2.5 to 12.5 cm DBH:
 dat_04_05_small_trees <- dat_04_05 %>% filter(DBH >= 2.5 & DBH < 12.5)
+
+table(dat_04_05_small_trees$Genus.Species)
 
 small_trees_by_plot <- dat_04_05_small_trees %>% group_by(Plot.ID) %>% 
   summarise(total_trees = n(),
@@ -127,7 +136,27 @@ small_trees_by_plot <- dat_04_05_small_trees %>% group_by(Plot.ID) %>%
 small_trees_by_plot$row_sums_test <- rowSums(small_trees_by_plot[,tree_genera])
 small_trees_by_plot$total_trees - small_trees_by_plot$row_sums_test
 
+# Stems < 2.5 cm ##############################################################
+
 # Subset the data to just trees less than 2.5 cm DBH:
 dat_04_05_below_2.5 <- dat_04_05 %>% filter(DBH < 2.5)
+
+# Data from Niinemets and Valladares ##########################################
+
+tolerance <- read.csv("Cleaned_data/niinemets_valladares_tree_tolerances.csv")
+
+library(stringr)
+#tolerance$Drought.tolerance.simple <- 
+
+
+
+
+
+
+
+
+
+
+
 
 
