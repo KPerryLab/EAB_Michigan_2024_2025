@@ -38,6 +38,13 @@ dat_04_05$Genus.Species <- as.factor(dat_04_05$Genus.Species)
 table(dat_04_05$Genus.Species)
 species <- levels(dat_04_05$Genus.Species)
 
+# Where was Elaeagnus umbellata found (Autumn olive)?
+autumn_olive_rows <- dat_04_05[(dat_04_05$Genus.Species == "Elaeagnus umbellata"),]
+
+# Where was Toxicodendron vernix found (Poison sumac)?
+poison_sumac_rows <- dat_04_05[(dat_04_05$Genus.Species == "Toxicodendron vernix"),]
+
+
 # Big trees >=12.5 cm ##########################################################
 
 # Subset the data to just the trees bigger than 12.5 cm DBH:
