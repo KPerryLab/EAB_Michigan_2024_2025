@@ -19,8 +19,13 @@
 # tolerant trees. With that in mind, I'll look at data compiled in the paper
 # Niinemets and Valladares 2006, as well as at wetland indicator status.
 
+# Note: because of issues with identifying the elm species (Ulmus rubra vs.
+# Ulmus americana, this complicates the goal of examining waterlogging tolerance.
+
 library(dplyr)
 library(ggplot2)
+
+# Import the data ##############################################################
 
 dat_04_05 <- read.csv("2004-05_data/EAB_Michigan_2004_2005_trees.csv")
 dat_04_05$DBH <- as.numeric(dat_04_05$DBH.12.5cm.or.greater.measured.at.1.37m.from.base)
@@ -154,6 +159,8 @@ tolerance <- read.csv("Cleaned_data/niinemets_valladares_tree_tolerances.csv")
 
 library(stringr)
 #tolerance$Drought.tolerance.simple <- 
+
+
 
 
 
