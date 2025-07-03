@@ -27,12 +27,13 @@ hist(trees$diameter_at_137_cm_in_cm, breaks=20)
 trees$DBH <- trees$diameter_at_137_cm_in_cm
 
 # The response variables:
-# Canopy condition (1-5)
 # EAB exit holes (y/n)
 # woodpecker marks (y/n)
 # bark splitting (y/n)
 # epicormic sprouts (y/n)
 # basal sprouts (y/n)
+# ash tree decline (canopy condition > 1)
+# ash tree death (canopy condition = 5)
 
 # Canopy condition ############################################################
 # Plot the canopy condition against DBH
@@ -44,21 +45,21 @@ trees_without_missing_canopy_condition <- trees %>%
   filter(!is.na(canopy_condition_1_5))
 
 # How many trees were found of each canopy condition?
-sum(trees_without_missing_canopy_condition$canopy_condition_1_5 == 1) # 220 with canopy condition 1
-sum(trees_without_missing_canopy_condition$canopy_condition_1_5 == 2) # 31
-sum(trees_without_missing_canopy_condition$canopy_condition_1_5 == 3) # 12
+sum(trees_without_missing_canopy_condition$canopy_condition_1_5 == 1) # 229 with canopy condition 1
+sum(trees_without_missing_canopy_condition$canopy_condition_1_5 == 2) # 33
+sum(trees_without_missing_canopy_condition$canopy_condition_1_5 == 3) # 13
 sum(trees_without_missing_canopy_condition$canopy_condition_1_5 == 4) # 7
-sum(trees_without_missing_canopy_condition$canopy_condition_1_5 == 5) # 50 
+sum(trees_without_missing_canopy_condition$canopy_condition_1_5 == 5) # 55 
 
 # Create a variable called ash tree death, which is only equal to 1 if canopy
 # condition is equal to 5
 trees$ash_tree_death <- ifelse(trees$canopy_condition_1_5 == 5, 1, 0)
-sum(trees$ash_tree_death == 1, na.rm=TRUE) # 50
+sum(trees$ash_tree_death == 1, na.rm=TRUE) # 55
 
 # Create a variable called ash tree decline, which is only equal to 1 if canopy
 # condition is 2,3,4, or 5
 trees$ash_tree_decline <- ifelse(trees$canopy_condition_1_5 > 1, 1, 0)
-sum(trees$ash_tree_decline == 1, na.rm=TRUE) # 100
+sum(trees$ash_tree_decline == 1, na.rm=TRUE) # 108
 
 # Convert the response variables to 0s (absences) and 1s (presences) ###########
 trees$EAB_exit_holes_0_1 <- 
@@ -95,21 +96,21 @@ table(trees$EAB_exit_holes_0_1)
 ggplot(data=trees, aes(x=DBH, y=woodpecker_marks_0_1)) +
   geom_jitter(aes(color=Park), alpha=0.5, height=0.03, width=0)
 table(trees$woodpecker_marks_0_1)
-# There were 40/321 trees where woodpecker marks were seen
+# There were 46/338 trees where woodpecker marks were seen
 
 # Bark splitting (descriptive) #################################################
 # Plot presence/absence of bark splitting against DBH
 ggplot(data=trees, aes(x=DBH, y=ash_bark_splitting_0_1)) +
   geom_jitter(aes(color=Park), alpha=0.5, height=0.03, width=0)
 table(trees$ash_bark_splitting_0_1)
-# There were 179/321 trees where bark splitting was found
+# There were 193/338 trees where bark splitting was found
 
 # Epicormic sprouts (descriptive) ##############################################
 # Plot presence/absence of epicormic sprouts against DBH
 ggplot(data=trees, aes(x=DBH, y=epicormic_sprouts_0_1)) +
   geom_jitter(aes(color=Park), alpha=0.5, height=0.03, width=0)
 table(trees$epicormic_sprouts_0_1)
-# There were 116/321 trees where epicormic sprouts were found
+# There were 122/338 trees where epicormic sprouts were found
 
 # Basal sprouts (descriptive) ##################################################
 # Plot presence/absence of basal sprouts against DBH
@@ -117,8 +118,7 @@ ggplot(data=trees_without_missing_basal_sprout_data,
        aes(x=DBH, y=basal_sprouts_0_1)) +
   geom_jitter(aes(color=Park), alpha=0.5, height=0.03, width=0)
 table(trees$basal_sprouts_0_1)
-# There were 46/319 trees where basal sprouts were found
-
+# There were 54/336 trees where basal sprouts were found
 
 # Subsetting for the models ####################################################
 # How many trees are found at each Plot?
@@ -127,17 +127,17 @@ table(trees$basal_sprouts_0_1)
 ash_by_plot <- read.csv("Cleaned_data/Ash_by_plot.csv")
 ash_by_plot$number_trees <- 
   ash_by_plot$number_small_trees + ash_by_plot$number_big_trees
-sum(ash_by_plot$number_trees > 10, na.rm=TRUE) # There are 9 plots where total 
+sum(ash_by_plot$number_trees > 10, na.rm=TRUE) # There are 10 plots where total 
 # number of trees is greater than 10
 plots_for_sign_symptom_models <- ash_by_plot[which(ash_by_plot$number_trees > 10), 
                                              "center_tree_number"]
 # Subset the tree data using the condition: plot %in% plots_for_sign_symptom_models:
 trees_subset_for_models <- trees_without_missing_basal_sprout_data %>% 
   filter(center_tree_number %in% plots_for_sign_symptom_models) 
-# This sub-setting reduces the sample size to 274 trees
+# This sub-setting reduces the sample size to 283 trees
 table(trees_subset_for_models$Transect)
 table(trees_subset_for_models$Park)
-table(trees_subset_for_models[, c("mstrlvl", "Transect", "Park")])
+table(trees_subset_for_models[, c("mstrlvl", "Transect", "Park")]) # There is only 1 mesic plot I think
 # Note: the ~50 cm DBH tree is not in a plot that is included here, so no need 
 # to mention it in the paper
 

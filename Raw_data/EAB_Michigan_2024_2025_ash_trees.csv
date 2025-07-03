@@ -1,0 +1,506 @@
+year_of_data_collection,center_tree_number,quadrant_NE_SE_SW_NW,compass_direction,distance_to_center_meters,ash_species,diameter_at_137_cm_in_cm,canopy_condition_1_5,crown_class_D_C_I_S,EAB_exit_holes_y_n,woodpecker_marks_y_n,ash_bark_splitting_y_n,epicormic_sprouts_y_n,basal_sprouts_y_n,galleries_y_n,number_of_EAB_exit_holes_from_125_to_175_cm,number_of_woodpecker_marks_from_125_to_175_cm,tree_tag_info,ash_trees_notes,leaflet_stalk_length_mm,epicormic_sprouts_old_new
+2024,1,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,2,SW,,between 8 and 18,?,4.1,1,D,n,n,y,n,n,n,0,0,NA,,,NA
+2024,3,SE,180,23.29,green,11,3,C,y,y,y,y,y,,10,16,NA,EAB trap 1 was in this tree in 2024,,not_recorded
+2024,94,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,97,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,98,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,99,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,95,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,49,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,50,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,96,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,53,NE,9,2.42,?,2.55,1,I,n,n,y,n,n,n,0,0,NA,,7,NA
+2024,53,NE,30,4.68,?,2.9,1,I,n,n,y,n,n,n,0,0,NA,,10,NA
+2024,53,NE,52,4.47,?,4.25,1,I,n,n,y,n,n,n,0,0,NA,,6,NA
+2024,53,SW,200,9.67,?,2.5,1,I,n,n,y,n,n,n,0,0,NA,vines on it (maybe Celastrus),5,NA
+2024,53,SE,144,10.61,?,3.2,3,S,n,n,y,y,n,y,0,0,NA,dead side of the tree is 3.7 cm dbh,4,not_recorded
+2024,53,SW,244,15.64,?,6.65,1,S,n,n,n,y,n,n,0,0,NA,,5,not_recorded
+2024,53,SW,,21.92,?,4.5,3,S,n,n,y,y,y,n,0,0,NA,,7,not_recorded
+2024,53,SW,,24.19,?,6.65,2,S,n,n,y,y,n,n,0,0,NA,,,not_recorded
+2024,53,SW,,24.62,?,5.45,5,S,y,y,y,y,y,n,0,0,NA,,4,not_recorded
+2024,53,SW,262,21.02,?,4.1,1,I,n,n,y,n,n,n,0,0,NA,,6,NA
+2024,53,NW,,25.25,?,8.85,4,C,y,y,y,y,y,n,3,7,NA,,,not_recorded
+2024,53,NW,322,16.27,?,2.5,2,I,n,n,y,y,n,n,0,0,NA,the other stem is dead,,not_recorded
+2024,53,NW,293,16.97,?,2.9,2,I,n,n,y,y,n,n,0,0,NA,,,not_recorded
+2024,53,NW,301,16.08,?,6,2,I,n,n,y,n,n,n,0,0,NA,,,NA
+2024,53,NW,304,16.2,?,3.5,1,S,n,n,n,y,n,n,0,0,NA,,,not_recorded
+2024,53,NW,296,15.1,?,3.5,4,S,n,y,y,y,y,n,0,0,NA,,,not_recorded
+2024,53,NW,295,15.2,?,3.6,5,S,n,n,y,,n,y,0,0,NA,,,NA
+2024,53,NW,303,17.5,?,2.55,1,I,n,n,y,n,n,n,0,0,NA,,,NA
+2024,53,NW,301,13.5,?,5.7,4,I,n,y,y,n,n,n,0,0,tagged - tag label gone,tagged - tag label gone,,NA
+2024,53,NW,308,16.9,?,4.3,1,I,n,n,y,n,n,n,0,0,NA,,,NA
+2024,53,NW,314,17.1,?,3.9,2,I,n,n,y,y,n,n,0,0,NA,,,not_recorded
+2024,53,NW,314,16.4,?,2.9,1,I,n,n,n,n,n,n,0,0,NA,,,NA
+2024,53,NW,315,17.1,?,2.5,3,S,n,n,y,y,n,n,0,0,NA,,,not_recorded
+2024,53,NW,310,15.4,?,4.3,1,I,n,n,n,n,y,n,0,0,NA,,,NA
+2024,53,NW,300,12.1,?,2.7,5,S,n,n,y,n,y,n,0,0,NA,,,NA
+2024,53,NW,301,10,?,4.6,1,I,y,n,y,y,n,n,0,0,tagged - tag label gone,tagged - tag label gone,,not_recorded
+2024,53,NW,316,11.9,?,3,1,I,n,n,y,y,n,n,0,0,tagged previously - 13,tagged previously - 13,,not_recorded
+2024,53,NW,322,14,?,4.9,1,I,n,n,n,n,n,n,0,0,tagged - tag label gone,tagged - tag label gone,,NA
+2024,53,NW,327,15,?,3.4,1,I,n,n,n,n,n,n,0,0,NA,,,NA
+2024,53,NW,326,14.7,?,3,1,I,n,n,y,n,n,n,0,0,NA,,,NA
+2024,53,NW,334,15.6,?,2.8,1,I,n,n,y,n,n,n,0,0,NA,,,NA
+2024,53,NW,331,10.9,?,3.2,1,I,n,n,n,n,n,n,0,0,NA,,,NA
+2024,53,NW,336,10.2,?,3.5,1,I,n,n,y,y,n,n,0,0,NA,,,not_recorded
+2024,53,NW,328,9.7,?,3.2,1,I,n,n,y,n,n,n,0,0,NA,,,NA
+2024,53,NW,338,9,?,2.5,1,S,n,n,n,n,n,n,0,0,NA,smooth bark,,NA
+2024,53,NW,341,13.6,?,3,1,I,n,n,y,y,n,y,0,0,NA,,,not_recorded
+2024,39,NE,77,2,black,8.53,1,C,n,n,n,n,n,,0,0,NA,,,NA
+2024,39,NE,81,3.72,black,6.57,1,I,n,n,n,y,n,,0,0,NA,has samaras hanging from canopy,,not_recorded
+2024,39,NE,72,6.75,black,6,1,I,n,n,n,y,n,,0,0,NA,,,not_recorded
+2024,39,NE,76,8,?,4.62,5,I,y,y,y,y,y,,0,0,NA,basal sprouts alive,,not_recorded
+2024,39,NE,63,6.3,black,9.68,1,C,n,n,n,y,n,,0,0,NA,fresh epicormic sprouts,,new
+2024,39,NE,63,6.3,black,4,1,I,n,n,n,n,n,,0,0,NA,,,NA
+2024,39,NE,58,6.9,green or white,2.9,1,I,n,n,y,n,n,,0,0,NA,,,NA
+2024,39,NE,58,8.1,black,4.86,1,I,n,n,n,n,n,,0,0,NA,,,NA
+2024,39,NE,50,11.6,black,6.5,2,I,n,n,n,y,n,,0,0,NA,leaves small - maybe indicates unhealthy,,not_recorded
+2024,39,NE,80,9.5,?,4.6,5,I,y,y,y,y,y,,1,0,NA,,,not_recorded
+2024,39,NE,85,12.5,black,5,5,I,n,n,n,n,n,,0,0,NA,,,NA
+2024,39,NE,75,12.88,?,5.7,5,I,n,n,y,y,y,y,0,0,NA,galleries,,not_recorded
+2024,39,NE,67,14.85,black,4,1,I,n,n,n,n,n,,0,0,NA,,,NA
+2024,39,NE,72,16.3,black,3.8,1,I,n,n,n,n,n,,0,0,NA,,,NA
+2024,39,NE,72,17.96,green or pumpkin,4.2,2,I,n,n,y,n,n,,0,0,NA,leaves are weird - bark is weird - maybe pumpkin ash,,NA
+2024,39,NE,65,17.4,black,3.5,1,I,n,n,n,n,n,,0,0,NA,,,NA
+2024,39,NE,65,16.74,black,4,1,I,n,n,y,y,n,,0,0,NA,,,not_recorded
+2024,39,NE,65,17.36,black,3.6,1,I,n,n,n,n,n,,0,0,NA,,,NA
+2024,39,NE,55,13.7,black,5.8,2,C,n,n,y,y,y,,0,0,NA,leaves are small - maybe indicates unhealthy,,not_recorded
+2024,39,NE,55,14.7,black,3.76,1,I,n,n,n,n,n,,0,0,NA,,,NA
+2024,39,NE,52,14,green,3.4,2,I,n,n,y,n,y,,0,0,NA,,,NA
+2024,39,NE,50,14.5,black,5,1,I,n,n,n,n,n,,0,0,NA,,,NA
+2024,39,NE,55,14.3,black,2.9,1,I,n,n,n,n,n,,0,0,NA,,,NA
+2024,51,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,NA,NA
+2024,52,NW,283,9.55,black,1.7,1,S,n,n,y,n,n,,0,0,Ash number 6,,,NA
+2024,54,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,,,NA
+2024,54,NE,,,Zanthoxylum (prickly ash),,,,,,,,,,,,CM 29,,,NA
+2024,39,NE,76,1,black,6.2,1,I,n,n,n,n,y,,0,0,,,,NA
+2024,39,NE,8,1.59,black,8,5,I,n,y,n,y,y,,0,1,,epicormics living,,new
+2024,39,NE,25,5.22,black,3,1,I,n,n,n,n,n,,0,0,,connected to the one in the next row,,NA
+2024,39,NE,25,5.22,black,8.8,5,C,y,y,y,y,y,,1,4,,connected to the one in the previous row,,not_recorded
+2024,39,NE,29,11.3,black,5.1,1,,n,n,n,n,n,,0,0,Tagged Ash 2 - July 8 2009,,,NA
+2024,39,SE,135,7.07,black,8,1,C,n,n,n,n,n,,0,0,,,,NA
+2024,39,SW,187,6.91,black,2.5,1,I,n,n,n,n,n,,0,0,,,,NA
+2024,39,SW,208,6.4,black,3.5,1,S,n,n,n,y,y,,0,0,,epicormic is dead,,old
+2024,39,SW,238,5.09,black,7.9,5,I,n,y,y,y,,y,0,3,Tagged - July 8 2009 - Ash 6,found a cerambycid - see photo,,not_recorded
+2024,39,SW,260,4.05,black,4.2,1,I,n,n,n,y,n,,0,0,,,,not_recorded
+2024,39,SW,260,6.17,black,5.4,2,C,n,n,y,y,n,,0,0,,leaves small,,not_recorded
+2024,39,NW,313,4.67,black,4.7,2,I,n,n,n,y,n,,0,0,,leaves small,,not_recorded
+2024,39,NW,329,3.54,black,5.5,2,I,n,n,n,y,n,,0,0,,,,not_recorded
+2024,39,NW,336,7.42,black,4.5,1,S,n,n,n,y,n,,0,0,,another tree fell on it,,not_recorded
+2024,39,NW,333,5.87,black,4.5,5,I,n,n,y,y,n,,0,0,,,,not_recorded
+2024,39,NW,353,6.47,black,4.9,3,I,y,n,y,y,y,,0,0,,leaves small,,not_recorded
+2024,39,NW,296,14,black,11.5,1,C,n,n,n,n,y,,0,0,,had samaras hanging from it on subsequent visits - EAB trap 6 is in this tree - there are two stems - 11.5 cm living healthy - and 6.4 cm DBH dead with many signs and symptoms on the dead one,,NA
+2024,38,NE,10,1.15,green?,4.6,1,I,n,n,y,y,n,,0,0,,,,not_recorded
+2024,38,NW,358,2.38,white?,3.1,2,I,n,n,y,n,n,,0,0,,,,NA
+2024,38,NE,4,7.82,black,3.4,1,I,n,n,n,y,n,,0,0,,,,not_recorded
+2024,38,NE,35,7.89,black,5,5,I,n,y,y,y,n,,0,2,,,,not_recorded
+2024,38,NE,84,7.47,black,5.9,5,I,n,n,y,y,y,y,0,0,,epicormics are big,,old
+2024,38,SE,111,5.76,black,3.6,5,I,n,n,y,y,n,,0,0,,,,not_recorded
+2024,38,SE,111,5.76,black,3.6,5,I,y,y,y,n,y,,0,1,,,,NA
+2024,38,SE,135,5.92,black,4.4,1,I,n,n,n,n,n,,0,0,,,,NA
+2024,38,SE,148,4.93,black,4.4,1,I,n,n,y,y,n,,0,0,,,,not_recorded
+2024,38,SE,146,7.52,black,4,1,I,n,n,n,y,n,,0,0,,,,not_recorded
+2024,38,SE,172,3.36,black,4.6,1,I,n,n,n,n,n,,0,0,,,,NA
+2024,38,SW,,less than 8,black,4.4,1,I,n,n,n,n,n,,,,,,,NA
+2024,38,SW,,less than 8,black,6.9,1,I,n,n,n,n,n,,,,,,,NA
+2024,38,SW,,less than 8,black,4,1,I,n,n,n,n,n,,,,,,,NA
+2024,38,SW,,less than 8,black,4.8,1,I,n,n,n,n,n,,,,,,,NA
+2024,38,SW,,less than 8,black,2.7,1,I,n,n,n,n,n,,,,,,,NA
+2024,38,SW,,less than 8,green or white,10.3,1,C,n,n,y,n,n,,,,,,,NA
+2024,38,SW,,less than 8,black,4.9,1,I,n,n,n,n,n,,,,,,,NA
+2024,38,SW,,less than 8,black,3.6,1,I,n,n,n,n,n,,,,,,,NA
+2024,38,SW,,less than 8,black,5.5,1,I,n,n,y,n,n,,,,,,,NA
+2024,38,SW,,less than 8,black,5.5,2,I,n,n,y,y,n,,,,,,,not_recorded
+2024,38,SW,,less than 8,black,7.8,1,I,n,n,y,n,n,,,,,smooth bark,,NA
+2024,38,SW,,less than 8,black,3.2,1,I,n,n,y,y,n,,,,,,,not_recorded
+2024,38,SW,,less than 8,black,2.6,1,I,n,n,n,n,n,,,,,,,NA
+2024,38,SW,,less than 8,black,5,1,I,n,n,y,y,n,,,,,,,not_recorded
+2024,38,NW,,less than 8,black,6.3,5,I,n,y,y,y,y,,,,,,,not_recorded
+2024,38,NW,,less than 8,green or white,5,1,I,n,n,y,n,n,,,,,,,NA
+2024,38,NW,,less than 8,black,6.4,2,I,n,n,n,y,n,,,,,,,not_recorded
+2024,38,NW,,less than 8,black,6.3,,I,n,n,n,y,,,,,,original stem is dead,,not_recorded
+2024,37,NE,,less than 8,black,5.1,1,I,n,n,n,n,n,,,,,,,NA
+2024,37,NW,,less than 8,?,2.9,5,S,n,y,y,n,n,,,,,,,NA
+2024,37,NE,,less than 8,black,4.5,1,I,n,n,n,y,n,,,,,,,not_recorded
+2024,37,NE,,less than 8,black,5.3,1,I,n,n,n,n,n,,,,,,,NA
+2024,37,SE,,less than 8,black,6.6,1,I,n,n,y,y,n,,,,,,,not_recorded
+2024,37,SE,,less than 8,black,5.1,5,I,n,n,y,y,y,,,,,,,not_recorded
+2024,37,SE,,less than 8,black,8.6,3,C,n,y,n,y,n,,,,,leaves small,,not_recorded
+2024,37,SE,,less than 8,black,8.5,4,C,n,y,y,y,n,,,,,,,not_recorded
+2024,37,SE,,less than 8,black,3.1,1,I,n,n,y,n,n,,,,,,,NA
+2024,37,SE,,less than 8,black,5,5,I,n,n,y,y,n,,,,,,,not_recorded
+2024,37,SE,,less than 8,black,7,5,I,y,y,n,y,n,,,,,,,not_recorded
+2024,37,SE,,less than 8,black,5.8,3,I,n,y,y,y,n,,,,,,,not_recorded
+2024,37,SE,,less than 8,black,5.9,3,I,n,n,y,y,n,,,,,,,not_recorded
+2024,37,SE,,less than 8,black,5.4,5,I,n,y,n,y,y,,,,,,,not_recorded
+2024,37,SE,,less than 8,black,2.9,2,I,n,n,y,y,y,,,,,,,not_recorded
+2024,37,SE,,less than 8,black,5.8,5,S,n,n,y,y,y,,,,,,,not_recorded
+2024,37,SE,,less than 8,black,3.9,5,I,n,n,y,y,n,,,,,,,not_recorded
+2024,37,SE,,less than 8,black,8.7,3,C,n,n,n,y,n,,,,,leaves small,,not_recorded
+2024,37,SE,,less than 8,black,5.3,1,I,n,n,n,n,n,,,,,,,NA
+2024,37,SE,,less than 8,black,4.1,1,I,n,n,n,n,n,,,,,,,NA
+2024,37,SE,,less than 8,black,8.5,3,I,n,y,y,y,n,,,,,,,not_recorded
+2024,37,SE,,less than 8,black,6.2,1,I,n,n,n,n,n,,,,,,,NA
+2024,37,NW,,less than 8,black,6.6,5,I,n,y,y,y,y,,,,,,,not_recorded
+2024,37,NW,,less than 8,black,6,5,I,n,y,y,y,n,,,,,,,not_recorded
+2024,37,NW,,less than 8,black,9.5,1,I,n,n,n,n,y,,,,,,,NA
+2024,37,NW,,less than 8,black,6.5,2,I,n,n,y,y,n,,,,,,,not_recorded
+2024,37,NW,,less than 8,black,6.1,1,I,n,n,n,n,n,,,,,,,NA
+2024,37,NW,,less than 8,black,5,5,I,n,y,y,y,y,,,,,,,not_recorded
+2024,37,NW,,less than 8,black,6.2,1,I,n,n,y,y,n,,,,,,,not_recorded
+2024,37,NW,,less than 8,black,6,1,I,n,n,n,n,n,,,,,,,NA
+2024,37,NW,,less than 8,black,4.6,1,I,n,n,y,y,n,,,,,,,not_recorded
+2024,37,SW,220,14.3,green or white,11.4,1,C,n,n,n,n,n,,,,,,,NA
+2024,25,NE,,less than 8,?,4.8,5,S,n,y,y,y,n,,,,,,,not_recorded
+2024,25,SE,,less than 8,black,3.4,3,S,n,n,y,y,y,,,,,,,not_recorded
+2024,25,SE,,less than 8,black,2.7,5,S,n,y,y,y,y,,,,,,,not_recorded
+2024,25,SW,,less than 8,green or white,3.1,1,I,n,n,y,n,n,,,,,,,NA
+2024,25,SW,,less than 8,black,3,5,I,n,n,y,y,y,,,,,,,not_recorded
+2024,25,NW,,less than 8,black,2.6,2,I,n,n,n,y,n,,,,,,,not_recorded
+2024,25,NW,,less than 8,?,5.7,5,I,n,y,y,y,n,,,,,,,not_recorded
+2024,25,NW,,less than 8,black,2.7,2,S,n,n,y,y,n,,,,,,,not_recorded
+2024,25,NE,,17.8,green,2.9,1,I,n,n,y,y,n,,,,,had samaras that were collected and are in the binder - another tree fell on it,,not_recorded
+2024,57,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,26,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,27,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,33,NW,,less than 8,green or white,3.2,1,S,n,n,n,n,n,,,,,,,NA
+2024,33,NW,,less than 8,green or white,2.6,1,S,n,n,n,n,n,,,,,,,NA
+2024,33,SW,,less than 8,black,3.1,5,S,n,y,y,y,n,,,,,,,not_recorded
+2024,33,SW,,less than 8,green or white,3.3,1,S,n,n,y,n,n,,,,,,,NA
+2024,31,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,32,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,36,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,35,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,34,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,63,NE,,less than 8,green,4.6,1,I,n,n,n,n,n,,,,Ash number 7 - 08_18_2009,,,NA
+2024,63,NE,,less than 8,green or white,4,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,NE,,less than 8,green or white,6,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,NE,,less than 8,green or white,3.5,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,NE,,less than 8,green or white,2.7,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,NE,,less than 8,green or white,3,1,S,n,n,n,n,n,,,,,,,NA
+2024,63,NW,,less than 8,?,3.8,2,S,n,n,y,n,n,,,,,another tree fell on it,,NA
+2024,63,NW,,less than 8,green or white,4.2,1,I,n,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green or white,2.5,1,S,n,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green or white,4.8,1,I,n,n,y,n,n,,,,Ash number 3 - 08_18_2009,,,NA
+2024,63,NE,,less than 8,green or white,6.2,1,I,n,n,y,n,n,y,,,,,,NA
+2024,63,NW,,less than 8,green or white,2.6,2,I,n,n,n,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green or white,3,2,I,n,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green or white,5.8,1,C,n,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green or white,4.4,1,C,n,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green or white,4.1,4,I,n,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green?,6.5,2,I,n,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green?,2.6,1,I,n,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green?,7.4,5,I,n,y,y,y,y,,,,,,,not_recorded
+2024,63,NW,,less than 8,green?,8.5,2,C,n,n,y,n,n,,,,,leaves small,,NA
+2024,63,NW,,less than 8,green?,3,1,S,n,n,y,n,y,,,,,,,NA
+2024,63,NE,,less than 8,green,2.8,1,S,n,n,n,n,n,,,,,,,NA
+2024,63,NE,,less than 8,green,4,1,I,y,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green or white,2.9,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green?,3.5,3,S,n,n,y,n,y,,,,Ash number 1 - 08_18_2009,,,NA
+2024,63,NW,,less than 8,green,8.5,4,C,n,n,y,y,y,,,,,,,not_recorded
+2024,63,NW,,less than 8,green,7.2,2,I,n,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green,7.4,1,C,n,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green,8.3,5,C,n,n,y,y,n,,,,,,,not_recorded
+2024,63,NW,,less than 8,green,4.5,1,I,n,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green,5.2,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green,5.2,1,I,n,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green,2.9,1,S,n,n,n,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green,7.9,4,I,n,y,y,y,y,,,,,,,not_recorded
+2024,63,NW,,less than 8,green,6.4,1,I,n,n,y,n,n,,,,,,,NA
+2024,63,NW,,less than 8,green,4.9,1,I,n,n,y,n,n,y,,,,,,NA
+2024,63,NW,,less than 8,green,5.2,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,SW,,less than 8,green,4.9,2,C,n,n,y,n,n,,,,,,,NA
+2024,63,SW,,less than 8,green,5.5,1,C,n,n,n,n,n,,,,,,,NA
+2024,63,SW,,less than 8,green,4.3,1,I,n,n,y,n,n,y,,,,,,NA
+2024,63,SW,,less than 8,green,2.9,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,SW,,less than 8,green,4.6,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,SW,,less than 8,green,5.1,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,SW,,less than 8,green,4.3,1,I,n,n,y,n,n,,,,,,,NA
+2024,63,SE,,less than 8,green,2.9,1,S,n,n,n,n,n,,,,,,,NA
+2024,63,SE,,less than 8,green,2.9,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,SE,,less than 8,green,4.3,1,S,n,n,y,n,n,y,,,,,,NA
+2024,63,SE,,less than 8,green,6.4,1,I,n,n,y,n,y,,,,,,,NA
+2024,63,SE,,less than 8,green,4.2,1,I,n,n,y,n,y,,,,,,,NA
+2024,63,SE,,less than 8,green,3.6,1,I,n,n,y,n,n,,,,,,,NA
+2024,63,SE,,less than 8,green,8.5,5,I,n,y,y,y,y,,,,,sprouts living,,new
+2024,63,SE,,less than 8,green,3.3,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,NE,,less than 8,green,4,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,SE,,less than 8,green,3,2,I,n,n,y,y,n,y,,,Ash number 5 - 08_18_09,,,not_recorded
+2024,63,SE,,less than 8,green,4,1,I,n,n,y,n,n,y,,,,,,NA
+2024,63,SE,,less than 8,green,3.9,1,I,n,n,y,n,n,,,,,,,NA
+2024,63,SE,,less than 8,green,2.8,1,I,n,n,y,n,n,,,,,,,NA
+2024,63,SE,,less than 8,green,2.7,1,I,n,n,n,n,n,,,,,,,NA
+2024,63,SE,,less than 8,green,4.1,1,I,n,n,y,n,n,y,,,,,,NA
+2024,63,SE,,less than 8,green,2.5,1,S,n,n,n,n,n,,,,,,,NA
+2024,63,SE,,less than 8,green,6.8,1,I,n,n,y,n,n,,,,,,,NA
+2024,63,SE,,less than 8,green,7.1,2,I,n,n,n,n,n,,,,,,,NA
+2024,63,NW,,less than 8,black,9.5,5,I,n,y,y,y,n,y,,,Frax number 9 - 04_08_2011,,,not_recorded
+2024,56,NW,,between 8 and 18,black,9.4,1,I,n,n,n,n,n,,0,0,,,,NA
+2024,86,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,78,NE,,less than 8,green,2.7,1,I,n,n,y,n,n,n,,,,,,NA
+2024,78,NE,,less than 8,black,4.8,1,I,n,n,y,n,n,n,,,,,,NA
+2024,78,NE,,less than 8,green,3.1,1,I,n,n,y,n,n,n,,,,,,NA
+2024,78,NE,,8.32,green or white,4.6,1,I,n,n,n,n,n,n,,,Ash number 8 - re-tag - Frax sp. 2013,,,NA
+2024,78,NE,,less than 8,green,2.5,1,I,n,n,y,n,n,n,,,,,,NA
+2024,78,SE,,less than 8,green,3,1,I,n,n,n,n,n,n,,,,,,NA
+2024,78,SE,,less than 8,green,2.4,1,I,n,n,n,n,n,n,,,Ash number 1 - re-tag - 2013,,,NA
+2024,78,SE,,less than 8,green,2.8,1,I,n,n,y,y,n,y,,,,,,not_recorded
+2024,78,SE,,less than 8,green white or pumpkin,2.9,1,I,n,n,n,n,n,n,,,,,,NA
+2024,78,SE,,less than 8,green,3.8,1,I,n,n,y,n,n,n,,,,,,NA
+2024,78,SE,,less than 8,green,2.7,1,I,n,n,n,n,n,n,,,,,,NA
+2024,78,SE,,less than 8,green,3.6,1,I,n,n,n,n,n,n,,,Ash number 2 - 07_09_2009,,,NA
+2024,78,SE,,less than 8,green,2.9,1,I,n,n,y,n,n,n,,,,,,NA
+2024,78,SE,,less than 8,green,3.3,1,I,n,n,n,n,n,n,,,,,,NA
+2024,78,SE,,8.64,green,4.3,1,I,n,n,n,n,n,n,,,Frax sp. number 10 - 07_24_2011,,,NA
+2024,76,SW,,12.26,green,2.8,1,I,n,n,n,n,n,n,,,,,,NA
+2024,76,SW,,less than 8,green,2.9,1,S,n,n,n,n,n,n,,,,,,NA
+2024,73,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,74,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,75_north,,,8.07,green or white,2.7,1,S,n,n,y,n,n,n,,,Ash number 3 - 07_09_2009,,,NA
+2024,75_north,,,less than 8,?,13.7,5,I,y,y,y,n,y,y,,,,very dead,,NA
+2024,75_north,,,22.8,green or white,15.6,5,C,n,y,y,n,y,y,,,,,,NA
+2024,75_north,,,26.64,green or white,16.9,3,C,n,n,n,y,y,n,,,,,,not_recorded
+2024,75_south,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,77,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,109,NE,,17.12,black,4.4,1,S,n,n,y,n,n,n,,,,,,NA
+2024,109,SE,,27.77,green or white,9.6,1,I,n,n,y,n,n,y,,,,,,NA
+2024,100,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,112,SW,,less than 8,green or white,2.7,1,S,n,n,y,n,n,n,,,,,,NA
+2024,113,SE,,less than 8,green or white,2.8,1,S,n,n,y,n,n,n,,,,,,NA
+2024,113,NW,,less than 8,green or white,2.5,1,S,n,n,y,n,n,n,,,,,,NA
+2024,113,NW,,less than 8,green or white,3,1,S,n,n,n,n,n,n,,,,overtaken by vines,,NA
+2024,114,NE,,less than 8,green or white,2.5,1,S,n,n,n,n,n,n,,,,,,NA
+2024,114,SE,,less than 8,green or white,2.6,1,S,n,n,n,n,n,n,,,,,,NA
+2024,114,NW,,less than 8,green or white,3,1,S,n,n,y,n,n,n,,,,,,NA
+2024,110,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,111,NE,,8.38,green or white,5.8,1,I,n,n,y,n,n,n,,,,,,NA
+2024,69,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,68,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,70,SW,222,7,black,,5,S,n,n,y,n,y,n,,,tagged - tag label missing - note: not counted in the sapling datasheet,The basal sprout is living and healthy,,NA
+2024,70,NW,294,12.5,black,4.4,1,I,n,n,y,n,n,n,,,Ash 3 - 08_04_2009 - tree tag is girdling the tree,,,NA
+2024,70,NW,330,11.8,black,3.8,1,S,n,n,y,n,n,n,,,Ash 6 - 08_04_2009,,,NA
+2024,71,NE,,less than 8,?,44.5,5,C,y,n,y,n,n,y,,,,,,NA
+2024,71,SW,,less than 8,black,4,1,S,n,n,n,n,n,n,,,,,,NA
+2024,71,NW,,less than 8,green or pumpkin,3.7,1,S,n,n,y,n,n,n,,,,,,NA
+2024,71,SE,155,24.95,green?,10.5,1,I,n,n,y,n,n,n,,,,,,NA
+2024,71,SE,,17.4,green?,9.9,1,I,n,n,y,y,n,n,,,,,,not_recorded
+2024,71,SE,,17.71,black?,12.2,5,I,n,y,y,y,n,y,,,,,,not_recorded
+2024,71,SW,220,22.08,green?,12.7,,,n,n,y,n,n,n,,,,small leaves,,NA
+2024,71,NW,290,18.69,?,10.5,3,I,y,y,y,y,y,y,,,,small leaves,,not_recorded
+2024,71,NW,314,15.28,?,12.4,1,S,n,n,n,n,n,n,,,,has a very low branch that is dead - also I think this one was a green ash and not a black ash but I forgot to write that on the datasheet,,NA
+2024,67,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,55,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,40,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,44,SW,,20.68,green or white,16,4,I,n,y,y,y,n,y,,,,,,not_recorded
+2024,43,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,45,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,41,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,42,SE,140,18.43,green,12.3,3,I,n,y,y,y,n,n,,,,tree is crooked - epicormics have grown big,,old
+2024,85,NE,,11.08,hickory,,,,,,,,,,,,Frax number 5 - 06_15_2010,,,NA
+2024,85,SE,,31,green or white,2.9,3,S,n,n,y,n,y,n,,,,,,NA
+2024,87,NE,,less than 8,?,3.5,5,S,y,n,y,y,y,n,,,Ash 2 - 06_17_2010,,,not_recorded
+2024,87,NW,286,13.11,green or white,5.2,1,I,n,n,y,n,n,n,,,,,,NA
+2024,87,NW,,20.65,black,4,1,S,n,n,n,n,n,n,,,white and orange flagging,,,NA
+2024,88,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,89,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,90,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,82,NE,,15.65,green or white,2.6,1,S,n,n,y,n,n,n,,,,On a tip-up mound thus gets a few more feet of height into the upper understory,,NA
+2024,83,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,84,SW,,greater than 18,black,2.2,2,I,n,n,n,y,n,n,,,,,,not_recorded
+2024,58,NW,,17.76,green or white,2.6,2,S,n,n,n,n,n,n,,,,There are more of this size,,NA
+2024,16,SE,275,15.22,green,2.6,2,S,n,n,n,n,n,n,,,Ash 1 - 07_20_2009,,,NA
+2024,16,SE,275,15.22,green,4.3,1,S,n,n,n,n,n,n,,,Ash 2 - 07_20_2009,,,NA
+2024,18,NE,,less than 8,black,2.8,1,S,n,n,n,n,n,n,,,,,,NA
+2024,18,NE,,less than 8,black,3.2,1,S,n,n,y,y,n,n,,,,,,not_recorded
+2024,18,NE,,less than 8,black,3.4,1,S,n,n,n,n,n,n,,,,,,NA
+2024,18,NE,,less than 8,black,3.6,1,S,n,n,n,n,n,n,,,,,,NA
+2024,18,NE,,less than 8,black,3.7,1,I,n,n,n,n,n,n,,,,,,NA
+2024,18,SW,,less than 8,black,2.5,1,S,n,n,n,n,n,n,,,,,,NA
+2024,18,SW,,less than 8,black,4.8,1,I,n,n,n,n,n,n,,,,,,NA
+2024,18,SW,,less than 8,black,2.7,1,S,n,n,n,n,n,n,,,,,,NA
+2024,18,NW,,less than 8,black,4.5,1,S,n,n,n,n,n,n,,,,,,NA
+2024,18,NW,305,7.62,black,4.5,5,S,n,y,y,n,n,n,,,Ash 1 - 07_20_2009,It is fallen,,NA
+2024,18,NW,,less than 8,black,5.7,4,S,n,y,n,y,n,n,,,,epicormic sprouts are new,,new
+2024,18,NW,,less than 8,black,5.1,1,S,n,n,n,n,n,n,,,,,,NA
+2024,18,NW,,less than 8,black,4.2,1,S,n,n,n,n,n,n,,,,,,NA
+2024,18,NW,,less than 8,black,3.7,1,S,n,n,n,n,n,n,,,,,,NA
+2024,18,NW,,less than 8,black,3.4,1,S,n,n,n,n,n,n,,,,It is a basal sprout of a dead stem,,NA
+2024,18,NW,,less than 8,black,4.1,1,S,n,n,n,n,n,n,,,,,,NA
+2024,18,NW,355,8.11,black,3.8,2,S,n,n,y,y,n,n,,,Frax 4 new - 08_03_2011,epicormic sprouts are new,,new
+2024,30,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,29,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,28,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,72,NE,,less than 8,black,4.6,5,I,y,y,y,y,n,y,,,,,,not_recorded
+2024,72,NE,,less than 8,black,5,1,I,n,n,y,n,n,n,,,,smooth bark,,NA
+2024,72,NE,,less than 8,black,3.5,5,I,n,y,y,y,y,y,,,,,,not_recorded
+2024,72,NE,,less than 8,black,5.5,1,I,n,y,y,y,n,n,,,,,,not_recorded
+2024,72,NE,,less than 8,black,5,1,I,n,n,y,y,n,n,,,,,,not_recorded
+2024,72,NE,,less than 8,black,8,1,I,n,n,y,y,n,n,,,,,,not_recorded
+2024,72,NE,,less than 8,black,7.7,1,C,n,n,y,n,n,n,,,,has samaras - smooth bark,,NA
+2024,72,NE,,less than 8,black,3.7,5,I,n,y,y,y,y,n,,,,,,not_recorded
+2024,72,NE,,less than 8,black,3.4,1,I,n,n,n,y,y,n,,,,,,not_recorded
+2024,72,NE,,less than 8,black,3.8,1,I,n,n,n,n,n,n,,,,,,
+2024,72,NE,,less than 8,black,5.1,1,C,n,n,y,y,n,n,,,,,,not_recorded
+2024,72,SE,,less than 8,black,8.6,2,C,n,n,y,y,y,n,,,,it is a basal sprout - epicormic sprouts are new,,new
+2024,72,SE,,less than 8,black,5,2,I,n,n,y,y,n,n,,,,,,not_recorded
+2024,72,SE,,less than 8,black,9.9,1,C,n,n,y,y,n,n,,,,smooth bark,,not_recorded
+2024,72,SE,,less than 8,black,4.4,2,S,n,n,y,y,y,n,,,,,,not_recorded
+2024,72,SE,,less than 8,black,4.8,1,I,n,n,y,y,n,n,,,,,,not_recorded
+2024,72,SE,,less than 8,black,9.5,2,I,n,n,y,y,n,n,,,,,,not_recorded
+2024,72,SE,,less than 8,black,9.7,2,I,n,n,n,y,n,n,,,,,,not_recorded
+2024,72,SE,,less than 8,black,9.3,1,I,n,n,y,y,n,n,,,,,,not_recorded
+2024,72,SE,,less than 8,black,3.5,1,S,n,n,n,n,n,n,,,,,,NA
+2024,72,SW,,less than 8,black,6.1,5,S,n,y,y,n,n,y,,,,,,NA
+2024,72,SW,,less than 8,black,6.8,1,I,n,n,y,y,n,n,,,,,,not_recorded
+2024,72,SE,,less than 8,black,5.2,1,I,n,n,y,y,n,n,,,,smooth bark - epicormic sprouts are old,,not_recorded
+2024,72,SE,,less than 8,black,9.5,1,I,n,n,y,y,n,n,,,,,,not_recorded
+2024,72,SE,,less than 8,black,7.9,1,I,n,n,n,n,n,n,,,,,,NA
+2024,72,SE,,less than 8,black,6.8,1,I,n,n,y,y,n,n,,,,epicormic sprouts are new,,new
+2024,72,SE,,less than 8,green,6.5,1,S,n,n,y,n,n,n,,,,,,NA
+2024,72,SE,,less than 8,green,4,1,I,n,n,y,n,n,n,,,,,,NA
+2024,72,SW,,less than 8,black,4.6,5,I,n,n,y,y,y,n,,,,,,not_recorded
+2024,72,SW,,less than 8,black,2.8,1,I,n,n,n,n,n,n,,,,smooth bark,,NA
+2024,72,SW,,less than 8,black,5.6,1,I,n,n,y,n,n,n,,,,,,NA
+2024,72,SW,,less than 8,black,3.8,1,I,n,n,n,n,n,n,,,,,,NA
+2024,72,SW,,less than 8,black,8.6,5,I,n,y,y,y,y,n,,,,,,not_recorded
+2024,72,SW,,less than 8,black,3.1,1,I,n,n,n,n,n,n,,,,,,NA
+2024,72,SW,,less than 8,black,6.3,1,I,n,n,y,n,n,n,,,,,,NA
+2024,72,SW,,less than 8,green,5.6,1,I,n,n,n,n,n,n,,,,,,NA
+2024,72,SW,,less than 8,black,3.4,1,I,n,n,n,n,n,n,,,,,,NA
+2024,72,SW,,less than 8,black,2.8,1,S,n,n,n,n,n,n,,,,,,NA
+2024,72,SW,,less than 8,black,5.5,1,I,n,n,y,y,n,n,,,,,,not_recorded
+2024,72,SW,,less than 8,black,3.6,5,S,n,n,y,n,n,n,,,,,,NA
+2024,72,SW,,less than 8,black,4.4,5,S,n,n,y,y,n,n,,,,,,not_recorded
+2024,72,SW,,less than 8,black,8.4,1,I,n,n,n,n,n,n,,,,,,NA
+2024,72,SW,,less than 8,black,5.5,2,I,n,n,n,y,n,n,,,,,,not_recorded
+2024,72,SW,,less than 8,?,2.8,5,S,n,n,y,y,n,n,,,,,,not_recorded
+2024,72,SW,,less than 8,black,7.2,2,I,n,n,y,y,n,n,,,,,,not_recorded
+2024,72,SW,,less than 8,black,6.6,4,S,n,y,y,y,n,y,,,,,,not_recorded
+2024,72,NW,,less than 8,black,5.5,5,I,n,y,n,y,y,n,,,,Epicormic sprouts are big,,old
+2024,72,NE,,less than 8,black,2.7,1,I,n,n,y,n,n,n,,,,,,NA
+2024,72,NE,,less than 8,black,5.2,1,I,n,n,y,n,n,n,,,,,,NA
+2024,60,NE,,less than 8,green or white,2.5,1,S,n,n,y,n,n,n,,,,,,NA
+2024,60,SW,,less than 8,?,2.7,5,S,n,n,y,n,n,n,,,,,,NA
+2024,60,SW,,less than 8,green or white,2.7,1,S,n,n,n,n,n,n,,,,,,NA
+2024,60,NE,5,between 8 and 18,green or white,2.6,1,S,n,n,n,n,n,n,,,Frax spp. 1 - 08_11_2009,,,NA
+2024,72,NE,62,11.78,black,11.4,2,I,n,n,n,y,n,n,,,,fallen over,,not_recorded
+2024,72,NE,78,18.54,black,10.3,1,S,n,n,n,y,n,n,,,,epicormic sprout large and dead,,old
+2024,72,SE,118,11.54,black,11.1,1,I,n,n,n,n,n,n,,,,,,NA
+2024,72,SE,122,17.38,green,10.6,1,I,n,n,y,n,n,n,,,,low dead branch,,NA
+2024,72,SE,120,20.74,green,14.2,1,S,n,n,n,n,n,n,,,,,,NA
+2024,80,SE,165,16.19,green or white,3.8,1,S,n,n,n,n,n,n,,,Ash number ? - 07_08_2009,,,NA
+2024,79,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,81,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,10,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,11,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,12,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,5,?,approx 270,approx 100 m,green or pumpkin,2.9,1,S,n,n,y,n,n,n,,,,fuzzy leaves and twigs (location is across the swamp),,NA
+2024,5,?,approx 270,approx 100 m,green or pumpkin,8.7,3,I,n,n,y,n,n,n,,,,fuzzy leaves - leaves smaller - likely a symptom of EAB,,NA
+2024,15,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,13,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,14,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,7,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,9,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,8,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,21,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,19,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,20,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,62,NE,,less than 8,green,5.1,1,I,n,n,y,n,y,n,,,,,,NA
+2024,62,NE,,less than 8,green,4.6,2,S,n,n,y,y,y,y,,,,,,not_recorded
+2024,62,NE,,less than 8,green,2.9,1,S,n,n,y,y,n,n,,,,fuzzy leaves and twigs,,not_recorded
+2024,62,NE,,less than 8,green,4.2,1,S,n,n,y,n,n,n,,,,,,NA
+2024,62,NE,,less than 8,green,3.7,1,S,n,n,y,y,y,n,,,,,,not_recorded
+2024,62,SE,,less than 8,green,3.1,1,S,n,n,y,n,n,n,,,,,,NA
+2024,62,SW,,less than 8,?,3.4,5,I,n,y,y,n,y,y,,,,,,NA
+2024,62,SW,,less than 8,green,3.5,1,S,n,n,y,n,n,n,,,,,,NA
+2024,59,SW,226,9.5,green or white,1.4,2,S,n,n,n,n,n,n,,,Ash 1 - 08_06_2009,The top of the tree is gone,,NA
+2024,101,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,22,NE,0,0.92,black,4,3,S,n,n,y,y,y,n,,,Ash 7 - 08_19_2009,ash choked by tag,,not_recorded
+2024,22,NE,,less than 8,black,4.9,1,S,n,n,n,n,n,n,,,,smooth bark,,NA
+2024,22,NE,,less than 8,green?,5,1,I,n,n,y,n,n,n,,,,,,NA
+2024,22,NE,,less than 8,green or pumpkin,4.8,3,I,n,n,y,n,y,n,,,,basal sprouts are big - large fuzzy leaves ,,NA
+2024,22,SE,,less than 8,black,3.7,1,S,n,n,n,n,n,n,,,,,,NA
+2024,22,SE,,less than 8,green or pumpkin,2.5,5,I,n,n,y,y,y,n,,,,epicormic sprouts living (or fresh?),,new
+2024,22,SE,,less than 8,black,5.1,3,S,n,n,n,y,n,n,,,Ash 5 - 08_19_2009,ash choked by tag,,not_recorded
+2024,22,SE,,less than 8,green or pumpkin,3.76,1,S,n,n,y,n,n,n,,,,,,NA
+2024,22,SW,,less than 8,black,2.8,1,S,n,n,n,n,n,n,,,,,,NA
+2024,22,SW,336,7.08,black,6.4,5,S,n,n,y,y,y,n,,,Tagged - label missing,epicormic sprouts living (or fresh?),,new
+2024,22,SW,,less than 8,black,5.5,1,S,n,n,n,n,n,n,,,,,,NA
+2024,22,NW,,less than 8,black,5.6,1,S,n,n,n,n,n,n,,,,,,NA
+2024,22,NE,,17.5,green,4.6,1,I,n,n,n,n,n,n,,,#8 Frax. Sp. - 08_23_2012,tree is bent over,,NA
+2024,17,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2024,64,SW,,less than 8,black,3.8,1,S,n,n,y,n,n,n,,,,This tree is possibly an epicormic sprout from a dead tree,,NA
+2024,64,NW,,less than 8,black,4.9,5,S,n,n,y,y,n,n,,,,epicormic sprouts living (or fresh?),,new
+2024,65,NW,0,4.81,black,2.2,2,S,n,n,n,n,n,n,,,Ash 1 - 07_21_2009,,,NA
+2024,65,NE,,6.93,black,1,1,S,n,n,n,n,n,n,,,Ash 5 - 07_21_2009,,,NA
+2024,65,SE,,less than 8,green,3.7,1,S,n,n,y,n,n,y,,,,,,NA
+2024,65,SE,,less than 8,green or white,5.5,1,S,n,n,y,y,y,n,,,,epicormic sprouts old,,old
+2024,65,SE,,less than 8,black,2.7,1,S,n,n,y,n,n,n,,,,,,NA
+2024,65,SW,,less than 8,black,2.8,1,S,n,n,y,n,n,n,,,,,,NA
+2024,65,NW,,less than 8,black,2.8,1,S,n,n,n,n,n,n,,,,smooth bark,,NA
+2024,65,NW,,less than 8,black,3.1,5,S,n,y,y,y,n,n,,,,,,not_recorded
+2024,24,NE,,less than 8,green or pumpkin,5.3,4,S,n,n,y,y,n,n,,,,,,not_recorded
+2024,24,NE,,less than 8,green or pumpkin,2.6,1,S,n,n,n,n,n,n,,,,,,NA
+2024,24,NE,,less than 8,black,4.9,1,S,n,n,n,n,n,n,,,,,,NA
+2024,24,NE,,less than 8,green or pumpkin,5.7,1,S,n,n,y,n,n,n,,,,,,NA
+2024,24,NE,,less than 8,green or pumpkin,3.5,2,S,n,n,y,n,n,n,,,,,,NA
+2024,24,NE,,less than 8,black,4,1,S,n,n,n,n,n,n,,,,smooth bark,,NA
+2024,24,NE,,less than 8,green,2.8,1,S,n,n,n,n,n,n,,,,,,NA
+2024,24,NE,,less than 8,green or pumpkin,2.5,1,S,n,n,n,n,n,n,,,,,,NA
+2024,24,NE,,less than 8,black,2.8,1,S,n,n,n,n,n,n,,,,smooth bark,,NA
+2024,24,NE,,less than 8,green or pumpkin,3.3,1,S,n,n,y,n,n,n,,,,,,NA
+2024,24,NE,,less than 8,black,5.5,1,I,n,n,n,n,n,n,,,,,,NA
+2024,24,NE,,less than 8,black,4.8,5,S,n,y,y,y,n,y,,,,,,not_recorded
+2024,24,SE,,less than 8,black,2.6,1,S,n,n,n,n,n,n,,,,smooth bark,,NA
+2024,24,SE,,less than 8,black,3.1,1,S,n,n,n,n,n,n,,,,smooth bark,,NA
+2024,24,SE,,less than 8,black,2.8,1,S,n,n,n,n,n,n,,,,,,NA
+2024,24,SW,,less than 8,black,5.6,1,I,n,n,n,n,n,n,,,,,,NA
+2024,24,SW,,less than 8,black,2.5,1,S,n,n,n,n,n,n,,,,,,NA
+2024,24,SW,,less than 8,green or pumpkin,2.8,1,S,n,n,n,n,n,n,,,,,,NA
+2024,24,SW,,less than 8,green or pumpkin,6.6,1,I,n,n,n,n,n,n,,,,,,NA
+2024,24,SW,,less than 8,black,6.3,1,I,n,n,n,n,n,n,,,,,,NA
+2024,24,SW,,less than 8,green or pumpkin,2.7,1,S,n,n,n,n,n,n,,,,,,NA
+2024,24,SW,,less than 8,black,3,1,S,n,n,n,n,n,n,,,,,,NA
+2024,24,SW,,less than 8,green or pumpkin,3.7,1,S,n,n,y,n,n,y,,,,,,NA
+2024,24,SW,,less than 8,green or pumpkin,2.6,1,S,n,n,n,n,n,n,,,,,,NA
+2024,24,SW,,less than 8,green or pumpkin,3,1,S,n,n,n,n,n,n,,,,,,NA
+2024,24,NW,,less than 8,black,3.4,2,S,n,n,y,n,n,n,,,,top broken off - leaves dying,,NA
+2024,24,NW,,less than 8,black,6.3,2,S,n,n,y,y,n,n,,,,,,not_recorded
+2024,24,NW,,less than 8,black,3.6,1,I,n,n,n,n,n,n,,,,leaves dying or wilting,,NA
+2024,24,NW,,less than 8,green or pumpkin,4.9,1,S,n,n,y,n,n,y,,,,,,NA
+2024,24,NW,,less than 8,black,3.2,5,S,n,y,y,y,n,n,,,,,,not_recorded
+2024,24,NW,,less than 8,black,4,3,S,n,n,y,y,n,n,,,,,,not_recorded
+2024,24,NW,,less than 8,green or pumpkin,4.8,1,S,n,n,n,n,n,n,,,,,,NA
+2024,24,NW,,less than 8,black,4.8,1,S,n,n,n,y,n,n,,,,,,not_recorded
+2024,24,NW,,less than 8,green or pumpkin,4.5,1,S,n,n,y,y,n,n,,,,,,not_recorded
+2024,24,NW,,less than 8,green or pumpkin,3,1,S,n,n,n,n,n,n,,,,,,NA
+2024,102,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2025,91,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2025,92,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2025,93,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2025,4,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2025,6,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2025,106,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2025,107,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2025,108,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2025,104,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2025,103,none,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+2025,105,SW,,less than 8,green,3.9,2,I,n,n,y,y,n,y,,,,,,
+2025,105,NW,,less than 8,green,2.5,1,S,n,n,n,n,n,n,,,,,,
+2025,105,NW,,less than 8,green,3.3,1,S,n,n,y,n,n,y,,,,,,
+2025,61,NE,,less than 8,black,6.9,5,I,n,y,y,y,n,n,,,,,,
+2025,61,SE,,less than 8,green,3.8,2,S,n,n,y,n,n,y,,,,,,
+2025,61,SE,,less than 8,green,5.2,1,S,n,n,y,n,n,n,,,,,,
+2025,61,SE,,less than 8,green,3.3,1,S,n,n,y,n,y,n,,,,,,
+2025,61,SW,,less than 8,green,3.2,5,S,n,y,y,n,y,y,,,,,,
+2025,61,SW,,less than 8,green,3.3,5,S,n,y,y,y,y,n,,,,,,
+2025,61,NW,,less than 8,green,7.5,3,S,n,y,y,y,y,n,,,,epicormic sprouts 1-2 years old,,new
+2025,61,NE,,less than 8,green,4,5,S,n,y,y,y,y,y,,,,,,
+2025,61,NE,,less than 8,green,5.7,1,C,n,n,y,n,n,n,,,,,,
+2025,61,NE,,less than 8,green,5.2,1,I,n,n,y,n,y,y,,,,,,
+2025,61,NE,,less than 8,green,2.5,5,I,n,y,y,n,y,y,,,,,,
+2025,23,none,,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,There are lots of black and green or pumpkin ash small trees in the main plot,NA,NA
+2025,66,NE,,between 8 and 18,green,4.4,1,S,n,n,y,n,n,n,,,Ash 6 - 07_15_2011,,,
+2025,66,SE,,less than 8,green,4.3,1,D,n,n,n,n,n,n,,,,,,
+2025,66,SE,,less than 8,green,2.5,1,I,n,n,n,n,n,n,,,,2 stems were added together,,
+2025,66,NW,,less than 8,green,3.3,1,S,n,n,y,y,y,y,,,,,,

@@ -46,18 +46,7 @@ library(DHARMa)
 ash_by_transect <- read.csv("Cleaned_data/ash_by_transect.csv")
 ash_by_transect$Park <- as.factor(ash_by_transect$Park) # Grouping variable (random effect)
 ash_by_transect$mstrlvl <- as.factor(ash_by_transect$mstrlvl) # Predictor
-table(ash_by_transect$mstrlvl) # 5 hydric transects, 7 mesic, 18 xeric
-
-# Major problem with data ###########################################
-# Unfortunately, the first trip to Michigan in 2024 we counted seedlings using 
-# microplot PVCs that were too small (with an area of only 3.37 m^2). After that
-# we switched to PVCs with an area of 4.06 m^2 in order to be consistent with 
-# previous studies, which had a microplot area of 4 m^2. I corrected for this 
-# problem in the seedling density variables. However, the seedling counts are 
-# uncorrected. Thus, this is a weakness in the data. In 2025 we may revisit these
-# plots.
-#### If you have time this summer, yes, good idea to revisit the plots to take 
-# new seedling counts
+table(ash_by_transect$mstrlvl) # 10 hydric transects, 8 mesic, 19 xeric
 
 # Short seedlings model #######################################################
 
@@ -160,8 +149,8 @@ tall_seedling_mod_negbin <-
                  data=ash_by_transect)
 summary(tall_seedling_mod_negbin)
 # Interestingly, the Park variable is not soaking up as much variation
-# in number of tall seedlings (Variance of random effect = 0.29) as it
-# did in the number of short seedlings (Variance of the random effect = 0.57).
+# in number of tall seedlings (Variance of random effect = 0.23) as it
+# did in the number of short seedlings (Variance of the random effect = 0.43).
 
 # Now check for overdispersion in the negative binom GLMM:
 # First run a simulation that simulates new values of the random effect intercepts:
@@ -255,22 +244,19 @@ plot(log_percent_cov_seedling_mod) # The residuals of the model with
 intercepts_log_percent_cov_model <- ranef(log_percent_cov_seedling_mod)$Park
 hist(intercepts_log_percent_cov_model$`(Intercept)`, breaks=10) 
 
+# How do the percent cover of ash seedlings differ between hydric, mesic, and 
+# xeric plots?
+ash_by_transect %>% group_by(mstrlvl) %>% 
+  summarize(mean_percent_cover_seedlings = mean(mean_percent_cover_seedlings))
+
 # Saplings model ##############################################################
 
 # graph the data:
-saplings_graph <- ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_saplings_stems_per_m_squared)) +
-  geom_boxplot(outlier.colour = "white") +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  theme_bw() +
-  xlab("Hydroclass") +
-  ylab("Mean density of \nsaplings (stems/m^2))")+
-  ylim(c(0,0.7))+
-  theme(plot.margin = unit(c(0.2,0.2,0.2,0.6), "cm"))
-
 ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_saplings)) +
   geom_boxplot(outlier.colour = "white") +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
   theme_bw() +
+  ylim(c(0,0.7))+
   xlab("Hydroclass") +
   ylab("Total number of saplings")
 # I'm noticing that the median number of saplings is highest in hydric, but 
@@ -325,15 +311,6 @@ anova(saplings_mod_negbin, saplings_model_without_Park_negbin) # The negative
 # Living small trees model ####################################################
 
 # Graph the data:
-small_trees_graph <- ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_living_small_trees_stems_per_ha)) +
-  geom_boxplot(outlier.colour = "white") +
-  geom_jitter(height=0, width=0.1, alpha=0.5) +
-  theme_bw() +
-  xlab("Hydroclass") +
-  ylab("Mean density living \n small trees (stems/ha)") +
-  ylim(c(0,1200))+
-  theme(plot.margin = unit(c(0.2,0.2,0.2,0.6), "cm"))
-
 ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_living_small_trees)) +
   geom_boxplot(outlier.colour = "white") +
   geom_jitter(height=0, width=0.1, alpha=0.5) +
@@ -341,39 +318,32 @@ ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_living_small_trees)) 
   xlab("Hydroclass") +
   ylab("Number of living small trees")
 
+# Create a Poisson GLMM:
 small_tree_mod_poisson <- 
   lme4::glmer(total_number_living_small_trees ~ mstrlvl + (1|Park), 
               family="poisson", data=ash_by_transect)
-# The model failed to converge.
 
-# Try running it without the random effect:
-small_tree_mod_poisson_without_Park <- 
-  glm(total_number_living_small_trees ~ mstrlvl, 
-              family="poisson", data=ash_by_transect)
-summary(small_tree_mod_poisson_without_Park)
+# Now check for overdispersion in the Poisson GLMM:
+# First run a simulation that simulates new values of the random effect intercepts:
+small_tree_mod_poisson_sim_resid1 <- simulateResiduals(
+  fittedModel = short_seedling_mod_poisson, re.form = NA, plot = T)
 
-small_tree_mod_poisson_without_Park_sim_resid <- simulateResiduals(
-  fittedModel = small_tree_mod_poisson_without_Park, plot = T)
-plotResiduals(small_tree_mod_poisson_without_Park_sim_resid,
-              form = ash_by_transect$mstrlvl)
+# Second, run a simulation that conditions over the previously fitted values
+# of the random effect intercepts:
+small_tree_mod_poisson_sim_resid2 <- simulateResiduals(
+  fittedModel = short_seedling_mod_poisson, re.form = NULL, plot = T)
 
-# Test for overdispersion:
-library(AER)
-AER::dispersiontest(small_tree_mod_poisson_without_Park, trafo = 1) # Assesses 
-# the null hypothesis that
-# Var[y] = E[y] = u (basically, that the mean and variance are equal), against 
-# a model like Var[y] = u + a*(u^trafo), where u is the mean and trafo is a 
-# parameter. If trafo=1, then Var[y] = (1+a)*u
-
-# The result means that the Poisson GLM is overdispersed.
+# Run a test for dispersion:
+testDispersion(small_tree_mod_poisson_sim_resid2)
+# Interpretation: The Poisson model is overdispersed
 
 # Run a negative binomial GLMM:
 small_trees_model_negbin <- 
   lme4::glmer.nb(total_number_living_small_trees ~ mstrlvl + (1|Park),
-                 data=ash_by_transect)
+                 data=ash_by_transect) # I got a singular fit
 summary(small_trees_model_negbin)
 
-# The model did not converge, so I'll need to run it without the random effect
+# Try running a negative binomial GLMM without the random effect:
 small_trees_model_without_Park_negbin <- 
   MASS::glm.nb(total_number_living_small_trees ~ mstrlvl, data=ash_by_transect)
 summary(small_trees_model_without_Park_negbin)
@@ -381,7 +351,7 @@ summary(small_trees_model_without_Park_negbin)
 # Use the DHARMa package to assess model fit:
 small_trees_model_without_Park_negbin_sim_resid <- simulateResiduals(
   fittedModel = small_trees_model_without_Park_negbin, plot = T)
-plotResiduals(small_tree_mod_poisson_without_Park_sim_resid,
+plotResiduals(small_trees_model_without_Park_negbin_sim_resid,
               form = ash_by_transect$mstrlvl)
 
 # Test for overdispersion:
@@ -408,14 +378,17 @@ ash_by_transect$mean_basal_area_living_ash_trees_m_squared_per_ha <-
 # Note: the vast majority of basal area is contributed by the ash trees 
 # that are 2.5-10 cm DBH.
 
+# Summarize the data:
+summary(ash_by_transect$mean_basal_area_living_ash_trees_m_squared_per_ha)
+
 # Graph the data:
-  ggplot(data=ash_by_transect, 
+ggplot(data=ash_by_transect, 
        aes(x=mstrlvl, y=mean_basal_area_living_ash_trees_m_squared_per_ha)) +
   geom_boxplot(outlier.colour = "white") +
   geom_jitter(aes(color=Park), height=0, width=0.1, alpha=0.5) +
   theme_classic() +
   xlab("Hydroclass") +
-  ylab("Mean basal area of living ash trees (m^2 / ha)")
+  ylab("Mean basal area of \nliving ash trees (m^2 / ha)")
 
 # I don't know what the appropriate model is for this data. It is continuous 
 # data and yet there are MANY zeros (well, the same number of zeros as the 
@@ -427,18 +400,48 @@ ash_by_transect$mean_basal_area_living_ash_trees_m_squared_per_ha <-
 # Make a graph of total seedlings (short and tall)
 seedlings_graph <- ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_seedlings)) +
     geom_boxplot(outlier.colour = "white") +
-    geom_jitter(height=0, width=0.1, alpha=0.5) +
+    geom_jitter(height=0, width=0.05, alpha=0.5) +
     theme_bw() +
     xlab("Hydroclass") +
     ylab("Mean density of \nseedlings (stems/m^2)") +
     ylim(c(0,7))+
     theme(plot.margin = unit(c(0.5,0.2,0.2,0.6), "cm"))
-  
-  
+seedlings_graph
+
+saplings_graph <- ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_saplings_stems_per_m_squared)) +
+  geom_boxplot(outlier.colour = "white") +
+  geom_jitter(height=0, width=0.05, alpha=0.5) +
+  theme_bw() +
+  xlab("Hydroclass") +
+  ylab("Mean density of \nsaplings (stems/m^2))")+
+  ylim(c(0,0.55))+
+  theme(plot.margin = unit(c(0.2,0.2,0.2,0.6), "cm"))
+saplings_graph
+
+small_trees_graph <- ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_living_small_trees_stems_per_ha)) +
+  geom_boxplot(outlier.colour = "white") +
+  geom_jitter(height=0, width=0.05, alpha=0.5) +
+  theme_bw() +
+  xlab("Hydroclass") +
+  ylab("Mean density living \n small trees (stems / ha)") +
+  ylim(c(0,1200))+
+  theme(plot.margin = unit(c(0.2,0.2,0.2,0.6), "cm"))
+small_trees_graph
+
+BA_graph <- ggplot(data=ash_by_transect, 
+                   aes(x=mstrlvl, y=mean_basal_area_living_ash_trees_m_squared_per_ha)) +
+  geom_boxplot(outlier.colour = "white") +
+  geom_jitter(height=0, width=0.05, alpha=0.5) +
+  theme_bw() +
+  xlab("Hydroclass") +
+  ylab("Mean basal area of \nliving ash trees (m^2 / ha)")+
+  theme(plot.margin = unit(c(0.5,0.2,0.2,0.6), "cm"))
+BA_graph
+
 ggarrange(seedlings_graph + rremove("xlab"), saplings_graph + rremove("xlab"), 
-          small_trees_graph,
-          labels = c("A", "B", "C"),
-          ncol = 1, nrow = 3, align = "hv")
+          small_trees_graph, BA_graph,
+          labels = c("A", "B", "C", "D"),
+          ncol = 2, nrow = 2, align = "hv")
 
 #  Extra graphs for Presentation Skills #######################################
 
