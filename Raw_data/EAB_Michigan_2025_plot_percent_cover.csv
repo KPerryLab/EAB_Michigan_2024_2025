@@ -1,0 +1,121 @@
+plot_percent_cover_date,center_tree_number,quadrant,water,graminoids,skunk_cabbage,ferns,spicebush,ilex,glossy_buckthorn,poison_sumac,other_woody_shrub,notes
+5/22/2025,106,NE,8,85.5,35.5,8,1,0,0,0,3.5,dogwood
+5/22/2025,106,SE,25.5,15.5,25.5,3.5,0,0,0,0,3.5,multiflora rose
+5/22/2025,106,SW,8,85.5,75.5,0,1,0,0,0,3.5,
+5/22/2025,106,NW,8,65.5,55.5,3.5,1,0,1,0,3.5,
+5/22/2025,107,NE,15.5,35.5,35.5,8,0,0,0,0,3.5,autumn olive
+5/22/2025,107,SE,15.5,8,55.5,8,0,0,0,0,0,stream runs through
+5/22/2025,107,SW,15.5,25.5,35.5,3.5,0,0,0,0,1,ribes
+5/22/2025,107,NW,15.5,45.5,25.5,3.5,0,0,0,0,0,
+5/23/2025,40,NE,1,95.5,55.5,3.5,1,0,1,3.5,1,
+5/23/2025,40,SE,15.5,95.5,8,3.5,0,0,0,1,3.5,
+5/23/2025,40,SW,8,95.5,3.5,8,0,0,0,3.5,3.5,
+5/23/2025,40,NW,1,95.5,35.5,8,1,0,0,3.5,1,
+5/28/2025,103,NE,15.5,75.5,15.5,75.5,3.5,0,0,0,3.5,sensitive fern -  dogwood -  hazelnut
+5/28/2025,103,SE,8,55.5,3.5,55.5,1,3.5,0,0,3.5,autumn olive -  brambles
+5/28/2025,103,SW,1,95.5,55.5,45.5,8,3.5,0,0,1,dogwood -  roses
+5/28/2025,103,NW,3.5,95.5,25.5,45.5,3.5,0,0,0,1,autumn olive
+5/29/2025,105,NE,1,45.5,55.5,15.5,15.5,0,0,0,15.5,maiden hair fern/sprial fern -  autumn olive
+5/29/2025,105,SE,15.5,85.5,35.5,25.5,8,0,0,0,3.5,autumn olive
+5/29/2025,105,SW,0,95.5,85.5,75.5,8,0,0,0,1,elder berry
+5/29/2025,105,NW,8,65.5,65.5,8,8,0,0,0,3.5,autumn olive
+5/27/2025,108,NE,0,65.5,65.5,8,3.5,0,0,0,0,horsetails
+5/27/2025,108,SE,15.5,75.5,45.5,35.5,3.5,0,0,0,1,stream
+5/27/2025,108,SW,1,85.5,35.5,15.5,8,0,0,0,3.5,
+5/27/2025,108,NW,0,75.5,45.5,15.5,25.5,0,0,0,3.5,buckthorn -  autumn olive
+5/28/2025,104,NE,3.5,95.5,45.5,15.5,25.5,0,0,1,3.5,elderberry -  brambles -  dogwood
+5/28/2025,104,SE,3.5,95.5,45.5,3.5,15.5,0,0,0,1,
+5/28/2025,104,SW,1,55.5,65.5,8,8,0,0,0,1,
+5/28/2025,104,NW,1,45.5,65.5,3.5,3.5,0,0,0,0,
+5/29/2025,78,NE,8,45.5,55.5,15.5,3.5,0,0,0,0,
+5/29/2025,78,SE,1,55.5,35.5,8,8,0,0,0,15.5,autumn olive -  currents -  hazel nut -  prickly ash -  nanny berry
+5/29/2025,78,SW,3.5,85.5,8,3.5,3.5,0,0,0,15.5,autumn olive -  hazel nut
+5/29/2025,78,NW,8,85.5,8,15.5,3.5,0,0,0,8,swamp rose (photo) -  autumn olive -  grasses
+5/29/2025,77,NE,0,85.5,55.5,3.5,3.5,0,0,0,0,some kind of forn which grows after flooding - also -  tall grasses.
+5/29/2025,77,SE,3.5,85.5,35.5,1,15.5,0,0,0,0,part has tall grasses -  another has tall sedges.
+5/29/2025,77,SW,3.5,75.5,35.5,25.5,35.5,0,0,0,8,multiflora rose -  common buckthorn -  part has hummocks of sedges.
+5/29/2025,77,NW,8,65.5,45.5,25.5,3.5,0,0,0,0,that same herbaceous forb as 77
+5/30/2025,76,NE,3.5,75.5,55.5,0,8,0,0,0,0,
+5/30/2025,76,SE,3.5,45.5,55.5,3.5,25.5,1,0,0,0,
+5/30/2025,76,SW,8,15.5,35.5,45.5,1,0,0,0,0,
+5/30/2025,76,NW,8,65.5,15.5,8,3.5,0,0,0,1,ribes -  autumn olive (small)
+6/5/2025,44,NE,3.5,95.5,55.5,15.5,0,0,0,8,3.5,barberry
+6/5/2025,44,SE,0,75.5,45.5,0,0,0,0,0,3.5,autumn olive -  vibrunum
+6/5/2025,44,SW,1,95.5,85.5,45.5,0,0,0,1,15.5,dogwood -  ribes
+6/5/2025,44,NW,25.5,85.5,35.5,35.5,0,1,0,15.5,3.5,blueberry (family) -  ribes -  nanny berry -  autumn olive -  brambles
+6/3/2025,71,NE,45.5,65.5,8,1,2,25.5,1,0,3.5,
+6/3/2025,71,SE,8,65.5,3.5,0,3.5,0,3.5,0,3.5,
+6/3/2025,71,SW,3.5,95.5,3.5,0,3.5,8,3.5,0,3.5,swamp rose
+6/3/2025,71,NW,15.5,45.5,25.5,0,3.5,3.5,0,0,3.5,roses
+6/4/2025,72,NE,3.5,75.5,45.5,1,85.5,0,8,0,3.5,hazel nut
+6/4/2025,72,SE,15.5,45.5,45.5,1,85.5,0,1,0,3.5,nanny berry
+6/4/2025,72,SW,8,25.5,45.5,1,85.5,0,0,0,8,hazel nut
+6/4/2025,72,NW,3.5,75.5,55.5,3.5,85.5,0,3.5,0,8,common buckthorn -  hazel nut
+6/5/2025,70,NE,8,45.5,8,1,35.5,0,0,0,0,
+6/5/2025,70,SE,15.5,65.5,15.5,15.5,35.5,0,0,0,1,multiflora rose
+6/5/2025,70,SW,0,35.5,1,8,75.5,3.5,0,0,8,autumn olive -  privot/honey suckel -  current -  zanthoxylem
+6/5/2025,70,NW,8,45.5,45.5,35.5,85.5,0,0,0,0,
+6/5/2025,43,NE,8,95.5,65.5,45.5,1,3.5,0,15.5,0,
+6/5/2025,43,SE,0,45.5,45.5,8,0,0,0,0,3.5,autumn olive -  dogwood
+6/5/2025,43,SW,3.5,95.5,75.5,55.5,0,1,0,0,3.5,cattails=graminoids -  currents -  nanny berry
+6/5/2025,43,NW,15.5,95.5,45.5,25.5,0,3.5,0,8,3.5,cattials -  blueberry (family) -  autumn olive
+6/12/2025,63,NE,8,45.5,3.5,3.5,0,8,25.5,0,3.5,spirea (meadow sweet)
+6/12/2025,63,SE,8,25.5,0,1,0,15.5,8,0,8,dogwood
+6/12/2025,63,SW,3.5,45.5,1,3.5,0,8,15.5,0,8,autumn olive -  spirea -  swamp rose
+6/12/2025,63,NW,0,15.5,3.5,1,0,,35.5,0,3.5,viburnum (photo)
+6/12/2025,62,NE,1,15.5,3.5,3.5,8,15.5,15.5,0,15.5,multiflora rose -  autumn olive -  celastrus -  rubus -  viburnum
+6/12/2025,62,SE,3.5,55.5,8,3.5,0,15.5,25.5,0,15.5,different kind of viburnum -  dogwood
+6/12/2025,62,SW,3.5,85.5,15.5,3.5,0,15.5,8,0,8,swamp rose -  spirea
+6/12/2025,62,NW,8,25.5,8,1,1,45.4,15.5,0,0,
+6/13/2025,23,NE,0,15.5,0,0,15.5,8,0,0,0,
+6/13/2025,23,SE,0,8,0,3.5,25.5,0,0,0,0,american royal fern -  water plantain -  prickly ash
+6/13/2025,23,SW,3.5,35.5,3.5,0,8,0,0,0,0,
+6/13/2025,23,NW,0,35.5,0,0,35.5,0,0,0,0,
+6/10/2025,45,NE,25.5,85.5,8,35.5,0,15.5,1,35.5,35.5,entire plot (or more) has thick peat or sphagnum -  ericaceae sp. -  swamp rose
+6/10/2025,45,SE,8,95.5,55.5,45.5,0,8,0,15.5,8,autumn olive
+6/10/2025,45,SW,8,95.5,15.5,35.5,0,15.5,1,8,3.5,dogwood -  ericaceae
+6/10/2025,45,NW,15.5,85.5,8,45.5,0,25.5,0,35.5,35.5,ericaceae -  swamp rose
+6/10/2025,41,NE,0,45.5,75.5,25.5,35.5,0,25.5,0,35.5,dying spice bush -  autumn olive -  barberry
+6/10/2025,41,SE,3.5,45.5,65.5,15.5,25.5,0,15.5,1,15.5,common buckthorn too -  autumn olive
+6/10/2025,41,SW,3.5,65.5,45.5,25.5,3.5,0,0,8,3.5,nanny berry
+6/10/2025,41,NW,0,85.5,85.5,65.5,0,0,1,0,3.5,autumn olive
+6/11/2025,42,NE,3.5,95.5,55.5,45.5,8,0,1,25.5,3.5,ericaceae sp. -  dogwood -  entire plot with lots of cattails
+6/11/2025,42,SE,3.5,95.5,55.5,35.5,15.5,0,1,3.5,8,ericaceae sp.
+6/11/2025,42,SW,3.5,75.5,55.5,65.5,35.5,0,0,8,8,ericaceae sp. -  autumn olive
+6/11/2025,42,NW,3.5,75.5,45.5,45.5,55.5,0,1,15.5,8,multiflora rose -  dogwood (red osier?) -  barberry -  autumn olive
+6/11/2025,61,NE,3.5,45.5,0,1,0,45.5,25.5,0,3.5,dogwood (red osier?) -  roses (not multiflora)
+6/11/2025,61,SE,1,35.5,3.5,1,0,35.5,25.5,0,3.5,viburnum
+6/11/2025,61,SW,1,45.5,8,3.5,0,15.5,45.5,0,8,dogwood -  spirea
+6/11/2025,61,NW,3.5,25.5,3.5,0,0,65.5,8,0,3.5,viburnum
+6/24/2025,22,NE,55.5,55.5,1,3.5,25.5,15.5,0,0,8,spicebush thrips - autumn olive - cornus sp. - hummocks of sedges
+6/24/2025,22,SE,55.5,65.5,8,3.5,25.5,0,0,0,8,irises - autumn olive
+6/24/2025,22,SW,25.5,25.5,8,35.5,8,0,0,0,8,mostly Carpinus in the understory (not counted here) - northern maidenhair fern - sensitive fern - Christmas fern - Northern lady fern - Autumn olive
+6/24/2025,22,NW,15.5,45.5,3.5,8,35.5,0,0,0,15.5,Corylus - Autumn olive
+6/25/2025,24,NE,3.5,15.5,75.5,25.5,15.5,3.5,0,0,0,for all quadrants - American royal fern most common - also some spinulose wood fern - NE has cinnamon fern - Irises - lesser purple fringed orchid
+6/25/2025,24,SE,35.5,55.5,45.5,25.5,15.5,3.5,1,0,1,Cornus alterniflora
+6/25/2025,24,SW,8,15.5,85.5,1,8,0,0,0,3.5,Multiflora rose - autumn olive
+6/25/2025,24,NW,8,15.5,85.5,8,15.5,3.5,0,0,8,Autumn olive
+6/25/2025,66,NE,75.5,45.5,1,1,3.5,0,3.5,1,3.5,swamp rose - dogwood - barberry
+6/25/2025,66,SE,75.5,55.5,1,3.5,3.5,1,0,0,1,swamp rose
+6/25/2025,66,SW,45.5,35.5,1,8,0,3.5,1,0,1,swamp rose
+6/25/2025,66,NW,95.5,8,0,0,0,0,1,0,3.5,dogwood - spirea
+6/26/2025,39,NE,1,1,85.5,35.5,35.5,55.5,3.5,8,3.5,dogwood - Corylus - common buckthorn - crataegus (?) see photos
+6/26/2025,39,SE,1,1,95.5,35.5,15.5,15.5,8,3.5,15.5,spicebush thrips (see photo) - Corylus - Ribes - Sambucus - Nannyberry Viburnum - Ericaceae sp.
+6/26/2025,39,SW,1,0,95.5,25.5,15.5,8,3.5,8,3.5,Cinnamon fern - royal fern - sensitive fern - elderberry - Corylus
+6/26/2025,39,NW,1,0,85.5,15.5,45.5,25.5,8,1,3.5,Corylus
+6/26/2025,65,NE,0,3.5,1,3.5,45.5,0,0,0,3.5,maple leaf viburnum (?)
+6/26/2025,65,SE,0,0,0,0,75.5,0,0,0,3.5,maple leaf viburnum (?) - witchhazel
+6/26/2025,65,SW,35.5,15.5,3.5,0,35.5,0,0,0,8,multiflora rose - xanthoxylum - dogwood - possibly Cornus florida
+6/26/2025,65,NW,8,55.5,3.5,3.5,15.5,0,0,0,8,xanthoxylum
+6/26/2025,64,NE,3.5,25.5,45.5,15.5,45.5,0,0,0,8,xanthoxylum - dogwood
+6/26/2025,64,SE,0,45.5,8,15.5,55.5,0,0,0,0,
+6/26/2025,64,SW,0,15.5,15.5,8,75.5,0,0,0,3.5,multiflora rose - xanthoxylum 
+6/26/2025,64,NW,25.5,85.5,45.5,3.5,8,0,8,0,0,hummocks of sedges
+6/27/2025,38,NE,1,0,75.5,75.5,65.5,25.5,15.5,0,3.5,Corylus - dogwood - sensitive fern - pines
+6/27/2025,38,SE,1,0,75.5,45.5,65.5,15.5,8,0,3.5,dogwood - corylus
+6/27/2025,38,SW,1,0,95.5,15.5,75.5,15.5,8,3.5,3.5,swamp rose - corylus
+6/27/2025,38,NW,1,15.5,55.5,35.5,45.5,45.5,8,8,3.5,dogwood
+6/27/2025,37,NE,0,0,95.5,25.5,85.5,3.5,8,3.5,3.5,Corylus - Autumn olive - sensitive fern
+6/27/2025,37,SE,0,0,95.5,3.5,75.5,0,8,0,3.5,nannyberry
+6/27/2025,37,SW,0,0,95.5,0,75.5,8,3.5,0,0,
+6/27/2025,37,NW,0,0,95.5,8,65.5,15.5,8,0,8,Corylus

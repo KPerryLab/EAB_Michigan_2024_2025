@@ -62,6 +62,14 @@ ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_short_seedlings)) +
 # Pontiac. Something about Pontiac (previous ash tree density? soil type? water
 # availability in the soil?) is causing it to have many ash seedlings
 
+ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_short_seedlings)) +
+  geom_boxplot(outlier.colour = "white") +
+  geom_jitter(aes(color=Park), height=0, width=0.1, alpha=0.5) +
+  theme_classic() +
+  xlab("Hydroclass") +
+  ylab("Density short seedlings (stems/m^2)")
+summary(ash_by_transect$mean_density_short_seedlings)
+
 # First run a Poisson GLMM:
 short_seedling_mod_poisson <- 
   lme4::glmer(total_number_short_seedlings~mstrlvl + (1|Park),
@@ -122,6 +130,14 @@ ggplot(data=ash_by_transect, aes(x=mstrlvl, y=total_number_tall_seedlings)) +
   theme_classic() +
   xlab("Hydroclass") +
   ylab("Number of tall seedlings in transect")
+
+ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_tall_seedlings)) +
+  geom_boxplot(outlier.colour = "white") +
+  geom_jitter(aes(color=Park), height=0, width=0.1, alpha=0.5) +
+  theme_classic() +
+  xlab("Hydroclass") +
+  ylab("Density tall seedlings (stems/m^2)")
+summary(ash_by_transect$mean_density_tall_seedlings)
 
 # First run a Poisson GLMM:
 tall_seedling_mod_poisson <- 

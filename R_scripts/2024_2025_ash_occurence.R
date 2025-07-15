@@ -568,6 +568,76 @@ ash_by_transect <- ash_by_plot %>% group_by(Transect) %>%
 
 #write.csv(ash_by_transect, file="Cleaned_data/ash_by_transect.csv", row.names = FALSE)
 
+# Summarize ash occurrence by hydroclass ######################################
+# I'd like to make a data table that shows the mean and standard error of 
+# each of the ash density variables. This will become a table in my results.
+
+ash_by_transect %>%
+  group_by(mstrlvl) %>%
+  summarize(
+    n = n(),
+    mean_density = mean(mean_density_seedlings),
+    sd_density = sd(mean_density_seedlings),
+    se_density = sd_density / sqrt(n)
+  )
+
+ash_by_transect %>% group_by(mstrlvl) %>%
+  summarize(mean_percent_cover_seedlings = mean(mean_percent_cover_seedlings),
+            std_error_percent_cover_seedlings = sd(mean_percent_cover_seedlings))
+
+ash_by_hydro <- ash_by_transect %>% group_by(mstrlvl) %>%
+  summarize(
+    number_of_transects = n(),
+    mean_plotmstr = mean(mean_plotmstr),
+    
+    # seedlings:
+    number_microplots = sum(number_microplots),
+    avrg_perc_cov_seedl = mean(mean_percent_cover_seedlings),
+    stder_perc_cov_seedl = sd(mean_percent_cover_seedlings) / sqrt(n()),
+    
+    avrg_density_short_seedl = mean(mean_density_short_seedlings), # units are stems/m^2
+    stder_density_short_seedl = sd(mean_density_short_seedlings) / sqrt(n()),
+    
+    avrg_density_tall_seedlings = mean(mean_density_tall_seedlings), # stems/m^2
+    stder_density_tall_seedl = sd(mean_density_tall_seedlings) / sqrt(n()),
+    
+    avrg_density_seedl = mean(mean_density_seedlings), # stems/m^2
+    stder_density_seedl = sd(mean_density_seedlings) / sqrt(n()),
+    
+    total_number_short_seedlings = sum(total_number_short_seedlings),
+    total_number_tall_seedlings = sum(total_number_tall_seedlings),
+    total_number_seedlings = sum(total_number_seedlings),
+    
+    # saplings:
+    number_subplot_quadrants = sum(number_subplot_quadrants),
+    
+    avrg_density_saplings_stems_per_ha = 10000 * mean(mean_density_saplings_stems_per_m_squared), # stems/m^2
+    stder_density_saplings_stems_per_ha = 10000 * sd(mean_density_saplings_stems_per_m_squared) / sqrt(n()),
+    
+    # small trees:
+    
+    avrg_density_small_trees_stems_per_ha = mean(mean_density_small_trees_stems_per_ha),
+    
+    avrg_density_living_small_trees_stems_per_ha = mean(mean_density_living_small_trees_stems_per_ha),
+    stder_density_living_small_trees_stems_per_ha = sd(mean_density_living_small_trees_stems_per_ha) / sqrt(n()),
+    
+    avrg_basal_area_living_small_trees_m_squared_per_ha = mean(mean_basal_area_living_small_trees_m_squared_per_ha),
+    stder_basal_area_living_small_trees_m_squared_per_ha = sd(mean_basal_area_living_small_trees_m_squared_per_ha) / 
+      sqrt(n()),
+    
+    # big trees:
+    
+    avrg_density_living_big_trees_stems_per_ha = mean(mean_density_living_big_trees_stems_per_ha),
+    stder_density_living_big_trees_stems_per_ha = sd(mean_density_living_big_trees_stems_per_ha) / sqrt(n()),
+    
+    avrg_basal_area_living_big_trees_m_squared_per_ha = mean(mean_basal_area_living_big_trees_m_squared_per_ha),
+    stder_basal_area_living_big_trees_m_squared_per_ha = sd(mean_basal_area_living_big_trees_m_squared_per_ha) / 
+      sqrt(n())
+    
+      )
+
+#write.csv(ash_by_hydro, file="Cleaned_data/ash_by_hydro.csv", row.names = FALSE)
+
 # NEEDS WORK Graph the data ###################################################
 
 # How many plots had ash of any size class?
@@ -808,7 +878,7 @@ ggplot(data=ash_by_transect)+
   geom_col(aes(x=Transect, y=total_number_small_trees_black + total_number_small_trees_unknown_species), fill="black")+
   geom_col(aes(x=Transect, y=total_number_small_trees_unknown_species), fill="lightblue") +      
   scale_x_discrete(guide = guide_axis(angle = 90)) + theme_classic() + 
-  ylab("Number of small trees \n(2.5-10 cm DBH)")
+  ylab("Number of small ash trees \n(2.5-10 cm DBH)")
 
 # Looking at all ash trees, organized by species, how many are 
 # canopy condition = 1, 2, 3, 4, and 5?

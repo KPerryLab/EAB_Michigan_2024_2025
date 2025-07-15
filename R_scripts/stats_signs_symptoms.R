@@ -175,6 +175,7 @@ fit_woodpecker_marks <-
                                     family=binomial(link="logit"))
 
 summary(fit_woodpecker_marks)
+exp(0.2151) # Odds ratio is 1.240
 
 # Plot the regression line. First I need to create some new predictor data.
 # This includes the whole range of DBHs and all levels of the random effect, 
@@ -294,6 +295,7 @@ fit_epicormic_sprouts <-
               family=binomial(link="logit"))
 
 summary(fit_epicormic_sprouts)
+exp(0.27194)
 
 # Plot the regression line. 
 new_data$predicted_epicormic_sprouts <- 
@@ -423,6 +425,7 @@ fit_decline <-
               family=binomial(link="logit"))
 
 summary(fit_decline)
+exp(0.20223)
 
 # Plot the regression line. 
 new_data$predicted_decline <- 
