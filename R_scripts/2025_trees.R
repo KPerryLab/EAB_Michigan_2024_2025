@@ -1,6 +1,6 @@
 # 6/23/2025
 # Aaron Tayal
-# Preliminary code for analysing the tree survey data for 2025 EAB Michigan 
+# Code for analysing the tree survey data for 2025 EAB Michigan 
 # Project. Here are some goals:
 # 1. See if the counts of ash trees that were done in 2025 match up to the data
 # collected in 2024
@@ -16,12 +16,17 @@ library(patchwork) # Used for stacking histograms one on top of the other
 library(tidyr)
 library(ggpubr)
 
-dat_2025 <- read.csv("Raw_data/EAB_Michigan_2025_trees_raw.csv")
-dat_2025$DBH <- dat_2025$diameter_at_137_cm_in_cm
-dat_2025$string_DBH <- dat_2025$string_diameter_at_137_cm_in_cm
-summary(dat_2025$DBH)
+dat_2025_0 <- read.csv("Raw_data/EAB_Michigan_2025_trees_raw.csv")
+dat_2025_0$DBH <- dat_2025_0$diameter_at_137_cm_in_cm
+dat_2025_0$string_DBH <- dat_2025_0$string_diameter_at_137_cm_in_cm
+summary(dat_2025_0$DBH) # mean DBH is 19.5 cm
 
-hydric_plots <- unique(dat$center_tree_number)
+hydric_plots <- unique(dat_2025_0$center_tree_number)
+
+# Add in the plot centers datasheet, which has info for transect:
+plot_centers <- read.csv("Cleaned_data/EAB_Michigan_2024_2025_plot_centers_with_hydro.csv") %>%
+  select(c("center_tree_number", "Transect"))
+dat_2025 <- right_join(plot_centers, dat_2025_0, by="center_tree_number")
 
 # Look at the distribution of tree diameters:
 ggplot(data=dat_2025, aes(x=DBH)) + geom_histogram(breaks=seq(0,190,10))
@@ -215,9 +220,7 @@ dat <- bind_rows(no_ash_2025, individual_trees) # no_ash_2025 is the non-ash tre
 # recorded in 2025, while individual_trees are the ash trees recorded mostly in
 # 2024
 
-# Overall counts of trees ######################################################
-
-
+dat$Park <- as.factor(dat$Park)
 
 # Tree genera ##################################################################
 
@@ -226,7 +229,7 @@ table(dat$species)
 # The following list is all the tree genera that we recorded in 2025:
 tree_genera_2025 <- c("Acer", "Betula", "Carpinus", "Carya", "Cornus", "Fagus", 
                       "Frangula", "Fraxinus", "Juniperus", 
-                      "Larix","Ostraya","Populus","Prunus","Quercus","Rhamnus",
+                      "Larix","Ostrya","Populus","Prunus","Quercus","Rhamnus",
                       "Tilia","Ulmus", "Unknown","Viburnum") # 19 genera
 
 # Functions for calculating tree counts and basal areas ########################
@@ -260,7 +263,7 @@ genus_BA = function(data_frame, genus_string) {
   BA / 10000 # Convert basal area to meters^2, from cm^2
 }
 
-# Big trees >=12.5 cm ##########################################################
+# Big trees by plot >=12.5 cm ##################################################
 
 # Subset the data to just the trees bigger than 12.5 cm DBH, which are
 # living: (Note: I guess the 2005 data was just recorded for living trees,
@@ -284,7 +287,7 @@ BA_big_by_plot <- dat_big %>% group_by(center_tree_number) %>%
             Fraxinus = genus_BA(pick(species, string_DBH), "Fraxinus") / main_plot_area,
             Juniperus = genus_BA(pick(species, string_DBH), "Juniperus") / main_plot_area,
             Larix = genus_BA(pick(species, string_DBH), "Larix") / main_plot_area,
-            Ostraya = genus_BA(pick(species, string_DBH), "Ostraya") / main_plot_area,
+            Ostrya = genus_BA(pick(species, string_DBH), "Ostrya") / main_plot_area,
             Populus = genus_BA(pick(species, string_DBH), "Populus") / main_plot_area,
             Prunus = genus_BA(pick(species, string_DBH), "Prunus") / main_plot_area,
             Quercus = genus_BA(pick(species, string_DBH), "Quercus") / main_plot_area,
@@ -312,7 +315,7 @@ counts_big_by_plot <- dat_big %>% group_by(center_tree_number) %>%
             Fraxinus = sum(grepl("Fraxinus", species, fixed = TRUE)) / main_plot_area,
             Juniperus = sum(grepl("Juniperus", species, fixed = TRUE)) / main_plot_area,
             Larix = sum(grepl("Larix", species, fixed = TRUE)) / main_plot_area,
-            Ostraya = sum(grepl("Ostraya", species, fixed = TRUE)) / main_plot_area,
+            Ostrya = sum(grepl("Ostrya", species, fixed = TRUE)) / main_plot_area,
             Populus = sum(grepl("Populus", species, fixed = TRUE)) / main_plot_area,
             Prunus = sum(grepl("Prunus", species, fixed = TRUE)) / main_plot_area,
             Quercus = sum(grepl("Quercus", species, fixed = TRUE)) / main_plot_area,
@@ -326,7 +329,7 @@ counts_big_by_plot <- dat_big %>% group_by(center_tree_number) %>%
 counts_big_by_plot_longer <- pivot_longer(counts_big_by_plot, cols = all_of(c(tree_genera_2025, "total")),
                                       names_to = "genus", values_to = "counts")
 
-# Small trees 2.5-12.5 cm DBH ##################################################
+# Small trees by plot 2.5-12.5 cm DBH ##########################################
 # Also filter out the dead trees
 
 dat_small <- dat %>% filter(DBH >= 2.5) %>% filter (DBH < 12.5) %>% 
@@ -348,7 +351,7 @@ BA_small_by_plot <- dat_small %>% group_by(center_tree_number) %>%
             Fraxinus = genus_BA(pick(species, string_DBH), "Fraxinus") / subplot_area,
             Juniperus = genus_BA(pick(species, string_DBH), "Juniperus") / subplot_area,
             Larix = genus_BA(pick(species, string_DBH), "Larix") / subplot_area,
-            Ostraya = genus_BA(pick(species, string_DBH), "Ostraya") / subplot_area,
+            Ostrya = genus_BA(pick(species, string_DBH), "Ostrya") / subplot_area,
             Populus = genus_BA(pick(species, string_DBH), "Populus") / subplot_area,
             Prunus = genus_BA(pick(species, string_DBH), "Prunus") / subplot_area,
             Quercus = genus_BA(pick(species, string_DBH), "Quercus") / subplot_area,
@@ -380,7 +383,7 @@ counts_small_by_plot <- dat_small %>% group_by(center_tree_number) %>%
             Fraxinus = sum(grepl("Fraxinus", species, fixed = TRUE)) / subplot_area,
             Juniperus = sum(grepl("Juniperus", species, fixed = TRUE)) / subplot_area,
             Larix = sum(grepl("Larix", species, fixed = TRUE)) / subplot_area,
-            Ostraya = sum(grepl("Ostraya", species, fixed = TRUE)) / subplot_area,
+            Ostrya = sum(grepl("Ostrya", species, fixed = TRUE)) / subplot_area,
             Populus = sum(grepl("Populus", species, fixed = TRUE)) / subplot_area,
             Prunus = sum(grepl("Prunus", species, fixed = TRUE)) / subplot_area,
             Quercus = sum(grepl("Quercus", species, fixed = TRUE)) / subplot_area,
@@ -395,6 +398,196 @@ counts_small_by_plot[is.na(counts_small_by_plot)] <- 0
 
 counts_small_by_plot_longer <- pivot_longer(counts_small_by_plot, cols = all_of(c(tree_genera_2025, "total")),
                                         names_to = "genus", values_to = "counts")
+
+# Big trees basal area by transect ############################################
+
+# For my third objective, I'm trying to investigate changes in living basal
+# area of big (>=12.5 cm DBH) trees between 2008-10 to 2025.
+
+# Note here that I am NOT (yet) dividing the basal area by the area over which it
+# was measured.
+BA_big_by_transect <- dat_big %>% group_by(Transect) %>% 
+  summarise(number_plots = n_distinct(center_tree_number),
+            Acer = genus_BA(pick(species, string_DBH), "Acer"),
+            Betula = genus_BA(pick(species, string_DBH), "Betula"),
+            Carpinus = genus_BA(pick(species, string_DBH), "Carpinus"),
+            Carya = genus_BA(pick(species, string_DBH), "Carya"),
+            Cornus = genus_BA(pick(species, string_DBH), "Cornus"),
+            Fagus = genus_BA(pick(species, string_DBH), "Fagus"),
+            Frangula = genus_BA(pick(species, string_DBH), "Frangula"),
+            Fraxinus = genus_BA(pick(species, string_DBH), "Fraxinus"),
+            Juniperus = genus_BA(pick(species, string_DBH), "Juniperus"),
+            Larix = genus_BA(pick(species, string_DBH), "Larix"),
+            Ostrya = genus_BA(pick(species, string_DBH), "Ostrya"),
+            Populus = genus_BA(pick(species, string_DBH), "Populus"),
+            Prunus = genus_BA(pick(species, string_DBH), "Prunus"),
+            Quercus = genus_BA(pick(species, string_DBH), "Quercus"),
+            Rhamnus = genus_BA(pick(species, string_DBH), "Rhamnus"),
+            Tilia = genus_BA(pick(species, string_DBH), "Tilia"),
+            Ulmus = genus_BA(pick(species, string_DBH), "Ulmus"),
+            Unknown = genus_BA(pick(species, string_DBH), "Unknown"),
+            Viburnum = genus_BA(pick(species, string_DBH), "Viburnum")
+  )
+
+# Now compute the row sums to get the total basal area at each transect 
+# (since there are no big trees of ash, this represents the total basal
+# area of non-ash trees)
+BA_big_by_transect$TOTAL <- rowSums(BA_big_by_transect[tree_genera_2025])
+
+#write.csv(BA_big_by_transect, "Cleaned_data/basal_area_big_trees_by_transect_2025.csv",
+#          row.names = F)
+
+# Big trees by park ###########################################################
+
+# First, calculate the basal area for each park. Note that the number of plots
+# visited differs by park.
+BA_big_by_park <- dat_big %>% group_by(Park) %>% 
+  summarise(number_plots = n_distinct(center_tree_number),
+            Acer = genus_BA(pick(species, string_DBH), "Acer"),
+            Betula = genus_BA(pick(species, string_DBH), "Betula"),
+            Carpinus = genus_BA(pick(species, string_DBH), "Carpinus"),
+            Carya = genus_BA(pick(species, string_DBH), "Carya"),
+            Cornus = genus_BA(pick(species, string_DBH), "Cornus"),
+            Fagus = genus_BA(pick(species, string_DBH), "Fagus"),
+            Frangula = genus_BA(pick(species, string_DBH), "Frangula"),
+            Fraxinus = genus_BA(pick(species, string_DBH), "Fraxinus"),
+            Juniperus = genus_BA(pick(species, string_DBH), "Juniperus"),
+            Larix = genus_BA(pick(species, string_DBH), "Larix"),
+            Ostrya = genus_BA(pick(species, string_DBH), "Ostrya"),
+            Populus = genus_BA(pick(species, string_DBH), "Populus"),
+            Prunus = genus_BA(pick(species, string_DBH), "Prunus"),
+            Quercus = genus_BA(pick(species, string_DBH), "Quercus"),
+            Rhamnus = genus_BA(pick(species, string_DBH), "Rhamnus"),
+            Tilia = genus_BA(pick(species, string_DBH), "Tilia"),
+            Ulmus = genus_BA(pick(species, string_DBH), "Ulmus"),
+            Unknown = genus_BA(pick(species, string_DBH), "Unknown"),
+            Viburnum = genus_BA(pick(species, string_DBH), "Viburnum")
+  )
+
+# Now compute the row sums to get the total basal area at each park:
+BA_big_rowsums <- rowSums(BA_big_by_park[tree_genera_2025])
+
+# Now divide the basal areas of each genus by the row sum in order to get the 
+# relative dominance of each genus. For example:
+BA_big_by_park$Acer * 100 / BA_big_rowsums
+
+# Now make a new dataframe to store the relative dominances:
+rel_dom_big_by_park <- BA_big_by_park
+
+for (genus in tree_genera_2025) {
+  rel_dom_big_by_park[, genus] <- BA_big_by_park[, genus] * 100 / BA_big_rowsums
+}
+
+# Now the same for counts and relative density:
+counts_big_by_park <- dat_big %>% group_by(Park) %>% 
+  summarise(number_plots = n_distinct(center_tree_number),
+            Acer = sum(grepl("Acer", species, fixed = TRUE)),
+            Betula = sum(grepl("Betula", species, fixed = TRUE)),
+            Carpinus = sum(grepl("Carpinus", species, fixed = TRUE)),
+            Carya = sum(grepl("Carya", species, fixed = TRUE)),
+            Cornus = sum(grepl("Cornus", species, fixed = TRUE)),
+            Fagus = sum(grepl("Fagus", species, fixed = TRUE)),
+            Frangula = sum(grepl("Frangula", species, fixed = TRUE)),
+            Fraxinus = sum(grepl("Fraxinus", species, fixed = TRUE)),
+            Juniperus = sum(grepl("Juniperus", species, fixed = TRUE)),
+            Larix = sum(grepl("Larix", species, fixed = TRUE)),
+            Ostrya = sum(grepl("Ostrya", species, fixed = TRUE)),
+            Populus = sum(grepl("Populus", species, fixed = TRUE)),
+            Prunus = sum(grepl("Prunus", species, fixed = TRUE)),
+            Quercus = sum(grepl("Quercus", species, fixed = TRUE)),
+            Rhamnus = sum(grepl("Rhamnus", species, fixed = TRUE)),
+            Tilia = sum(grepl("Tilia", species, fixed = TRUE)),
+            Ulmus = sum(grepl("Ulmus", species, fixed = TRUE)),
+            Unknown = sum(grepl("Unknown", species, fixed = TRUE)),
+            Viburnum = sum(grepl("Viburnum", species, fixed = TRUE))
+  )
+
+counts_big_rowsums <- rowSums(counts_big_by_park[tree_genera_2025])
+
+# A new dataframe to store the relative density data:
+rel_dens_big_by_park <- counts_big_by_park
+
+for (genus in tree_genera_2025) {
+  rel_dens_big_by_park[, genus] <- counts_big_by_park[, genus] * 100 / counts_big_rowsums
+}
+
+# Small trees by park ###########################################################
+
+# First, calculate the basal area for each park. Note that the number of plots
+# visited differs by park.
+BA_small_by_park <- dat_small %>% group_by(Park) %>% 
+  summarise(number_plots = n_distinct(center_tree_number),
+            Acer = genus_BA(pick(species, string_DBH), "Acer"),
+            Betula = genus_BA(pick(species, string_DBH), "Betula"),
+            Carpinus = genus_BA(pick(species, string_DBH), "Carpinus"),
+            Carya = genus_BA(pick(species, string_DBH), "Carya"),
+            Cornus = genus_BA(pick(species, string_DBH), "Cornus"),
+            Fagus = genus_BA(pick(species, string_DBH), "Fagus"),
+            Frangula = genus_BA(pick(species, string_DBH), "Frangula"),
+            Fraxinus = genus_BA(pick(species, string_DBH), "Fraxinus"),
+            Juniperus = genus_BA(pick(species, string_DBH), "Juniperus"),
+            Larix = genus_BA(pick(species, string_DBH), "Larix"),
+            Ostrya = genus_BA(pick(species, string_DBH), "Ostrya"),
+            Populus = genus_BA(pick(species, string_DBH), "Populus"),
+            Prunus = genus_BA(pick(species, string_DBH), "Prunus"),
+            Quercus = genus_BA(pick(species, string_DBH), "Quercus"),
+            Rhamnus = genus_BA(pick(species, string_DBH), "Rhamnus"),
+            Tilia = genus_BA(pick(species, string_DBH), "Tilia"),
+            Ulmus = genus_BA(pick(species, string_DBH), "Ulmus"),
+            Unknown = genus_BA(pick(species, string_DBH), "Unknown"),
+            Viburnum = genus_BA(pick(species, string_DBH), "Viburnum")
+  )
+
+# Now compute the row sums to get the total basal area at each park:
+BA_small_rowsums <- rowSums(BA_small_by_park[tree_genera_2025])
+
+# Now make a new dataframe to store the relative dominances:
+rel_dom_small_by_park <- BA_small_by_park
+
+for (genus in tree_genera_2025) {
+  rel_dom_small_by_park[, genus] <- BA_small_by_park[, genus] * 100 / BA_small_rowsums
+}
+
+# Now the same for counts and relative density:
+counts_small_by_park <- dat_small %>% group_by(Park) %>% 
+  summarise(number_plots = n_distinct(center_tree_number),
+            Acer = sum(grepl("Acer", species, fixed = TRUE)),
+            Betula = sum(grepl("Betula", species, fixed = TRUE)),
+            Carpinus = sum(grepl("Carpinus", species, fixed = TRUE)),
+            Carya = sum(grepl("Carya", species, fixed = TRUE)),
+            Cornus = sum(grepl("Cornus", species, fixed = TRUE)),
+            Fagus = sum(grepl("Fagus", species, fixed = TRUE)),
+            Frangula = sum(grepl("Frangula", species, fixed = TRUE)),
+            Fraxinus = sum(grepl("Fraxinus", species, fixed = TRUE)),
+            Juniperus = sum(grepl("Juniperus", species, fixed = TRUE)),
+            Larix = sum(grepl("Larix", species, fixed = TRUE)),
+            Ostrya = sum(grepl("Ostrya", species, fixed = TRUE)),
+            Populus = sum(grepl("Populus", species, fixed = TRUE)),
+            Prunus = sum(grepl("Prunus", species, fixed = TRUE)),
+            Quercus = sum(grepl("Quercus", species, fixed = TRUE)),
+            Rhamnus = sum(grepl("Rhamnus", species, fixed = TRUE)),
+            Tilia = sum(grepl("Tilia", species, fixed = TRUE)),
+            Ulmus = sum(grepl("Ulmus", species, fixed = TRUE)),
+            Unknown = sum(grepl("Unknown", species, fixed = TRUE)),
+            Viburnum = sum(grepl("Viburnum", species, fixed = TRUE))
+  )
+
+counts_small_rowsums <- rowSums(counts_small_by_park[tree_genera_2025])
+
+# A new dataframe to store the relative density data:
+rel_dens_small_by_park <- counts_small_by_park
+
+for (genus in tree_genera_2025) {
+  rel_dens_small_by_park[, genus] <- counts_small_by_park[, genus] * 100 / counts_small_rowsums
+}
+
+# Export the park-level data to make a table ###################################
+
+#write.csv(rel_dens_big_by_park, file="Cleaned_data/relative_density_big_by_park.csv")
+#write.csv(rel_dom_big_by_park, file="Cleaned_data/relative_dominance_big_by_park.csv")
+
+#write.csv(rel_dens_small_by_park, file="Cleaned_data/relative_density_small_by_park.csv")
+#write.csv(rel_dom_small_by_park, file="Cleaned_data/relative_dominance_small_by_park.csv")
 
 # Summaries of the data ########################################################
 

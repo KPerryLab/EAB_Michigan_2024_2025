@@ -28,12 +28,12 @@ hydro$mstrlvl <- as.factor(hydro$mstrlvl)
 # some that I do not plan to visit because they are designated "non-ash" plots
 # or they are at Brighton.
 
-# Plot centers - NEEDS UPDATED 2025 --------------------------------------------
+# Plot centers ################################################################
 
-plot_centers0 <- read.csv("Raw_data/EAB_Michigan_2024_plot_centers.csv")
+plot_centers0 <- read.csv("Raw_data/EAB_Michigan_2024_2025_plot_centers.csv")
 str(plot_centers0)
 # Kayla: for the center_tree column, I would encourage to split that into two 
-# (one for species and one for dbh) same for the center tree updated column
+# (one for species and one for dbh) same for the center tree updated column - done
 
 # There are 111 plots (37 transects) that I plan to visit (and 2 extra rows due 
 # to confusion about the true center for plot 75):
@@ -52,31 +52,18 @@ plot_centers0$Park <- as.factor(plot_centers0$Park)
 # Make center tree number into an integer:
 plot_centers0$center_tree_number <- as.integer(plot_centers0$center_tree_number)
 
-# There are 98 plots that I have collected seedling data (not counting 75_north):
+# There are 111 plots that I have collected seedling data (not counting 75_north):
 sum(plot_centers0$seedlings_done_y_n == "y")
 
-# Similarly, there are 98 plots that I have collected sapling data (not counting 
+# Similarly, there are 111 plots that I have collected sapling data (not counting 
 # 75_north):
 sum(plot_centers0$saplings_done_y_n == "y")
 
-# There are 97 plots that I have collected tree data for (not counting 75_north).
-# At plot 91 at Hudson Mills, we ran out of time to collect tree data due to a 
-# thunderstorm
+# There are 111 plots that I have collected tree data for (not counting 75_north).
 sum(plot_centers0$trees_done_y_n == "y")
 
-# There are 2 plots where we found and measured the center tree but did not 
-# collect any seedling, sapling, or tree data due to high waters and a time 
-# crunch. These were plots 23 and 66, both at Island Lake.
-
-# This leaves 11 plots that we have neither found the center or recorded data
-# for. Four at Hudson Mills, six at Indian Springs, and one at Island Lake. 
-# Note: we technically found plot 61 at Island Lake, but I forgot to write
-# the center tree DBH, and thus I'm considering it completely not-started.
-
-# Summary: 97 done + 3 partially done + 11 not-started = 111 plots
-
 # Join the hydroclass data into the plot_centers dataframe:
-plot_centers <- right_join(hydro, plot_centers0)
+plot_centers <- right_join(hydro, plot_centers0, by="center_tree_number")
 nrow(plot_centers) == nrow(plot_centers0)
 
 # Try to understand which hydroclasses (hydric, mesic, xeric) are found at 
@@ -90,8 +77,7 @@ table((plot_centers %>% filter(Park == "Pontiac Lake"))$mstrlvl)
 table((plot_centers %>% filter(Park == "Proud Lake"))$mstrlvl)
 table(plot_centers$mstrlvl)
 
-#write.csv(plot_centers, file="EAB_Michigan_2024_plot_centers_with_hydro.csv",
-#          row.names = FALSE)
+#write.csv(plot_centers, file="EAB_Michigan_2024_2025_plot_centers_with_hydro.csv", row.names = FALSE)
 
 # Seedlings -------------------------------------------------------------------
 
