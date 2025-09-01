@@ -19,6 +19,8 @@ vars <- c("water", "graminoids", "skunk_cabbage", "ferns", "spicebush", "ilex",
 dat_by_plot <- dat %>% group_by(center_tree_number) %>% 
   summarize(across(all_of(vars), ~ mean(., na.rm=T)))
 
+#write.csv(dat_by_plot, "Cleaned_data/percent_cover_by_plot.csv", row.names=F)
+
 dat_by_plot_longer <- pivot_longer(dat_by_plot, vars)
 dat_by_plot_longer$name <- factor(dat_by_plot_longer$name,
                                      levels=vars)
@@ -34,5 +36,5 @@ dat_by_var <- dat_by_plot_longer %>% group_by(name) %>% summarize(
   stder = sd(value) / sqrt(n())
 )
 
-write.csv(dat_by_var, file = "Cleaned_data/plot_percent_cover_table.csv", row.names = F)
+#write.csv(dat_by_var, file = "Cleaned_data/percent_cover_by_type_table.csv", row.names = F)
 

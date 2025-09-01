@@ -153,24 +153,6 @@ small_trees_by_plot$total_trees - small_trees_by_plot$row_sums_test
 # Subset the data to just trees less than 2.5 cm DBH:
 dat_04_05_below_2.5 <- dat_04_05 %>% filter(DBH < 2.5)
 
-# Stress tolerances from Niinemets and Valladares #############################
-
-tolerance <- read.csv("Cleaned_data/niinemets_valladares_tree_tolerances.csv")
-
-library(stringr)
-#tolerance$Drought.tolerance.simple <- 
-
-species_for_tolerances <- c("Fraxinus nigra", "Fraxinus pennsylvanica",
-  "Acer saccharinum", "Acer rubrum", "Acer saccharum", "Betula alleghaniensis",
-  "Carpinus caroliniana", "Frangula alnus", "Fagus grandifolia",
-  "Larix laricina", "Ostrya virginiana", "Populus deltoides", "Populus grandidentata",
-  "Prunus serotina", "Quercus bicolor", "Quercus macrocarpa", "Quercus rubra", 
-  "Tilia americana", "Ulmus americana", "Ulmus rubra")
-
-tolerance_rows <- which(tolerance$Species %in% species_for_tolerances)
-
-tolerance_table <- tolerance[tolerance_rows, c("Species", "Waterlogging.tolerance", "Shade.tolerance")]
-
 
 
 

@@ -399,34 +399,100 @@ counts_small_by_plot[is.na(counts_small_by_plot)] <- 0
 counts_small_by_plot_longer <- pivot_longer(counts_small_by_plot, cols = all_of(c(tree_genera_2025, "total")),
                                         names_to = "genus", values_to = "counts")
 
+# UNDER CONSTRUCTION - SPECIES LEVEL Basal area by plot: ######################
+# Calculate the total basal area of living understory AND canopy trees at the species
+# level:
+
+dat_living <- bind_rows(dat_small, dat_big)
+table(dat_living$species)
+
+BA_small_species_by_plot <- dat_small %>% group_by(center_tree_number) %>% 
+  summarise(total = n() / subplot_area,
+            Acer_saccharinum = genus_BA(pick(species, string_DBH), "Acer saccharinum") / subplot_area,
+            Acer_saccharum = genus_BA(pick(species, string_DBH), "Acer saccharum") / subplot_area,
+            Betula_alleghaniensis = genus_BA(pick(species, string_DBH), "Betula alleghaniensis") / subplot_area,
+            Carpinus_caroliniana = genus_BA(pick(species, string_DBH), "Carpinus caroliniana") / subplot_area,
+            Frangula_alnus = genus_BA(pick(species, string_DBH), "Frangula alnus") / subplot_area,
+            Fraxinus_nigra = genus_BA(pick(species, string_DBH), "Fraxinus nigra") / subplot_area,
+            Fraxinus_pennsylvanica_etc = genus_BA(pick(species, string_DBH), "Fraxinus section Melioides") / subplot_area,
+            Larix_laricina = genus_BA(pick(species, string_DBH), "Larix laricina") / subplot_area,
+            Populus = genus_BA(pick(species, string_DBH), "Populus") / subplot_area,
+            Quercus_white = (genus_BA(pick(species, string_DBH), "Quercus bicolor") + 
+                               genus_BA(pick(species, string_DBH), "Quercus macrocarpa") + 
+                               genus_BA(pick(species, string_DBH), "Quercus alba") +
+                               genus_BA(pick(species, string_DBH), "Quercus white oak group")) / subplot_area,
+            Quercus_red = (genus_BA(pick(species, string_DBH), "Quercus rubra") + 
+                             genus_BA(pick(species, string_DBH), "Quercus red oak group") +
+                             genus_BA(pick(species, string_DBH), "Quercus palustris")) / subplot_area,
+            Tilia_americana = genus_BA(pick(species, string_DBH), "Tilia americana") / subplot_area,
+            Ulmus = genus_BA(pick(species, string_DBH), "Ulmus") / subplot_area,
+  ) %>% complete(center_tree_number=hydric_plots)
+
+BA_small_species_by_plot[is.na(BA_small_species_by_plot)] <- 0
+
+BA_big_species_by_plot <- dat_big %>% group_by(center_tree_number) %>% 
+  summarise(total = n() / main_plot_area,
+            Acer_saccharinum = genus_BA(pick(species, string_DBH), "Acer saccharinum") / main_plot_area,
+            Acer_saccharum = genus_BA(pick(species, string_DBH), "Acer saccharum") / main_plot_area,
+            Betula_alleghaniensis = genus_BA(pick(species, string_DBH), "Betula alleghaniensis") / main_plot_area,
+            Carpinus_caroliniana = genus_BA(pick(species, string_DBH), "Carpinus caroliniana") / main_plot_area,
+            Frangula_alnus = genus_BA(pick(species, string_DBH), "Frangula alnus") / main_plot_area,
+            Fraxinus_nigra = genus_BA(pick(species, string_DBH), "Fraxinus nigra") / main_plot_area,
+            Fraxinus_pennsylvanica_etc = genus_BA(pick(species, string_DBH), "Fraxinus section Melioides") / main_plot_area,
+            Larix_laricina = genus_BA(pick(species, string_DBH), "Larix laricina") / main_plot_area,
+            Populus = genus_BA(pick(species, string_DBH), "Populus") / main_plot_area,
+            Quercus_white = (genus_BA(pick(species, string_DBH), "Quercus bicolor") + 
+                               genus_BA(pick(species, string_DBH), "Quercus macrocarpa") + 
+                               genus_BA(pick(species, string_DBH), "Quercus alba") +
+                               genus_BA(pick(species, string_DBH), "Quercus white oak group")) / main_plot_area,
+            Quercus_red = (genus_BA(pick(species, string_DBH), "Quercus rubra") + 
+                             genus_BA(pick(species, string_DBH), "Quercus red oak group") +
+                             genus_BA(pick(species, string_DBH), "Quercus palustris")) / main_plot_area,
+            Tilia_americana = genus_BA(pick(species, string_DBH), "Tilia americana") / main_plot_area,
+            Ulmus = genus_BA(pick(species, string_DBH), "Ulmus") / main_plot_area,
+  ) %>% complete(center_tree_number=hydric_plots)
+
+BA_big_species_by_plot[is.na(BA_big_species_by_plot)] <- 0
+
+# Now add the two dataframes together:
+colnames(BA_big_species_by_plot) == colnames(BA_small_species_by_plot)
+BA_big_species_by_plot$center_tree_number == BA_small_species_by_plot$center_tree_number
+
+BA_species_by_plot <- (BA_big_species_by_plot %>% select(-center_tree_number)) +
+                      (BA_small_species_by_plot %>% select(-center_tree_number))
+
+BA_species_by_plot$center_tree_number <- BA_big_species_by_plot$center_tree_number
+
+# Export a data table with this information:
+write.csv(BA_species_by_plot, 
+          "Cleaned_data/basal_area_big_and_small_trees_spp_level_by_plot.csv", row.names = F)
+
 # Big trees basal area by transect ############################################
 
 # For my third objective, I'm trying to investigate changes in living basal
 # area of big (>=12.5 cm DBH) trees between 2008-10 to 2025.
 
-# Note here that I am NOT (yet) dividing the basal area by the area over which it
-# was measured.
 BA_big_by_transect <- dat_big %>% group_by(Transect) %>% 
   summarise(number_plots = n_distinct(center_tree_number),
-            Acer = genus_BA(pick(species, string_DBH), "Acer"),
-            Betula = genus_BA(pick(species, string_DBH), "Betula"),
-            Carpinus = genus_BA(pick(species, string_DBH), "Carpinus"),
-            Carya = genus_BA(pick(species, string_DBH), "Carya"),
-            Cornus = genus_BA(pick(species, string_DBH), "Cornus"),
-            Fagus = genus_BA(pick(species, string_DBH), "Fagus"),
-            Frangula = genus_BA(pick(species, string_DBH), "Frangula"),
-            Fraxinus = genus_BA(pick(species, string_DBH), "Fraxinus"),
-            Juniperus = genus_BA(pick(species, string_DBH), "Juniperus"),
-            Larix = genus_BA(pick(species, string_DBH), "Larix"),
-            Ostrya = genus_BA(pick(species, string_DBH), "Ostrya"),
-            Populus = genus_BA(pick(species, string_DBH), "Populus"),
-            Prunus = genus_BA(pick(species, string_DBH), "Prunus"),
-            Quercus = genus_BA(pick(species, string_DBH), "Quercus"),
-            Rhamnus = genus_BA(pick(species, string_DBH), "Rhamnus"),
-            Tilia = genus_BA(pick(species, string_DBH), "Tilia"),
-            Ulmus = genus_BA(pick(species, string_DBH), "Ulmus"),
-            Unknown = genus_BA(pick(species, string_DBH), "Unknown"),
-            Viburnum = genus_BA(pick(species, string_DBH), "Viburnum")
+            Acer = genus_BA(pick(species, string_DBH), "Acer") / (3*main_plot_area),
+            Betula = genus_BA(pick(species, string_DBH), "Betula") / (3*main_plot_area),
+            Carpinus = genus_BA(pick(species, string_DBH), "Carpinus") / (3*main_plot_area),
+            Carya = genus_BA(pick(species, string_DBH), "Carya") / (3*main_plot_area),
+            Cornus = genus_BA(pick(species, string_DBH), "Cornus") / (3*main_plot_area),
+            Fagus = genus_BA(pick(species, string_DBH), "Fagus") / (3*main_plot_area),
+            Frangula = genus_BA(pick(species, string_DBH), "Frangula") / (3*main_plot_area),
+            Fraxinus = genus_BA(pick(species, string_DBH), "Fraxinus") / (3*main_plot_area),
+            Juniperus = genus_BA(pick(species, string_DBH), "Juniperus") / (3*main_plot_area),
+            Larix = genus_BA(pick(species, string_DBH), "Larix") / (3*main_plot_area),
+            Ostrya = genus_BA(pick(species, string_DBH), "Ostrya") / (3*main_plot_area),
+            Populus = genus_BA(pick(species, string_DBH), "Populus") / (3*main_plot_area),
+            Prunus = genus_BA(pick(species, string_DBH), "Prunus") / (3*main_plot_area),
+            Quercus = genus_BA(pick(species, string_DBH), "Quercus") / (3*main_plot_area),
+            Rhamnus = genus_BA(pick(species, string_DBH), "Rhamnus") / (3*main_plot_area),
+            Tilia = genus_BA(pick(species, string_DBH), "Tilia") / (3*main_plot_area),
+            Ulmus = genus_BA(pick(species, string_DBH), "Ulmus") / (3*main_plot_area),
+            Unknown = genus_BA(pick(species, string_DBH), "Unknown") / (3*main_plot_area),
+            Viburnum = genus_BA(pick(species, string_DBH), "Viburnum") / (3*main_plot_area)
   )
 
 # Now compute the row sums to get the total basal area at each transect 

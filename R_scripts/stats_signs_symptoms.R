@@ -187,10 +187,11 @@ new_data$center_tree_number = as.factor(c(rep(18, 1000),rep(22,1000),rep(24,1000
 new_data$predicted_woodpecker_marks <- 
   predict(fit_woodpecker_marks, newdata=new_data, type="response")
 
-ggplot(data=trees_subset_for_models, aes(x=DBH, y=woodpecker_marks_0_1)) +
+woodpecker_fig_1 <- ggplot(data=trees_subset_for_models, aes(x=DBH, y=woodpecker_marks_0_1)) +
   geom_jitter(aes(color=center_tree_number), alpha=0.5, height=0.03, width=0) +
   geom_line(data=new_data, aes(x=DBH, y=predicted_woodpecker_marks, 
-                               color=center_tree_number))
+                               color=center_tree_number)) + theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of woodpecker \npredation marks") + labs(color = "Plot number")
 
 # Make a graph that shows the overall trend:
 new_data2 <- data.frame(DBH = seq(2.5, 12.49, 0.01))
@@ -257,10 +258,11 @@ summary(fit_bark_splitting)
 new_data$predicted_bark_splitting <- 
   predict(fit_bark_splitting, newdata=new_data, type="response")
 
-ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_bark_splitting_0_1)) +
+bark_splitting_fig_1 <- ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_bark_splitting_0_1)) +
   geom_jitter(aes(color=center_tree_number), alpha=0.5, height=0.03, width=0) +
   geom_line(data=new_data, aes(x=DBH, y=predicted_bark_splitting, 
-                               color=center_tree_number))
+                               color=center_tree_number)) + theme_bw()+ xlab("Diameter at breast height (cm)") +
+  ylab("Probability of \nbark splitting")+ labs(color = "Plot number")
 
 # Make a graph that shows the overall trend:
 new_data2$predicted_bark_splitting <- 
@@ -301,10 +303,11 @@ exp(0.27194)
 new_data$predicted_epicormic_sprouts <- 
   predict(fit_epicormic_sprouts, newdata=new_data, type="response")
 
-ggplot(data=trees_subset_for_models, aes(x=DBH, y=epicormic_sprouts_0_1)) +
+epicormics_fig_1 <- ggplot(data=trees_subset_for_models, aes(x=DBH, y=epicormic_sprouts_0_1)) +
   geom_jitter(aes(color=center_tree_number), alpha=0.5, height=0.03, width=0) +
   geom_line(data=new_data, aes(x=DBH, y=predicted_epicormic_sprouts, 
-                               color=center_tree_number))
+                               color=center_tree_number)) + theme_bw()+ xlab("Diameter at breast height (cm)") +
+  ylab("Probability of \nepicormic sprouts")+ labs(color = "Plot number")
 
 # Make a graph that shows the overall trend:
 new_data2$predicted_epicormic_sprouts <- 
@@ -344,10 +347,11 @@ summary(fit_basal_sprouts)
 new_data$predicted_basal_sprouts <- 
   predict(fit_basal_sprouts, newdata=new_data, type="response")
 
-ggplot(data=trees_subset_for_models, aes(x=DBH, y=basal_sprouts_0_1)) +
+basal_sprouts_fig_1 <- ggplot(data=trees_subset_for_models, aes(x=DBH, y=basal_sprouts_0_1)) +
   geom_jitter(aes(color=center_tree_number), alpha=0.5, height=0.03, width=0) +
   geom_line(data=new_data, aes(x=DBH, y=predicted_basal_sprouts, 
-                               color=center_tree_number))
+                               color=center_tree_number)) + theme_bw()+ xlab("Diameter at breast height (cm)") +
+  ylab("Probability of \nbasal sprouts")+ labs(color = "Plot number")
 
 # Make a graph that shows the overall trend:
 new_data2$predicted_basal_sprouts <- 
@@ -387,10 +391,11 @@ summary(fit_death)
 new_data$predicted_death <- 
   predict(fit_death, newdata=new_data, type="response")
 
-ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_tree_death)) +
+ash_death_fig_1 <- ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_tree_death)) +
   geom_jitter(aes(color=center_tree_number), alpha=0.5, height=0.03, width=0) +
   geom_line(data=new_data, aes(x=DBH, y=predicted_death, 
-                               color=center_tree_number))
+                               color=center_tree_number)) + theme_bw()+ xlab("Diameter at breast height (cm)") +
+  ylab("Probability of ash \ntree being dead")+ labs(color = "Plot number")
 
 # Make a graph that shows the overall trend:
 new_data2$predicted_death <- 
@@ -431,10 +436,11 @@ exp(0.20223)
 new_data$predicted_decline <- 
   predict(fit_decline, newdata=new_data, type="response")
 
-ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_tree_decline)) +
+ash_decline_fig_1 <- ggplot(data=trees_subset_for_models, aes(x=DBH, y=ash_tree_decline)) +
   geom_jitter(aes(color=center_tree_number), alpha=0.5, height=0.03, width=0) +
   geom_line(data=new_data, aes(x=DBH, y=predicted_decline, 
-                               color=center_tree_number))
+                               color=center_tree_number)) + theme_bw() + xlab("Diameter at breast height (cm)") +
+  ylab("Probability of ash tree \nshowing canopy decline")+ labs(color = "Plot number")
 
 # Make a graph that shows the overall trend:
 new_data2$predicted_decline <- 
@@ -465,7 +471,11 @@ ggarrange(woodpecker_fig + rremove("xlab"), bark_splitting_fig + rremove("xlab")
           ncol = 2, nrow = 3)
 # When saving the image, use Height = 700, Width=600
 
-
+ggarrange(woodpecker_fig_1 + rremove("xlab"), bark_splitting_fig_1 + rremove("xlab"), 
+          epicormics_fig_1 + rremove("xlab"), basal_sprouts_fig_1 + rremove("xlab"),
+          ash_death_fig_1, ash_decline_fig_1,
+          labels = c("A", "B", "C", "D", "E", "F"),
+          ncol = 2, nrow = 3, common.legend = T, legend = "right")
 
 
 
