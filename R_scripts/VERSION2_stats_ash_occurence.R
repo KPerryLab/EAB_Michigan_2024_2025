@@ -1,7 +1,6 @@
 # 10/2/2024
 # Aaron Tayal
 # Emerald ash borer Michigan 2024: analysis with transect as unit of replication
-# I have written the word "Question" where I need help
 
 library(ggplot2)
 library(dplyr)

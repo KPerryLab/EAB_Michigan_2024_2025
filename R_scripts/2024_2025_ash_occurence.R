@@ -10,7 +10,6 @@
 library(ggplot2)
 library(dplyr)
 
-
 # Hydroclass -----------------------------------------------------------------
 
 hydro <- read.csv("Raw_data/MI-plot-hydroclasses.csv")
@@ -620,6 +619,56 @@ ash_by_hydro <- ash_by_transect %>% group_by(mstrlvl) %>%
     stder_basal_area_living_big_trees_m_squared_per_ha = sd(mean_basal_area_living_big_trees_m_squared_per_ha) / 
       sqrt(n())
     
+      ) %>% bind_rows(
+        ash_by_transect %>% summarise(
+          mstrlvl = "Overall",
+          number_of_transects = n(),
+          mean_plotmstr = mean(mean_plotmstr),
+          
+          # seedlings:
+          number_microplots = sum(number_microplots),
+          avrg_perc_cov_seedl = mean(mean_percent_cover_seedlings),
+          stder_perc_cov_seedl = sd(mean_percent_cover_seedlings) / sqrt(n()),
+          
+          avrg_density_short_seedl = mean(mean_density_short_seedlings), # units are stems/m^2
+          stder_density_short_seedl = sd(mean_density_short_seedlings) / sqrt(n()),
+          
+          avrg_density_tall_seedlings = mean(mean_density_tall_seedlings), # stems/m^2
+          stder_density_tall_seedl = sd(mean_density_tall_seedlings) / sqrt(n()),
+          
+          avrg_density_seedl = mean(mean_density_seedlings), # stems/m^2
+          stder_density_seedl = sd(mean_density_seedlings) / sqrt(n()),
+          
+          total_number_short_seedlings = sum(total_number_short_seedlings),
+          total_number_tall_seedlings = sum(total_number_tall_seedlings),
+          total_number_seedlings = sum(total_number_seedlings),
+          
+          # saplings:
+          number_subplot_quadrants = sum(number_subplot_quadrants),
+          
+          avrg_density_saplings_stems_per_ha = 10000 * mean(mean_density_saplings_stems_per_m_squared), # stems/m^2
+          stder_density_saplings_stems_per_ha = 10000 * sd(mean_density_saplings_stems_per_m_squared) / sqrt(n()),
+          
+          # small trees:
+          
+          avrg_density_small_trees_stems_per_ha = mean(mean_density_small_trees_stems_per_ha),
+          
+          avrg_density_living_small_trees_stems_per_ha = mean(mean_density_living_small_trees_stems_per_ha),
+          stder_density_living_small_trees_stems_per_ha = sd(mean_density_living_small_trees_stems_per_ha) / sqrt(n()),
+          
+          avrg_basal_area_living_small_trees_m_squared_per_ha = mean(mean_basal_area_living_small_trees_m_squared_per_ha),
+          stder_basal_area_living_small_trees_m_squared_per_ha = sd(mean_basal_area_living_small_trees_m_squared_per_ha) / 
+            sqrt(n()),
+          
+          # big trees:
+          
+          avrg_density_living_big_trees_stems_per_ha = mean(mean_density_living_big_trees_stems_per_ha),
+          stder_density_living_big_trees_stems_per_ha = sd(mean_density_living_big_trees_stems_per_ha) / sqrt(n()),
+          
+          avrg_basal_area_living_big_trees_m_squared_per_ha = mean(mean_basal_area_living_big_trees_m_squared_per_ha),
+          stder_basal_area_living_big_trees_m_squared_per_ha = sd(mean_basal_area_living_big_trees_m_squared_per_ha) / 
+            sqrt(n())
+        )
       )
 
 #write.csv(ash_by_hydro, file="Cleaned_data/ash_by_hydro.csv", row.names = FALSE)

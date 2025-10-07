@@ -51,6 +51,11 @@ sum(trees_without_missing_canopy_condition$canopy_condition_1_5 == 3) # 13
 sum(trees_without_missing_canopy_condition$canopy_condition_1_5 == 4) # 7
 sum(trees_without_missing_canopy_condition$canopy_condition_1_5 == 5) # 55 
 
+# Of trees between 5-12.5 cm DBH, what percentage of them have a healthy canopy?
+sum(trees_without_missing_canopy_condition$DBH >= 5)
+sum(trees_without_missing_canopy_condition$DBH >= 5 & 
+      trees_without_missing_canopy_condition$canopy_condition_1_5 == 1)
+
 # Create a variable called ash tree death, which is only equal to 1 if canopy
 # condition is equal to 5
 trees$ash_tree_death <- ifelse(trees$canopy_condition_1_5 == 5, 1, 0)

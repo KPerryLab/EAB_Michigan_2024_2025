@@ -255,14 +255,16 @@ BA_with_regen <- left_join(BA, ash_2025, by="Transect")
 # of all living and dead ash in the canopy in 2008-10:
 
 ggplot() +
-  geom_point(data=BA_with_regen, aes(x=Fraxinus.x, y=mean_basal_area_living_small_trees_m_squared_per_ha,
-                                     color=TOTAL_non_ash.x),
+  geom_point(data=BA_with_regen, aes(x=Fraxinus.x, 
+            y=mean_basal_area_living_small_trees_m_squared_per_ha),
              alpha=1) + 
   xlab("Pre-EAB ash basal area \n in canopy (m^2 / ha)") +
   ylab("Post-EAB ash living basal area \n in understory (m^2 / ha)") +
   geom_text(data=BA_with_regen, aes(x=Fraxinus.x, 
-                                    y=mean_basal_area_living_small_trees_m_squared_per_ha, label=Transect),
-            hjust = 2) + coord_equal()
+      y=mean_basal_area_living_small_trees_m_squared_per_ha, label=Transect),
+            hjust = 0, vjust=1.2) + coord_equal() + 
+  scale_x_continuous(breaks=seq(0,13, 1), limits = c(0,13)) +
+  scale_y_continuous(breaks=seq(0,3, 1), limits=c(-0.5,3))
 
 
 

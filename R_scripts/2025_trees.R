@@ -275,6 +275,7 @@ dat_big_dead <- dat %>% filter(DBH >= 12.5) %>%
   filter(living_or_dead == "dead")
 
 table(dat_big$species)
+table(dat_big_dead$species)
 
 BA_big_by_plot <- dat_big %>% group_by(center_tree_number) %>% 
   summarise(Acer = genus_BA(pick(species, string_DBH), "Acer") / main_plot_area,
@@ -304,8 +305,7 @@ BA_big_by_plot_longer <- pivot_longer(BA_big_by_plot, cols = all_of(tree_genera_
 BA_big_by_plot$total <- rowSums(BA_big_by_plot[,tree_genera_2025])
 
 counts_big_by_plot <- dat_big %>% group_by(center_tree_number) %>% 
-  summarise(total = n() / main_plot_area,
-            Acer = sum(grepl("Acer", species, fixed = TRUE)) / main_plot_area,
+  summarise(Acer = sum(grepl("Acer", species, fixed = TRUE)) / main_plot_area,
             Betula = sum(grepl("Betula", species, fixed = TRUE)) / main_plot_area,
             Carpinus = sum(grepl("Carpinus", species, fixed = TRUE)) / main_plot_area,
             Carya = sum(grepl("Carya", species, fixed = TRUE)) / main_plot_area,
@@ -326,7 +326,7 @@ counts_big_by_plot <- dat_big %>% group_by(center_tree_number) %>%
             Viburnum = sum(grepl("Viburnum", species, fixed = TRUE) / main_plot_area)
             )
 
-counts_big_by_plot_longer <- pivot_longer(counts_big_by_plot, cols = all_of(c(tree_genera_2025, "total")),
+counts_big_by_plot_longer <- pivot_longer(counts_big_by_plot, cols = all_of(tree_genera_2025),
                                       names_to = "genus", values_to = "counts")
 
 # Small trees by plot 2.5-12.5 cm DBH ##########################################
@@ -334,8 +334,11 @@ counts_big_by_plot_longer <- pivot_longer(counts_big_by_plot, cols = all_of(c(tr
 
 dat_small <- dat %>% filter(DBH >= 2.5) %>% filter (DBH < 12.5) %>% 
   filter(living_or_dead == "living")
+dat_small_dead <- dat %>% filter(DBH >= 2.5) %>% filter (DBH < 12.5) %>% 
+  filter(living_or_dead == "dead")
 
 table(dat_small$species)
+table(dat_small_dead$species)
 
 dat_small_dead <- dat %>% filter(DBH >= 2.5) %>% filter (DBH < 12.5) %>% 
   filter(living_or_dead == "dead")
@@ -372,8 +375,7 @@ BA_small_by_plot_longer <- pivot_longer(BA_small_by_plot, cols = all_of(tree_gen
 BA_small_by_plot$total <- rowSums(BA_small_by_plot[,tree_genera_2025])
 
 counts_small_by_plot <- dat_small %>% group_by(center_tree_number) %>% 
-  summarise(total = n() / subplot_area,
-            Acer = sum(grepl("Acer", species, fixed = TRUE)) / subplot_area,
+  summarise(Acer = sum(grepl("Acer", species, fixed = TRUE)) / subplot_area,
             Betula = sum(grepl("Betula", species, fixed = TRUE)) / subplot_area,
             Carpinus = sum(grepl("Carpinus", species, fixed = TRUE)) / subplot_area,
             Carya = sum(grepl("Carya", species, fixed = TRUE)) / subplot_area,
@@ -396,7 +398,7 @@ counts_small_by_plot <- dat_small %>% group_by(center_tree_number) %>%
 
 counts_small_by_plot[is.na(counts_small_by_plot)] <- 0
 
-counts_small_by_plot_longer <- pivot_longer(counts_small_by_plot, cols = all_of(c(tree_genera_2025, "total")),
+counts_small_by_plot_longer <- pivot_longer(counts_small_by_plot, cols = all_of(tree_genera_2025),
                                         names_to = "genus", values_to = "counts")
 
 # UNDER CONSTRUCTION - SPECIES LEVEL Basal area by plot: ######################
@@ -464,8 +466,8 @@ BA_species_by_plot <- (BA_big_species_by_plot %>% select(-center_tree_number)) +
 BA_species_by_plot$center_tree_number <- BA_big_species_by_plot$center_tree_number
 
 # Export a data table with this information:
-write.csv(BA_species_by_plot, 
-          "Cleaned_data/basal_area_big_and_small_trees_spp_level_by_plot.csv", row.names = F)
+#write.csv(BA_species_by_plot, 
+#          "Cleaned_data/basal_area_big_and_small_trees_spp_level_by_plot.csv", row.names = F)
 
 # Big trees basal area by transect ############################################
 
@@ -540,6 +542,7 @@ BA_big_by_park$Acer * 100 / BA_big_rowsums
 # Now make a new dataframe to store the relative dominances:
 rel_dom_big_by_park <- BA_big_by_park
 
+# Compute relative dominance for all the tree genera:
 for (genus in tree_genera_2025) {
   rel_dom_big_by_park[, genus] <- BA_big_by_park[, genus] * 100 / BA_big_rowsums
 }
@@ -660,22 +663,44 @@ for (genus in tree_genera_2025) {
 BA_big_summary <- BA_big_by_plot_longer %>% group_by(genus) %>%
   summarise(mean_BA = mean(basal_area))
 
+BA_big_summary
 BA_big_summary %>% arrange(-mean_BA)
+
+BA_big_summary$rel_dom <- BA_big_summary$mean_BA * 100 / sum(BA_big_summary$mean_BA)
+# relative dominance by genus, expressed as a percentage
 
 counts_big_summary <- counts_big_by_plot_longer %>% group_by(genus) %>% 
   summarise(mean_counts = mean(counts))
 
 counts_big_summary %>% arrange(-mean_counts)
 
+counts_big_summary$rel_dens <- counts_big_summary$mean_counts * 100 / 
+  sum(counts_big_summary$mean_counts)
+
 BA_small_summary <- BA_small_by_plot_longer %>% group_by(genus) %>%
   summarise(mean_BA = mean(basal_area))
 
 BA_small_summary %>% arrange(-mean_BA)
 
+BA_small_summary$rel_dom <- BA_small_summary$mean_BA * 100 / sum(BA_small_summary$mean_BA)
+
 counts_small_summary <- counts_small_by_plot_longer %>% group_by(genus) %>% 
   summarise(mean_counts = mean(counts))
 
 counts_small_summary %>% arrange(-mean_counts)
+
+counts_small_summary$rel_dens <- counts_small_summary$mean_counts * 100 /
+  sum(counts_small_summary$mean_counts)
+
+# Make a summary table:
+summary_rel_dens_rel_dom <- data.frame(
+  genus = counts_small_summary$genus,
+  small_rel_dens = round(counts_small_summary$rel_dens, 1),
+  big_rel_dens = round(counts_big_summary$rel_dens, 1),
+  small_rel_dom = round(BA_small_summary$rel_dom, 1),
+  big_rel_dom = round(BA_big_summary$rel_dom, 1))
+
+#write.csv(summary_rel_dens_rel_dom, "Cleaned_data/NEW_relative_density_dominance_table.csv", row.names = F)
 
 # Graph the data ###############################################################
 
@@ -725,6 +750,7 @@ ggarrange(BA_big_graph,
           BA_small_graph,
           labels = c("A", "B"),
           ncol = 1, nrow = 2)
+
 
 
 
