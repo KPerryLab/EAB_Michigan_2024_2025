@@ -335,6 +335,13 @@ epicormics_fig <- ggplot(data=trees_subset_for_models, mapping=aes(x=DBH, y=epic
   ylab("Probability of \nepicormic sprouts")
 epicormics_fig
 
+epicormics_fig_2 <- ggplot(data=trees_subset_for_models, mapping=aes(x=DBH, y=epicormic_sprouts_0_1))+
+  geom_jitter(alpha=0.5, height=0.02, width=0) +
+  geom_line(data=new_data2, aes(x=DBH, y=predicted_epicormic_sprouts), linewidth=1) +
+  theme_bw(base_size = 15) + xlab("Diameter at breast height (cm)") +
+  ylab("Presence of \nepicormic sprouts")
+epicormics_fig_2
+
 # Basal sprouts model ##########################################################
 
 # Plot the data:

@@ -108,7 +108,7 @@ model_TOTAL_non_ash_change <- lm(TOTAL_non_ash_change ~ Fraxinus.x, data=BA)
 summary(model_TOTAL_non_ash_change)
 
 # Also try a model which includes the basal area of non-ash trees in 2008 as
-# a predictor. The thought is that 
+# a predictor. 
 model_TOTAL_non_ash_change_1 <- lm(TOTAL_non_ash_change ~ Fraxinus.x + 
                                      TOTAL_non_ash.x, data=BA)
 summary(model_TOTAL_non_ash_change_1)

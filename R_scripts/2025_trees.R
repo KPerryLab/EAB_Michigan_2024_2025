@@ -704,7 +704,7 @@ summary_rel_dens_rel_dom <- data.frame(
 
 # Graph the data ###############################################################
 
-genera_subset <- c("Acer", "Betula", "Carpinus", "Frangula", "Fraxinus", "Larix",
+genera_subset <- c("Betula", "Acer", "Carpinus", "Frangula", "Fraxinus", "Larix",
                    "Populus", "Quercus", "Tilia", "Ulmus")
 
 BA_big_graph <- BA_big_by_plot_longer %>% filter(genus %in% genera_subset) %>%

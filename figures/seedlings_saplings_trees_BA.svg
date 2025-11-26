@@ -21,12 +21,12 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="false"
-     inkscape:zoom="3.2469548"
-     inkscape:cx="215.74061"
-     inkscape:cy="315.37242"
-     inkscape:window-width="2880"
-     inkscape:window-height="1706"
-     inkscape:window-x="2869"
+     inkscape:zoom="1.5208438"
+     inkscape:cx="215.99852"
+     inkscape:cy="335.34016"
+     inkscape:window-width="1920"
+     inkscape:window-height="986"
+     inkscape:window-x="-11"
      inkscape:window-y="-11"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg1701" />
@@ -4534,31 +4534,6 @@
        y="436.226562"
        id="use1303" />
     <use
-       xlink:href="#glyph-1-6"
-       x="37.761719"
-       y="433.17041"
-       id="use1305" />
-    <use
-       xlink:href="#glyph-1-15"
-       x="37.761719"
-       y="427.67041"
-       id="use1307" />
-    <use
-       xlink:href="#glyph-1-2"
-       x="37.761719"
-       y="418.507324"
-       id="use1309" />
-    <use
-       xlink:href="#glyph-1-12"
-       x="37.761719"
-       y="412.389648"
-       id="use1311" />
-    <use
-       xlink:href="#glyph-1-12"
-       x="37.761719"
-       y="409.945801"
-       id="use1313" />
-    <use
        xlink:href="#glyph-1-4"
        x="37.761719"
        y="407.501953"
@@ -6040,4 +6015,15 @@
        id="tspan3949-3"
        x="428.19757"
        y="106.47354">a</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.6667px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial"
+     x="-459.4292"
+     y="36.733974"
+     id="text4883"
+     transform="rotate(-90.270182)"><tspan
+       sodipodi:role="line"
+       id="tspan4881"
+       x="-459.4292"
+       y="36.733974">understory</tspan></text>
 </svg>

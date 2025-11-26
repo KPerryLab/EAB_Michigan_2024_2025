@@ -252,6 +252,14 @@ elm
 ggarrange(green_ash, black_ash, silver, tilia, elm, carpinus, graminoids,
           skunk_cabbage, ncol=2, nrow=4, labels = c("A","B","C","D","E","F","G","H")) 
 
+# make a graph thta includes the species or taxa plotted onto the NMDS graph:
+species_scores_combined <- data.frame(scores(nmds_dat, display = "species"))
+species_scores_combined$species <- row.names(species_scores_combined)
+
+ggplot(data=dat, aes(x=nmds1, y=nmds2)) +
+  geom_point(size=3, shape=21) + coord_fixed() +
+  geom_text(data=species_scores_combined, aes(x=NMDS1, y=NMDS2, label = species))
+
 
 
 

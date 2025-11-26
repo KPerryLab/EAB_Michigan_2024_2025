@@ -6,6 +6,7 @@ library(ggplot2)
 library(dplyr)
 library(lme4) # Linear Mixed-Effects Models
 library(ggpubr) # for figure
+library(ggbeeswarm) # for the geom_quasirandom function
 
 library(car) # Companion to applied regression - Used to get an Anova table for
 # the generalized linear mixed-effects model
@@ -413,43 +414,48 @@ ggplot(data=ash_by_transect,
 # Make a figure using ggpubr ###################################################
 
 # Make a graph of total seedlings (short and tall)
-seedlings_graph <- ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_seedlings)) +
+seedlings_graph <- ggplot(data=ash_by_transect, aes(x=mstrlvl, y=(mean_density_seedlings * 10000))) +
     geom_boxplot(outlier.colour = "white") +
-    geom_jitter(height=0, width=0.05, alpha=0.5) +
-    theme_bw() +
+    geom_quasirandom(width=0.05, alpha=0.5) +
+    theme_bw(base_size = 15) +
     xlab("Hydroclass") +
-    ylab("Mean density of \nseedlings (stems/m^2)") +
-    ylim(c(0,7))+
-    theme(plot.margin = unit(c(0.5,0.2,0.2,0.6), "cm"))
+    ylab("Ash seedlings (stems / ha)") +
+    ylim(c(0,65000))+
+    theme(plot.margin = unit(c(0.5,0.2,0.2,0.6), "cm"),
+          axis.title.y = element_text(margin = margin(r = 20)))
 seedlings_graph
 
-saplings_graph <- ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_saplings_stems_per_m_squared)) +
+saplings_graph <- ggplot(data=ash_by_transect, 
+        aes(x=mstrlvl, y=(mean_density_saplings_stems_per_m_squared * 10000))) +
   geom_boxplot(outlier.colour = "white") +
-  geom_jitter(height=0, width=0.05, alpha=0.5) +
-  theme_bw() +
+  geom_quasirandom(width=0.05, alpha=0.5) +
+  theme_bw(base_size = 15) +
   xlab("Hydroclass") +
-  ylab("Mean density of \nsaplings (stems/m^2))")+
-  ylim(c(0,0.55))+
-  theme(plot.margin = unit(c(0.2,0.2,0.2,0.6), "cm"))
+  ylab("Ash saplings (stems / ha)")+
+  ylim(c(0,5500))+
+  theme(plot.margin = unit(c(0.2,0.2,0.2,0.6), "cm"),
+        axis.title.y = element_text(margin = margin(r = 20)))
 saplings_graph
 
 small_trees_graph <- ggplot(data=ash_by_transect, aes(x=mstrlvl, y=mean_density_living_small_trees_stems_per_ha)) +
   geom_boxplot(outlier.colour = "white") +
-  geom_jitter(height=0, width=0.05, alpha=0.5) +
-  theme_bw() +
+  geom_quasirandom(width=0.05, alpha=0.5) +
+  theme_bw(base_size = 15) +
   xlab("Hydroclass") +
-  ylab("Mean density living \n small trees (stems / ha)") +
-  ylim(c(0,1200))+
-  theme(plot.margin = unit(c(0.2,0.2,0.2,0.6), "cm"))
+  ylab("Ash trees (stems / ha)") +
+  ylim(c(0,1300))+
+  theme(plot.margin = unit(c(0.2,0.2,0.2,0.6), "cm"),
+        axis.title.y = element_text(margin = margin(r = 20)))
 small_trees_graph
 
 BA_graph <- ggplot(data=ash_by_transect, 
                    aes(x=mstrlvl, y=mean_basal_area_living_ash_trees_m_squared_per_ha)) +
   geom_boxplot(outlier.colour = "white") +
-  geom_jitter(height=0, width=0.05, alpha=0.5) +
-  theme_bw() +
+  geom_quasirandom(width=0.05, alpha=0.5) +
+  theme_bw(base_size = 15) +
   xlab("Hydroclass") +
-  ylab("Mean basal area of \nliving ash trees (m^2 / ha)")+
+  ylab("Ash basal area (m^2 / ha)")+
+  ylim(c(0,3))+
   theme(plot.margin = unit(c(0.5,0.2,0.2,0.6), "cm"))
 BA_graph
 
