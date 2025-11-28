@@ -15,6 +15,8 @@ library(ggplot2)
 library(patchwork) # Used for stacking histograms one on top of the other
 library(tidyr)
 library(ggpubr)
+library(forcats) # for reordering x axis labels
+library(ggbeeswarm) # for the geom_quasirandom function
 
 dat_2025_0 <- read.csv("Raw_data/EAB_Michigan_2025_trees_raw.csv")
 dat_2025_0$DBH <- dat_2025_0$diameter_at_137_cm_in_cm
@@ -703,14 +705,26 @@ summary_rel_dens_rel_dom <- data.frame(
 #write.csv(summary_rel_dens_rel_dom, "Cleaned_data/NEW_relative_density_dominance_table.csv", row.names = F)
 
 # Graph the data ###############################################################
+# I want to include a genus on the graph if it is in the top 7 (separately 
+# for canopy and understory trees)
 
-genera_subset <- c("Betula", "Acer", "Carpinus", "Frangula", "Fraxinus", "Larix",
-                   "Populus", "Quercus", "Tilia", "Ulmus")
+# Sort genera in decreasing order of mean basal area (for canopy basal area):
+arrange(BA_big_summary, -mean_BA) 
 
-BA_big_graph <- BA_big_by_plot_longer %>% filter(genus %in% genera_subset) %>%
+# And for understory basal area:
+arrange(BA_small_summary, -mean_BA)
+
+canopy_order <- c("Acer", "Quercus", "Tilia", "Ulmus", "Populus", "Betula",
+                         "Larix")
+  
+understory_order <- c("Fraxinus", "Ulmus", "Acer", "Carpinus", "Tilia", 
+                             "Frangula", "Quercus")
+
+BA_big_graph <- BA_big_by_plot_longer %>% filter(genus %in% canopy_order) %>%
+  mutate(genus = fct_relevel(genus, canopy_order)) %>%
   ggplot(aes(x=genus, y=basal_area)) + 
   geom_boxplot(outlier.shape = NA) +
-  geom_jitter(height=0, width=0.05, alpha=0.5) + theme_bw() +
+  geom_quasirandom(width=0.05, alpha=0.5) + theme_bw() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
         axis.text = element_text(size = 14),
         axis.title.y = element_text(size = 16, margin = margin(r = 15))) +
@@ -718,10 +732,11 @@ BA_big_graph <- BA_big_by_plot_longer %>% filter(genus %in% genera_subset) %>%
 
 BA_big_graph
 
-BA_small_graph <- BA_small_by_plot_longer %>% filter(genus %in% genera_subset) %>%
+BA_small_graph <- BA_small_by_plot_longer %>% filter(genus %in% understory_order) %>%
+  mutate(genus = fct_relevel(genus, understory_order)) %>%
   ggplot(aes(x=genus, y=basal_area)) + 
   geom_boxplot(outlier.shape = NA) +
-  geom_jitter(height=0, width=0.05, alpha=0.5) + theme_bw() +
+  geom_quasirandom(width=0.05, alpha=0.5) + theme_bw() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
         axis.text = element_text(size = 14),
